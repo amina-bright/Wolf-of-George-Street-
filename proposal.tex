@@ -1,0 +1,167 @@
+\documentclass[11pt,letterpaper,oneside]{memoir}
+\usepackage{smiflstyle}
+
+% define custom title layout (slightly temperamental)
+\title{%
+{\color{color2} \hrule}\vspace{1cm}
+\Huge{\color{color1} Project Proposal:\\Wolf of George Street
+\vspace{1cm}
+{\color{color2} \hrule}\vspace{1cm}}
+\Large{ \color{color2} Software Engineering\\
+14:332:452}
+}
+
+% define custom author layout (highly temperamental)
+\author{\huge{\color{color0}Team 9:\\}\vskip.1in
+\Large{\href{mailto:klt117@scarletmail.rutgers.edu}{Kyle Thakker}\\
+\href{mailto:minjun2282@gmail.com}{Min Jun Kim}\\
+\href{mailto:andy.i.val@rutgers.edu}{Andy Val}\\
+\href{mailto:xodnjs55@gmail.com}{Taewon Kim}\\
+\href{mailto:dly24@scarletmail.rutgers.edu}{Dan Yates}\\
+\href{mailto:cjm351@scarletmail.rutgers.edu}{Colter Mooney}\\
+\href{mailto:anb130@scarletmail.rutgers.edu}{Amina Bright}\\
+\href{mailto:kishanpatel0897@gmail.com}{Kishan Patel}\\
+\href{mailto:quentin1120@live.com}{Quentin Lester}}}
+
+\date{\today}
+
+\usepackage{hyperref}
+\begin{document}
+%\maketitle % don't use this, will break the Author section
+\titleGM    % use this instead, defined to avoid problem
+
+Hyperlinks:\\
+\begin{center}
+\href{https://sites.google.com/scarletmail.rutgers.edu/wolf-of-george-street/home}{Webapp Link}\\
+\href{https://github.com/amina-bright/Wolf-of-George-Street-}{Project Repository}\\
+\href{https://github.com/amina-bright/Wolf-of-George-Street-}{Reports Repository}\\
+\end{center}
+
+Revision History:
+\begin{longtable}{|p{1.6in}|p{2.6in}|}
+\hline
+{\large\color{color1}Version No.}&{\large \color{color1}Date of Revision}\\
+    \hline
+v.1&1/28/2018  \\ \hline
+\end{longtable}
+
+\pagebreak  % flush the next page
+\tableofcontents % create TOC
+\setlength\parindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Team Profile}
+Our team is proposing Wolf of George Street, a stock market fantasy league. This project will be based off of Project \#5. This project will be an exercise in designing, planning, and creating a polished and innovative web application.
+
+
+
+The profiles of our team members are as follows:\\
+
+\section{Kyle Thakker}
+Kyle is proficient in Java, C, and C\#. He is familiar with android development, UI design, and networking. He has experience with SQL and relational databases and creating servers that interact with them.
+
+\section{Min Jun Kim}
+Min Jun is proficient in C++ and is familiar with Java. Min Jun has experience with UI design and photoshop. 
+
+\section{Daniel Yates}
+Daniel is proficient in C++
+
+\section{Andy Val}
+Andy is proficient in Java, C, and Python. He also has experience with building web applications and also UI design. 
+
+\section{Taewon Kim}
+Taewon is proficient in C++ and has some experience with Python. 
+
+\section{Amina Bright}
+Amina is proficient in C++ and also has experience with javascript, web design, as well as SQL and databases. 
+
+\section{Colter Mooney}
+Colter is proficient in C++ and has experience with Java.
+
+\section{Kishan Patel}
+Kishan is proficient in C++.
+
+\section{Quentin Lester}
+Quentin is proficient in C++ and has experience with Python
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Project Proposal}
+\label{proposal}
+As previously stated, we would like to create Wolf of George Street. We wish to create a fully functioning and stand-alone Stock Market Fantasy League service to simulate making investments. We plan on using Amazon Web Services (AWS) to host our project.
+
+\section{Market Transactions}
+Our project will allow users to perform three of the most common investment transactions: buy, sell, and short. Users will be allocated a set amount of money at the creation of their league. In order to build up their portfolio, the users will buy, sell, and short investments. To increase realism, each transaction will have a fee.
+
+\section{Market Data}
+Our service will use real-time stock market data. We have decided to obtain our market data from Alpha Vantage’s web api: https://www.alphavantage.co/. It is a free, easy to use, and comprehensive. Though, other similar services exist, many are deprecated, and we decided that Alpha Vantage would be the most useful. 
+
+\section{Transaction History}
+
+Our website will keep a record of all transactions made by users. These transactions will be visible to all members of the league in the form of a newsfeed. This feature will allow users to keep track of all the activity in their league and will increase competition. 
+
+\section{Cryptocurrencies}
+
+In recent years cryptocurrencies have gained widespread attention. However, rather than being treated like actual currencies, these cryptocurrencies are being used as investments. The market for cryptocurrencies is extremely volatile and unpredictable. However, these characteristics allow for potentially massive profits. Our project will allow for the buying and selling of cryptocurrencies. Alpha Vantage also provides real time data on cryptocurrency prices. This is a feature that is unique to our project when compared to past years. 
+
+\section{League Customization}
+Our project will allow the user who creates a league to customize it as they see fit. They will be able to set the number of participants in the league, as well as set the time period that the league will run for. The league creator will also be able to set whether they want to allow the buying and selling of cryptocurrencies. Additionally, the league creator will be able to create trophies that will be awarded to users upon the completion of certain tasks.
+
+\section{Email Updates}
+Each user will get an update via their emails based on the frequency it is set at (i.e. daily, weekly, biweekly, etc). These updates will include tips, price drops/increases, achievements, and the current leading member of the fantasy league. When looking at the proposals of past groups, we saw that some had included this feature. We decided we would like to implement it and take it in a new direction.
+
+\section{Scoring}
+Each user will be allocated a starting fund at the creation of their league. They will be able to make transactions with this money. Their net worth will be the the total value of their investments plus any liquid money they have. Net worth represents their score, which determines their ranking in their league.
+
+\section{Registration}
+Every user will be prompted to enter basic information such as their name, email, userID, password, etc. in order to successfully complete registration and create their account. An email address will be necessary in case the user forgets their password. Our project will include a “forgot my password” feature. 
+ 
+\section{Trophies \& Achievements}
+Trophies will be awarded to players that complete specific tasks within the league. Examples of these tasks are: performing “x” amount(s) of transactions, and  increasing one’s net worth by a certain amount. These achievements will be customizable and will bet set by the league creator. This is another feature we are taking from past groups and expanding upon. We will expand upon it by increasing the amount of customization options given to the league creator.
+
+\section{Tutorial}
+After completing registration, users will be given the option of completing  a short tutorial on how to use the site’s functionality, which will include: basic stock trading training, how scoring will take place, the option to purchase cryptocurrencies, etc.  
+
+\section{Head-to-Head mode}
+Our project will feature a second game mode. This head-to-head game mode will pit players against one other player from their league every week. The person whose stock portfolio performs the best for that week will be declared the victor. At the end of set number of weeks, the number determined by the league settings, a certain number of teams will compete in a tournament-style playoffs. This is a feature unique to our project. This game mode is well suited to those who want a more fun and “gamey” experience. 
+
+\section{Chat room}
+A chat room service will be created to allow all of the members in the league to communicate with each other. This feature will foster a sense of community and competition amongst league members. This is a feature that is unique to our project. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Product Ownership}
+Our team is divided into three sub-teams of three members. Various functionalities of the main project are divided into three categories: “Market,” “League,” and “User Experience.” Each sub-team is in charge of focusing on the development of one of the three functionality group as well as making sure the three mini-projects are compatible with each other.
+
+
+\section{Market Functionality}
+Kyle Thakker, Quentin Lester, Daniel Yates
+\begin{itemize}
+  \item Market Transatctions
+  \item Market Data
+  \item Transaction History
+  \item Cryptocurrencies
+\end{itemize}
+
+\section{League Functionality}
+
+Amina Bright, Kishan Patel, Taewon Kim
+\begin{itemize}
+\item League Customization
+\item Scoring
+\item Trophies \& Achievements
+\item Head-to-Head mode
+\end{itemize}
+
+\section{User Experience Functionalities}
+
+Andy Val, Min Jun Kim, Colter Mooney
+\begin{itemize}
+\item Email updates
+\item Registration
+\item Chat room
+\item Tutorial
+\end{itemize}
+
+
+\end{document}
+
