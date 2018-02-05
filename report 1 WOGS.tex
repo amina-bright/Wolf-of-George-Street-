@@ -1,0 +1,181 @@
+\documentclass[11pt,letterpaper,oneside]{memoir}
+\usepackage{smiflstyle}
+\usepackage{graphicx}
+\graphicspath{ {pictures/} }
+
+% define custom title layout (slightly temperamental)
+\title{%
+{\color{color2} \hrule}\vspace{1cm}
+\Huge{\color{red} Wolf of George Street
+\vspace{1cm}
+{\color{color2} \hrule}\vspace{1cm}}
+\Large{ \color{color2} Report 1\\Software Engineering\\
+14:332:452}
+}
+
+% define custom author layout (highly temperamental)
+\author{\huge{\color{red}Team 9:\\}\vskip.1in
+\Large{\href{mailto:klt117@scarletmail.rutgers.edu}{\color{red}Kyle Thakker}\\
+\href{mailto:minjun2282@gmail.com}{\color{red}Min Jun Kim}\\
+\href{mailto:andy.i.val@rutgers.edu}{\color{red}Andy Val}\\
+\href{mailto:xodnjs55@gmail.com}{\color{red}Taewon Kim}\\
+\href{mailto:dly24@scarletmail.rutgers.edu}{\color{red}Dan Yates}\\
+\href{mailto:cjm351@scarletmail.rutgers.edu}{\color{red}Colter Mooney}\\
+\href{mailto:anb130@scarletmail.rutgers.edu}{\color{red}Amina Bright}\\
+\href{mailto:kishanpatel0897@gmail.com}{\color{red}Kishan Patel}\\
+\href{mailto:quentin1120@live.com}{\color{red}Quentin Lester}}}
+
+\date{\today}
+
+\usepackage{hyperref}
+\begin{document}
+%\maketitle % don't use this, will break the Author section
+\titleGM    % use this instead, defined to avoid problem
+
+Hyperlinks:\\
+\begin{center}
+\href{https://sites.google.com/scarletmail.rutgers.edu/wolf-of-george-street/home}{\color{red}Webapp Link}\\
+\href{https://github.com/amina-bright/Wolf-of-George-Street-}{\color{red}Project Repository}\\
+\href{https://github.com/amina-bright/Wolf-of-George-Street-}{\color{red}Reports Repository}\\
+\end{center}
+
+Revision History:
+\begin{longtable}{|p{1.6in}|p{2.6in}|}
+\hline
+{\large\color{red}Version No.}&{\large\color{red}Date of Revision}\\
+    \hline
+v.1&1/28/2018  \\ \hline
+\end{longtable}
+
+\pagebreak  % flush the next page
+\tableofcontents % create TOC
+\setlength\parindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Customer Statement of Requirements}
+\setlength{\parindent}{2em}
+There is very little that has played such a crucial role in all global major economies in the last century as the stock market has. It provides a way for a single individual to claim a percentage of a company in exchange for money. If managed properly, these investments can potentially result in substantially higher payouts as compared to what was initially invested. There is, however, always the risk of these investments not returning even remotely close to the amount you put in. This type of risk creates a barrier that bars many people from the stock market who would have otherwise been interested. There should be an easy and fun way to introduce everyday people to the stock market and to help them become real investors without any of the financial risk. It is this issue that we will attempt to resolve with the Stock-Market fantasy league web application: Wolf of George Street. \par
+ In order to open the stock market to the average person, we propose that the site on which the web app is hosted should be easy to access and to make an account with. It should require no extra software installation and should be accessible from a web browser. Upon creating an account, there should be a user friendly and easy to follow tutorial that walks you through the site and its features. This would allow for the users to get a grasp of the basics and make it easier to start learning how to function in the stock market. \par
+  Competition is a huge factor in today's stock market. People will not be able to accurately learn how to work in the market without knowing what it is like to compete. Groups of people should be able to compete on the site together. These groups can be made up of people you know or total strangers.These groups should be called leagues, and they will be created by a league administrator. The league administrator will be a user like the rest of the group, but they set up the different rules that the league will have to follow. The administrator should decide the size of the league, and how much money each participator starts off with. To help reaffirm that there is no financial risk, this money will be an imaginary currency, which will also be used to purchase stocks. To help simulate the stock market, there should be a brokers fee for any transactions made by the users. The administrator should also decide how long the users will compete for. To help mimic the real stock market, users should be given a portfolio. The portfolio should track the individuals earnings, losses, and the different investments they have made. Whoever has the best portfolio at the end of this time wins the game.  \par
+Cryptocurrencies have recently become a rather big financial talking point. They are still a rather risky form of investment, but that is part of the appeal. Users should be allowed to purchase cryptocurrencies in addition to stocks. Allowing cryptocurrencies will give users alternatives to just buying and selling stocks, and allows for quicker payouts as the market is more in flux. This adds an extra layer of risk and complexity to each game played. \par
+Another feature to add to the site would be a stock ticker. The ticker would display real time updates to popular stocks on the site itself. This would allow players to see which stocks are currently rising and falling. Paying attention to the feed over time will build a knowledge base for the user. It will help the user to better see stock trends and make more informed investments. \par
+Communication is important in any social setting. There needs to be a way for users in a league to talk directly to one another. This would allow users to boast about investments that have paid off, or even risk asking other investors in the league for advice. Learning the difference between good and bad advice in the stock market is a very important skill to develop. \par
+People learn best when they are interested in the subject. There should be a way to help keep investors interested in their respective leagues on a weekly basis. Perhaps there can be a game mode within the leagues that has two people compare their portfolios at the end of the week and earn some sort of reward for having the better weekly gains. This would also help push more cautious investors out of their comfort zone to make riskier moves they would not otherwise have taken by introducing a sense of urgency that comes with competitive play.  \par
+The predominant reason for taking the risks associated with involving one's capital and time in the stock market is the potential growth of personal wealth, which in the society we live in, is the truest measurement of achievement. Since the game will entail no real capital growth, we will need to find another source of achievement to entice the user. A trophy and achievement system should be implemented, perhaps by the league leader, to award users for certain accomplishments within the league.The trophy system could be similar to the trophy system used on Sony’s Playstation Network, or the achievement system used on Microsoft's Xbox Live. For example, a trophy could be obtained by getting a win streak in head-to head mode, or perhaps by selling a certain set amount of stock. These trophies should go towards some global overall ranking system to compare your success with people from outside of your leagues. The users should rank up based on the amount of trophies they have earned, with the amount of points needed to rank up getting larger with each rank. This would allow the users to feel a sense of pride and to set goals to accomplish when they enter a league, while also allowing long time users to show off their experience. \par
+    Making sure the users can keep up with all the updates in their portfolio and respective leagues is important. The site should send emails to the individual users to inform them of any major changes in their stocks, or about any changes on the leaderboard within the league itself.  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Glossary of Terms}
+\begin{itemize}
+\item League- A simulated market where “investors” compete to reach whatever goal is set by the league administer. Users can create a league with whomever and the max number of players in a league is one hundred 
+\item League Administrator- the user which creates the league. The administer can choose what type of league the users will be competing in and what goal they will have to reach while playing. The administrator can also set the max number of players in a league, the time period in which the league will last, and the starting amount for each user
+\item Standard League Mode- the base mode for every league in which each user will compete to have the best portfolio at the end of the time period.
+\item Head-to-head mode- a separate mode that the league administrator can select when creating a league. In this mode users will compete in season style competition in which users will be matched up every week. At the end the user with the best record  wins.
+\item Trophies- When a user reaches a new milestone while in gameplay. When a trophy is given it will factor into the user’s overall portfolio score and allow them to be ranked in a game wide ranking system. 
+\item Portfolio- an account assigned to each user in the league which list that user’s assets. The portfolio will give in great detail the user’s earning, losses, trades, and performance. Since portfolios are different for every user it will help determine the winner of each league.  
+\item Ticker- a tab consisting of every trade in the market. Users can see what trades are going on across the league to help stay up-to date within the game.  
+\item Ticker symbol- a tag used to identify publicly traded shares of a particular stock on a particular market.
+\item Stock- represents a single portion of  equity in a company.
+\item Ask price- the price in which the users ask to sell a stock. 
+\item Bid price- the price for which the user wants to pay for a stock.
+\item Market Order- order that is up for an immediate market transaction. 
+\item Buy- when a user wants to purchase a stock and sets the bid price. 
+\item Sell- when a user wants to sell a stock and sets the ask price. 
+\item Short - when borrowed stock is used to execute the sell, the trader expecting the stock to be at a decreased value buys back the stock profiting off the difference. 
+\item Stop- order that are activated when the stock reaches a certain price. 
+\item Limit- order that is set at a max or min price to buy/sell the stock. 
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{System Requirements}
+
+From the Customer Statement of Requirement, our team could produce a general breakdown of various functionalities and characteristics that are required of the software. Below is the overview of the said functionalities and characteristics that our team will focus on. More detailed discussion of the functionalities that will follow in the later sections of this document will reference the different requirements using their respective identifiers. 
+
+\renewcommand\arraystretch{2}
+\begin{longtable}{|p{0.6in}|p{0.5in}|p{4.6in}|}
+\hline
+{\large \color{color1}Identifier}&{\large \color{color1}PW*}&{\large \color{color1}Description} \\ \hline
+
+REQ-1 &5& The system should allow league participants to place immediate orders, or market orders. (i.e. buy, sell, short, cover) \\ \hline
+REQ-2&
+4&
+The system should allow league participants to place conditional orders (i.e. buy stop, sell stop, buy limit, sell limit).\\ \hline
+REQ-3&
+5 &
+The system should simulate the Fantasy League stock market using real-life stock market data using Alpha Vantage’s web API\\ \hline
+REQ-4&
+ 4&
+The system should keep a record of all transactions made by users \\ \hline
+REQ-5&
+4 &
+The system should include cryptocurrencies as available options for the user’s portfolio \\ \hline
+REQ-6&
+ 3&
+The system should allow league hosts to customize their league (e.g. number of participants allowed, whether to allow cryptocurrency transaction, add/remove participants, etc.) \\ \hline
+REQ-7&
+4&
+The system should maintain and evaluate the participants’ portfolio \\ \hline
+REQ-8&
+3&
+The system should display the leaderboard of a specified league at a user’s request \\ \hline
+REQ-9&
+ 4&
+The system should require registration and login from users before they can host/participate in any league \\ \hline
+REQ-10&
+3 &
+The system should award players that complete specific tasks or have satisfied certain conditions with trophies. \\ \hline
+REQ-11 &
+2 &
+The system should provide users with an opportunity to go through a simple tutorial on how to use the site’s functionality. \\ \hline
+REQ-12&
+3&
+The system should support “Head-to-Head” mode \\ \hline
+REQ-13&
+3&
+The system should support “Global” mode \\ \hline
+REQ-14&
+1&
+The system should provide a method of communication among users \\ \hline
+REQ-15&
+3&
+The system should allow for users to manage their own account settings \\ \hline
+REQ-16&
+3&
+The system should, at a user’s request, provide various information about the specified company that will aid in the user’s financial decisions \\ \hline
+REQ-17&
+2&
+The system should be able to add/remove companies that are supported by the system \\ \hline
+REQ-18&1&
+The system should allow a participant of a league to view the portfolio of another participant \\ \hline
+REQ-19 &2 &The system should keep the users informed about changes made to the system that may be relevant to them \\ \hline
+REQ-20 &3  & The system should have an opt-out email/message alert system that will keep participants informed of their performance and/or activity even when they are not actively engaged \\ \hline
+REQ-21 & 1 & The system should remove/suspend inactive leagues \\ \hline
+REQ-22 &2 & The system should allow administrators to post announcements all users at home screen/home page \\ \hline
+REQ-23 & 2 & The system should display information tailored to each user at home screen/home page \\ \hline
+ 
+\end{longtable}
+\setlength{\parindent}{0em}
+\section{Nonfunctional Requirements}
+\underline{Functionality} \\
+Account management and security will be provided through the Java Spring Security framework. Spring is a commonly used-open source framework. This framework provides support for both user authentication and authorization. Spring has support for Oauth, as well as password encryption and session validation. \\
+
+\underline{Usability} \\
+Our application will feature a clean and well-designed user interface. We will use CSS and Javascript to make our UI consistent and interactive. UI elements such as headers, footers, and navigation bars will be consistent across the entirety of the application. The color scheme of the application will also be consistent. The UI will also be functional, allowing users to perform their desired actions in the fewest amount of clicks possible. \\
+
+\underline{Reliability}\\
+During the event of any failure, the site will retrieve the last transaction for each user from the backup database. All transactions will be confirmed with a confirmation page to ensure maximum reliability. In the event of a failed transaction, the user will be prompted an error message to notify that the transaction was unsuccessful. \\
+
+\underline{Performance}\\
+The application will be lightweight and be able to handle many users making trades at the same time efficiently without crashing. The application will be able to look up information, access the database, and perform trading applications all in a reasonable time frame. Our application will be highly scalable, simply requiring more resources to be requested from AWS. \\
+
+\underline{Supportability}\\
+Our application will be very easy to maintain. Our application will be divided into many modular subsystems. This will allow for changes and updates  to be made by developers without causing the whole application to fail. Our server will also log transactions and database interactions as they are completed. This event logging will allow developers to quickly diagnose bugs. In our development of this application we will use many tools such as debuggers to make our application easier to develop for. \\
+
+\section{On Screen Appearance Requirements}
+A key aspect of our application is that it will have a consistent and clean appearance. There will be a sidebar allowing the user to access the different parts of the site. The user interface will be designed in such a way that it is intuitive and functional.  The site will also be designed such that the UI will rescale based of the the screen size that the user is using. This is important due to how prevalent smartphone usage is. Additionally, all UI elements will be designed such that they responsive to both clicks and finger taps. Any potential advertisements will be placed in such a way as to be apparent but also non-intrusive. These ads should not hamper the user’s experience. \\
+
+
+
+\end{document}
+
