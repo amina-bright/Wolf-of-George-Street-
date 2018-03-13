@@ -61,7 +61,7 @@
 }
 
 </style>
-<title>Wolf of George Street</title>
+<title>Stock Search</title>
 </head>
 <body>
 <div class="topnav">
@@ -81,7 +81,7 @@
 <div class="main">
 
 <p>
-Hi! Welcome to Wolf of George Street!
+This is the page to search for stocks
 </p>
 
 </div>
