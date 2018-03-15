@@ -116,8 +116,6 @@ public class StockInfoInteractor {
 	 * Note: Work in progress.
 	 */
 	public static int getVolumeIntraDay(String stockData) {
-		System.out.println(stockData);
-		System.out.println("TEST-1");
 		
 		try {
 			JSONObject obj=new JSONObject(stockData);
