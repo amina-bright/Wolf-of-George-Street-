@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
+    
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -60,6 +63,15 @@
     font-size: 17px;
 }
 
+.main input[type=text] {
+    float: center;
+    padding: 6px;
+    border: dotted;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+}
+
 </style>
 <title>Stock Search</title>
 </head>
@@ -80,9 +92,26 @@
 
 <div class="main">
 
-<p>
-This is the page to search for stocks
-</p>
+<form action="${pageContext.request.contextPath}/stocksearch" method="post">
+	<input type="text" name="searchContent" placeholder="Search.." size=50> <button type="submit" name="button" value="button1">Submit</button>
+</form>
+
+<c:if test="${not empty stocks}" >
+<table border=1 frame=void rules=rows>
+		<tr>
+		    <th>Symbol</th>
+		    <th>Title</th>
+		    <th>Market</th>
+	  </tr>
+		<c:forEach items="${stocks}" var="stock">
+			<tr>
+	        	<td>${stock.symbol}</td>
+	        	<td>${stock.title}</td> 
+	        	<td>${stock.market}</td>
+	    	</tr>
+		</c:forEach>
+	</table>
+</c:if>
 
 </div>
 
