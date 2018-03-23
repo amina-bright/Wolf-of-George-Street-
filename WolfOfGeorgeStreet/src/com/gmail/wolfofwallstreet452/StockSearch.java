@@ -16,7 +16,6 @@ import com.mysql.jdbc.Driver;
 /**
  * Servlet implementation class WolfOfGeorgeStreet
  */
-@SuppressWarnings("unused")
 @WebServlet("/stocksearch")
 public class StockSearch extends HttpServlet {
 	
@@ -117,7 +116,7 @@ public class StockSearch extends HttpServlet {
 			      }catch(SQLException se){
 			         se.printStackTrace();
 			      }
-			   }
+			   }	
 			 
 			  // System.out.println("Goodbye!");
 			

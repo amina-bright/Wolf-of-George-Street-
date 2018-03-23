@@ -2,6 +2,7 @@
     pageEncoding="US-ASCII"%>
     
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -73,7 +74,7 @@
 }
 
 </style>
-<title>Stock Search</title>
+<title>${param.symbol}</title>
 </head>
 <body>
 <div class="topnav">
@@ -92,28 +93,21 @@
 
 <div class="main">
 
-<form action="${pageContext.request.contextPath}/stocksearch" method="post">
-	<input type="text" name="searchContent" placeholder="Search.." size=50> <button type="submit" name="button" value="button1">Submit</button>
-</form>
+	<p>${stock.title}</p>
+	
+	<p>Current Price: $${currentPrice}</p>
+	
+	<p>Previous Closing Price: ${previousClose}</p>
+	
+	<p>Amount Changed: $
+		<fmt:formatNumber value = "${amountChanged}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+	</p>
+	
+	<p>Percent Changed: 
+		<fmt:formatNumber value = "${percentChanged}" type = "percent" maxFractionDigits = "2" minFractionDigits = "2"/>
+	</p>
+	
 
-<c:if test="${not empty stocks}" >
-<table border=1 frame=void rules=rows>
-		<tr>
-		    <th>Symbol</th>
-		    <th>Title</th>
-		    <th>Market</th>
-	  </tr>
-		<c:forEach items="${stocks}" var="stock">
-			<tr>
-	        	<td>
-		        	<a href="${pageContext.request.contextPath}/detailed-description?symbol=${stock.symbol}">${stock.symbol} </a>
-	        	</td>
-	        	<td>${stock.title}</td> 
-	        	<td>${stock.market}</td>
-	    	</tr>
-		</c:forEach>
-	</table>
-</c:if>
 
 </div>
 
