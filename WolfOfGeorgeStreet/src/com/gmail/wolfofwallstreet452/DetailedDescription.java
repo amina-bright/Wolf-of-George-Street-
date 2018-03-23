@@ -114,8 +114,8 @@ public class DetailedDescription extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("/jsps/detailed-description.jsp").forward(request, response);	
+		doGet(request,response);
+		//request.getRequestDispatcher("/jsps/detailed-description.jsp").forward(request, response);	
 	}
 	
 

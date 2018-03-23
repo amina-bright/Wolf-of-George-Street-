@@ -4,7 +4,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
@@ -67,11 +67,55 @@
 .main input[type=text] {
     float: center;
     padding: 6px;
-    border: dotted;
     margin-top: 8px;
     margin-right: 16px;
     font-size: 17px;
 }
+
+.stockTitle {
+	text-align: center;
+	margin-top: 16px;
+	font-size: 42px;
+}
+
+.currentPrice {
+	display: inline;
+	font-szie: 32px
+}
+
+.amountChangedPositive{
+	display: inline;
+	font-size: 18px;
+	color: #009900;
+}
+
+.amountChangedNegative{
+	display: inline;
+	font-size: 18px;
+	color: #ff0000;
+}
+
+
+.percentChangedPositive {
+	display:inline;
+	font-size: 18px;
+	color: #009900;
+}
+
+.percentChangedNegative {
+	display:inline;
+	font-size: 18px;
+	color: #ff0000;
+}
+
+.stockData {
+	text-align: center;
+}
+
+.transcationForm {
+	text-align: center;
+}
+
 
 </style>
 <title>${param.symbol}</title>
@@ -93,19 +137,58 @@
 
 <div class="main">
 
-	<p>${stock.title}</p>
+	<div class="stockTitle">
+		${stock.market}:${stock.title}
+	</div>
 	
-	<p>Current Price: $${currentPrice}</p>
+	<div class="stockData">
 	
-	<p>Previous Closing Price: ${previousClose}</p>
+		<div class="currentPrice">
+			${currentPrice} USD
+		</div>
+		<c:if test="${amountChanged ge 0}" >
+			<div class="amountChangedPositive">
+				<fmt:formatNumber value = "${amountChanged}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+			</div>
+		</c:if>
+		
+		<c:if test="${amountChanged lt 0}" >
+			<div class="amountChangedNegative">
+				<fmt:formatNumber value = "${amountChanged}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+			</div>
+		</c:if>
+		
+		<c:if test="${percentChanged ge 0}" >
+			<div class= "percentChangedPositive">
+				(<fmt:formatNumber value = "${percentChanged}" type = "percent" maxFractionDigits = "2" minFractionDigits = "2"/>)
+			</div>
+		</c:if>
+		
+		<c:if test="${percentChanged lt 0}" >
+			<div class= "percentChangedNegative">
+				(<fmt:formatNumber value = "${percentChanged}" type = "percent" maxFractionDigits = "2" minFractionDigits = "2"/>)
+			</div>
+		</c:if>
+		
+	</div>
 	
-	<p>Amount Changed: $
-		<fmt:formatNumber value = "${amountChanged}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
-	</p>
+	<div class="transcationForm" >
 	
-	<p>Percent Changed: 
-		<fmt:formatNumber value = "${percentChanged}" type = "percent" maxFractionDigits = "2" minFractionDigits = "2"/>
-	</p>
+		<form action="${pageContext.request.contextPath}/detailed-description?symbol=${param.symbol}" method="post">
+			
+			<input type="number" name="amount" placeholder="Number of Shares" size=25 min="0" step=".01">
+			
+			<select name="transcationType">
+				<option>Buy</option>
+				<option>Sell</option>
+				<option>Short</option>
+			</select>
+			
+			<button type="submit" name="button" value="button1">Submit</button>
+			
+		</form>
+	
+	</div>
 	
 
 
