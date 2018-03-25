@@ -1,4 +1,4 @@
-package com.gmail.wolfofwallstreet452;
+package com.gmail.wolfofgeorgestreet452;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,9 +1,6 @@
 package com.gmail.wolfofgeorgestreet452;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,18 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class WolfOfGeorgeStreet
+ * Servlet implementation class UserAccounts
  */
-@WebServlet("/")
-public class WolfOfGeorgeStreet extends HttpServlet {
+@WebServlet("/UserAccounts")
+public class UserAccounts extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String HTML_START="<html><body>";
-	public static final String HTML_END="</body></html>";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WolfOfGeorgeStreet() {
+    public UserAccounts() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,7 +26,8 @@ public class WolfOfGeorgeStreet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/jsps/home.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

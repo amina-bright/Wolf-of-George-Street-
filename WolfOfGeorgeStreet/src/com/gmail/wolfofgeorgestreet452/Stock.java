@@ -1,4 +1,4 @@
-package com.gmail.wolfofwallstreet452;
+package com.gmail.wolfofgeorgestreet452;
 
 public class Stock {
 	

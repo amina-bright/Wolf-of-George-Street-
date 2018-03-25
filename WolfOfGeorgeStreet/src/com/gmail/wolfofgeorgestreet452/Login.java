@@ -1,6 +1,12 @@
 package com.gmail.wolfofgeorgestreet452;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,17 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.sql.*;
-import java.util.ArrayList;
-
-import com.mysql.jdbc.Driver;
-
 /**
- * Servlet implementation class WolfOfGeorgeStreet
+ * Servlet implementation class Login
  */
-@WebServlet("/stocksearch")
-public class StockSearch extends HttpServlet {
-	
+@WebServlet("/Login")
+public class Login extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://wolfofgeorgestreet.c984b9paepnh.us-east-2.rds.amazonaws.com:3306/WolfOfGeorgeStreetDB";
     
@@ -26,39 +27,41 @@ public class StockSearch extends HttpServlet {
 	static final String PASS = "SWEdb452";
     /**
      * @see HttpServlet#HttpServlet()
+     */  
+    /**
+     * @see HttpServlet#HttpServlet()
      */
-    public StockSearch() {
+    public Login() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String data=StockInfoInteractor.fetchStockData("MSFT",1,false);
-		//System.out.println(StockInfoInteractor.getTimeSeriesData(data, 1, 0)[0]);
-		request.getRequestDispatcher("/jsps/stocksearch.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/jsps/login.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		String button=request.getParameter("button");
+
+		String button=request.getParameter("submit");
 		
 		//what was typed into the search bar
-		String searchContent=request.getParameter("searchContent");
+		String email=request.getParameter("email");
+		String password=request.getParameter("password");
 		
-		//List of all the stocks that will be sent to the jsp
-		ArrayList<Stock> stocks=new ArrayList<Stock>();
 		
 		//if the submit button was clicked
-		if("button1".equals(button)) {
-			//System.out.println("The button was pressed");
-			//System.out.println("Search content: " + searchContent);
-			
+		if("submit".equals(button)) {
+			System.out.println("The button was pressed");
+			System.out.println("Search content: " + email);
+			System.out.println("Search content: " + password);
+			/*
 			 Connection conn = null;
 			 Statement stmt = null;
 			 
@@ -119,8 +122,9 @@ public class StockSearch extends HttpServlet {
 			   }	
 			 
 			  // System.out.println("Goodbye!");
-			
 		}
+		*/
+	}
 	}
 
 }
