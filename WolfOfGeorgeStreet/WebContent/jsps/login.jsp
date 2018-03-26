@@ -21,7 +21,7 @@
             <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
-            <form class="form-signin">
+            <form action = login.java class="form-signin" method = "post">
                 <span id="reauth-email" class="reauth-email"></span>
                 <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
@@ -47,7 +47,7 @@
          * will load some test data and the loadProfile
          * will do the changes in the UI
          */
-        // testLocalStorageData();
+        testLocalStorageData();
         // Load profile if it exits
         loadProfile();
     });
@@ -114,9 +114,8 @@
      */
     function testLocalStorageData() {
         if(!supportsHTML5Storage()) { return false; }
-        localStorage.setItem("PROFILE_IMG_SRC", "//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" );
-        localStorage.setItem("PROFILE_NAME", "César Izquierdo Tello");
-        localStorage.setItem("PROFILE_REAUTH_EMAIL", "oneaccount@gmail.com");
+        localStorage.setItem("PROFILE_NAME", "andy");
+        localStorage.setItem("PROFILE_REAUTH_EMAIL", "a@gmail.com");
     }
      </script>
 </body>
