@@ -6,6 +6,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +46,8 @@ public class DetailedDescription extends HttpServlet {
 		
 		String data=StockInfoInteractor.fetchStockData(symbol, 1, false);
 		
+		//String dataDayFull=StockInfoInteractor.fetchStockData(symbol, 0, true);
+		
 		double[] dataParsed=StockInfoInteractor.getTimeSeriesData(data, 1, 0);
 
 		Stock requestedStock=null;
@@ -48,6 +58,12 @@ public class DetailedDescription extends HttpServlet {
 			dataParsedBefore=StockInfoInteractor.getTimeSeriesData(data, 1, count);
 			count++;
 		}
+		
+		/*double[][] fullDayData=new double[390][4];
+		
+		for(int i=0;i<390;i++) {
+			fullDayData[i]=StockInfoInteractor.getTimeSeriesData(dataDayFull, 0, i);
+		}*/
 		
 		Connection conn = null;
 		Statement stmt = null;
@@ -90,6 +106,34 @@ public class DetailedDescription extends HttpServlet {
 		      
 		      request.setAttribute("amountChanged", amountChanged);
 		      request.setAttribute("percentChanged", percentChanged);
+		      
+		     /* String lastRefreshTime=StockInfoInteractor.getLastRefreshed(dataDayFull);
+		      
+		      
+		      Map<Object,Object> map = null;
+		      List<Map<Object,Object>> list = new ArrayList<Map<Object,Object>>();
+		      
+		      for(int i=0;i<390;i++) {
+		    	  if(fullDayData[i]==null) {
+		    		  System.out.println("NULL RESULT");
+		    		  continue;
+		    	  }
+		    	  SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    	  Date lastDate=formatter.parse(lastRefreshTime);
+		    	  long lastTimeStamp=lastDate.getTime();
+		    	  long timeRequested=lastTimeStamp-1000*60*i;
+		    	  lastDate.setTime(timeRequested);
+		    	  String dateWanted=formatter.format(lastDate);
+		    	  map = new HashMap<Object,Object>(); 
+		    	  map.put("label", dateWanted); map.put("y", fullDayData[i][3]);
+		    	  list.add(map);
+		      }
+		      
+		      JSONObject obj=new JSONObject();
+		      obj.put("list", list);
+		      
+		      request.setAttribute("dataPoints", obj.toString());*/
+		      
 		      	
 		      request.getRequestDispatcher("/jsps/detailed-description.jsp").forward(request, response);
 		      

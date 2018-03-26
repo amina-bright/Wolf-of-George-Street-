@@ -117,7 +117,7 @@ public class StockInfoInteractor {
 				SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Date lastDate=formatter.parse(lastRefreshed);
 				long lastTimeStamp=lastDate.getTime();
-				long timeRequested=lastTimeStamp-1000*numPeriodBefore;
+				long timeRequested=lastTimeStamp-1000*60*numPeriodBefore;
 				lastDate.setTime(timeRequested);
 				dateWanted=formatter.format(lastDate);
 			}
@@ -172,5 +172,21 @@ public class StockInfoInteractor {
 		}
 		
 		return null;
+	}
+	
+	public static String getLastRefreshed(String stockData) {
+		try {
+			JSONObject obj=new JSONObject(stockData);
+			
+			JSONObject metadata=obj.getJSONObject("Meta Data");
+			String lastRefreshed=metadata.getString("3. Last Refreshed");
+			
+			return lastRefreshed;
+		}
+		
+		catch( Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }	
