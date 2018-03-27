@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
+  
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -206,30 +208,27 @@ Create League<br>
 
 <div class="form">
 <p>
-<form action="CreateRequest_handler.jsp" method="post">
+<form action="${pageContext.request.contextPath}/createleague" method="post">
 		League Name: <input type="text" name="leagueName" required><br>
 		
+		
 		Game Mode: <br>
-	    <input type="radio" checked value="normal" name="gameMode">Normal<br>
-	    <input type="radio" value="headToHead" name="gameMode">Head-to-Head (NYI)<br><br>
+	    <input type="radio" checked value="1" name="gameMode">Normal<br>
+	    <input type="radio" value="0" name="gameMode">Head-to-Head (NYI)<br><br>
 	    
 		<fieldset>
 	    <legend>League Settings</legend>
-	    Duration:
-	     <select name="duration">
-     		 <option value="1">Short (1 Month)</option>
-     		 <option value="3">Medium (3 Month)</option>
-   			 <option value="6">Long (6 Month)</option>
-  		 </select><br>
+	    Start Date: <input type="date" name="startDate" required><br>
+	    End Date: <input type="date" name="endDate" required><br>
 	    Include Cryptocurrency:
-	    <input type="radio" value="true" name="crypto">Yes
-	    <input type="radio" checked value="false" name="crypto">No<br>
-	    Max Number of Participants: <input type="number" name="maxParticipantNum" required><br>
-	    Starting Capital: <input type="number" name="startCapital" required><br>
-	     <input type="submit" value="Submit">
+	    <input type="radio" value= 1 name="crypto">Yes
+	    <input type="radio" checked value= 0 name="crypto">No<br>
+	    Max Number of Participants: <input type="number" name="maxParticipantNum" min=0 max = 100 required> (0 - 100)<br>
+	    Starting Capital: <input type="number" name="startCapital" min = 0 max = 10000 required> ($0 - $10,000)<br>
+	    <!--<input type="submit" name="submit" value="Submit">  --> 
 	  </fieldset>
-		
-		
+	
+		<input type="submit" name="Submit" value="submit">
 	</form>
 </p>
 	
@@ -241,26 +240,8 @@ Create League<br>
 
 
 <script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
 
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
 </script>
 
 
