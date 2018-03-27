@@ -38,6 +38,12 @@ public class DetailedDescription extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getSession().getAttribute("username")==null) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		}
+		
 		String symbol=request.getParameter("symbol");
 		
 		if(symbol==null) {

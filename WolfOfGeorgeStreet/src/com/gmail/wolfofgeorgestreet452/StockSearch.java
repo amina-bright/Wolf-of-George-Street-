@@ -35,8 +35,10 @@ public class StockSearch extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String data=StockInfoInteractor.fetchStockData("MSFT",1,false);
-		//System.out.println(StockInfoInteractor.getTimeSeriesData(data, 1, 0)[0]);
+		if(request.getSession().getAttribute("username")==null) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		}
 		request.getRequestDispatcher("/jsps/stocksearch.jsp").forward(request, response);
 	}
 
