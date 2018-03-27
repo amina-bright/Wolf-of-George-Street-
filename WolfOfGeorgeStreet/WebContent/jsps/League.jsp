@@ -169,7 +169,6 @@ input[type=submit]:hover {
 </div>
 
 <div class="sidenav">
-	<a href ="/WolfOfGeorgeStreet/">Home</a>
 	<a href ="#">My Portfolio</a>
 	<a href ="/WolfOfGeorgeStreet/stocksearch">Stocks</a>
 	<a href ="#">Crypto</a>
