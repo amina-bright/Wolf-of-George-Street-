@@ -190,22 +190,19 @@ Hi! Welcome to the League Page!
     <button class="btn green" id="button_CreateLeague">Create league</button>
   
   <p>
-	</p>
+	</p><%-- 
     <div class="container">
   <form action="/action_page.php">
     <label for="fname">League Name</label>
     <input type="text" id="fname" name="firstname" placeholder="Enter League Name..">
   </form>
 </div>
+--%>
 </div>
   <div class="column">
     
-    <button class="btn green">Manage league</button>
-    <p>
-	</p>
-	
 <div class="dropdown">
-<button onclick="myFunction()" class="dropbtn">Select which League to Manage</button>
+<button onclick="myFunction()" class="dropbtn">Manage League</button>
   <div id="myDropdown" class="dropdown-content">
     <a href="#1">League 1</a>
     <a href="#2">League 2</a>
@@ -221,7 +218,7 @@ Hi! Welcome to the League Page!
     <div class="container">
   <form action="/action_page.php">
     <label for="fname">League ID</label>
-    <input type="text" id="fname" name="firstname" placeholder="Enter League ID..">
+    <input type="text" id="lname" name="leaguename" placeholder="Enter League ID..">
   </form>
 </div>
   </div>
