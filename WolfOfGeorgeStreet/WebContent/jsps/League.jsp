@@ -173,7 +173,7 @@ input[type=submit]:hover {
 	<a href ="#">My Portfolio</a>
 	<a href ="/WolfOfGeorgeStreet/stocksearch">Stocks</a>
 	<a href ="#">Crypto</a>
-	<a href ="#/WolfOfGeorgeStreet/League">My Leagues</a>
+	<a href ="/WolfOfGeorgeStreet/league">My Leagues</a>
 </div>
 
 
@@ -188,7 +188,7 @@ Hi! Welcome to the League Page!
 <div class="row">
   <div class="column"> 
     
-    <button class="btn green">Create league</button>
+    <button class="btn green" id="button_CreateLeague">Create league</button>
   
   <p>
 	</p>
@@ -233,6 +233,11 @@ Hi! Welcome to the League Page!
 <script>
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
+
+document.getElementById("button_CreateLeague").onclick = function () {
+    location.href = "/WolfOfGeorgeStreet/createleague";
+};
+
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
