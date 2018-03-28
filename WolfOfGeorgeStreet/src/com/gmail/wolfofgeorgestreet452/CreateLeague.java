@@ -101,9 +101,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		    	  request.setAttribute("success",true);
 		    	 
 		    	  System.out.println("success");
-		     
-		    	  response.sendRedirect(request.getContextPath()+ "/league");
-			      
+		    	  request.setAttribute("leagueID", leagueID);
+		    	  response.sendRedirect(request.getContextPath()+ "/CreateLeagueConfirmation");
+		    	  //request.getRequestDispatcher(request.getContextPath()+ "/CreateLeagueConfirmation").forward(request, response);
 			   }catch(SQLException se){
 			      se.printStackTrace();
 			   }catch(Exception e){
