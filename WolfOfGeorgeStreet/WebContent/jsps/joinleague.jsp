@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
+  
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,13 +100,24 @@
 .show {display:block;}
 
 input[type=text], select, textarea {
-    width: 100%;
+    width: 50%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     margin-top: 6px;
     margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=number], select, textarea {
+    width: 25%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 5px;
     resize: vertical;
 }
 
@@ -133,6 +146,14 @@ input[type=submit]:hover {
     padding: 0px 10px;
 }
 
+.form {
+	margin-left: 140px; /* Same width as the sidebar + left position in px */
+    font-size: 22px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
@@ -159,8 +180,9 @@ input[type=submit]:hover {
 }
 
 </style>
-<title>Wolf of George Street</title>
+<title>JoinLeague</title>
 </head>
+
 <body>
 <div class="topnav">
 	<a href="alerts">alerts</a>
@@ -180,83 +202,32 @@ input[type=submit]:hover {
 <div class="main">
 
 <p>
-Hi! Welcome to the League Page!
+Join League<br>
 </p>
-
-
-<div class="row">
-  <div class="column"> 
-    
-    <button class="btn green" id="button_CreateLeague">Create league</button>
-  
-  <p>
-	</p><%-- 
-    <div class="container">
-  <form action="/action_page.php">
-    <label for="fname">League Name</label>
-    <input type="text" id="fname" name="firstname" placeholder="Enter League Name..">
-  </form>
-</div>
---%>
-</div>
-  <div class="column">
-    
-<div class="dropdown">
-<button onclick="myFunction()" class="dropbtn">Manage League</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="#1">League 1</a>
-    <a href="#2">League 2</a>
-    <a href="#3">League 3</a>
-  </div>
-</div>
-  </div>
-  
-  <div class="column">
-    <button class="btn green" id="button_JoinLeague">Join League</button>
-    <p>
-	</p><%-- 
-    <div class="container">
-  <form action="/action_page.php">
-    <label for="fname">League ID</label>
-    <input type="text" id="lname" name="leaguename" placeholder="Enter League ID..">
-  </form>
-  
-</div>--%>
-  </div>
 </div>
 
+<div class="form">
+<p>
+<form action="${pageContext.request.contextPath}/joinleague" method="post">
+		LeagueID: <input type="text" name="leagueID" required><br>
+		
+		
+		
+	
+		<input type="submit" name="Submit" value="submit">
+	</form>
+<p>
+	
 </div>
+
+
+
+
+
 
 <script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
 
-document.getElementById("button_CreateLeague").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/createleague";
-};
 
-document.getElementById("button_JoinLeague").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/joinleague";
-};
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
 </script>
 
 
