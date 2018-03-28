@@ -101,7 +101,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		    	  request.setAttribute("success",true);
 		    	 
 		    	  System.out.println("success");
-		    	  request.setAttribute("leagueID", leagueID);
+		    	  HttpSession session = request.getSession();
+		    	  session.setAttribute("leagueID", leagueID);
 		    	  response.sendRedirect(request.getContextPath()+ "/CreateLeagueConfirmation");
 		    	  //request.getRequestDispatcher(request.getContextPath()+ "/CreateLeagueConfirmation").forward(request, response);
 			   }catch(SQLException se){
