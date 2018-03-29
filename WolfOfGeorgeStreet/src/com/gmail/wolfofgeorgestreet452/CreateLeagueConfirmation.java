@@ -40,7 +40,7 @@ public class CreateLeagueConfirmation extends HttpServlet {
 			return;
 		}
 		request.getRequestDispatcher("/jsps/CreateLeagueConfirmation.jsp").forward(request, response);
-	}
+	}//transfers to create league confirmation page
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

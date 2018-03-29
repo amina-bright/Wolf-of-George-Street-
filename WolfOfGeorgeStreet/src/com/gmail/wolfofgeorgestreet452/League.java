@@ -40,7 +40,7 @@ public class League extends HttpServlet {
 			return;
 		}
 		request.getRequestDispatcher("/jsps/League.jsp").forward(request, response);
-	}
+	}//transfers to join league page
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
