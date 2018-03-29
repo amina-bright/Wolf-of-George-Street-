@@ -191,7 +191,7 @@ input[type=submit]:hover {
 </div>
 
 <div class="sidenav">
-	<a href ="/WolfOfGeorgeStreet/portfolio">My Portfolio</a>
+	<a href ="#">My Portfolio</a>
 	<a href ="/WolfOfGeorgeStreet/stocksearch">Stocks</a>
 	<a href ="#">Crypto</a>
 	<a href ="/WolfOfGeorgeStreet/league">My Leagues</a>
@@ -206,16 +206,15 @@ Join League<br>
 </p>
 </div>
 
-<div class="form"> <!--  Form to join a league -->
+<div class="form">
 <p>
 <form action="${pageContext.request.contextPath}/joinleague" method="post">
 		LeagueID: <input type="text" name="leagueID" required><br>
-		<!--  Asks user for the leagueID they want to join -->
+		
 		
 		
 	
 		<input type="submit" name="Submit" value="submit">
-		 <!--  Submit button -->
 	</form>
 <p>
 	

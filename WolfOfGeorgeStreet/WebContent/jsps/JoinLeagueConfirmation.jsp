@@ -91,17 +91,17 @@
 
 
 <p> 
-Congratulations on joining a League! <!-- Congratulates user -->
+Congratulations on joining a League! 
 </p>
 
   <button class="btn green" id="button_Continue">Continue</button>
-<!--  Continue button that redirects user to league page -->
+
 
 </div>
 
 <script>
 document.getElementById("button_Continue").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/league"; 
+    location.href = "/WolfOfGeorgeStreet/league";
 };
 </script>
 

@@ -191,7 +191,7 @@ input[type=submit]:hover {
 </div>
 
 <div class="sidenav">
-	<a href ="/WolfOfGeorgeStreet/portfolio">My Portfolio</a>
+	<a href ="#">My Portfolio</a>
 	<a href ="/WolfOfGeorgeStreet/stocksearch">Stocks</a>
 	<a href ="#">Crypto</a>
 	<a href ="/WolfOfGeorgeStreet/league">My Leagues</a>
@@ -206,30 +206,29 @@ Create League<br>
 </p>
 </div>
 
-<div class="form"> <!--  form to create a league -->
+<div class="form">
 <p>
 <form action="${pageContext.request.contextPath}/createleague" method="post">
-		League Name: <input type="text" name="leagueName" required><br>  <!--  asks user to input league name -->
+		League Name: <input type="text" name="leagueName" required><br>
 		
 		
 		Game Mode: <br>
 	    <input type="radio" checked value="1" name="gameMode">Normal<br>
-	    <input type="radio" value="0" name="gameMode">Head-to-Head (NYI)<br><br> <!--  asks user to game mode-->
+	    <input type="radio" value="0" name="gameMode">Head-to-Head (NYI)<br><br>
 	    
 		<fieldset>
 	    <legend>League Settings</legend>
-	    Start Date: <input type="date" name="startDate" required><br> <!--  asks user for start and end date -->
+	    Start Date: <input type="date" name="startDate" required><br>
 	    End Date: <input type="date" name="endDate" required><br>
 	    Include Cryptocurrency:
 	    <input type="radio" value= 1 name="crypto">Yes
-	    <input type="radio" checked value= 0 name="crypto">No<br> <!--  asks user if they want to include crypto -->
+	    <input type="radio" checked value= 0 name="crypto">No<br>
 	    Max Number of Participants: <input type="number" name="maxParticipantNum" min=0 max = 100 required> (0 - 100)<br>
-	    <!--  asks user to input max participant number -->
 	    Starting Capital: <input type="number" name="startCapital" min = 0 max = 10000 required> ($0 - $10,000)<br>
-	    <!--  asks user to input starting principle -->
+	    <!--<input type="submit" name="submit" value="Submit">  --> 
 	  </fieldset>
 	
-		<input type="submit" name="Submit" value="submit"> <!--  submit button -->
+		<input type="submit" name="Submit" value="submit">
 	</form>
 </p>
 	
