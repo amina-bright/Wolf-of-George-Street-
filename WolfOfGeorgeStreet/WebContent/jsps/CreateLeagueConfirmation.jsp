@@ -93,18 +93,18 @@
 <p> 
 Congratulations on creating a League! 
 Your leagueID is:  <c:out value = "${leagueID}"/>
-Use this to invite others to your league.
+Use this to invite others to your league. <!--  Congratulates user and outputs the randomly generated leagueID -->
 </p>
 
   <button class="btn green" id="button_Continue">Continue</button>
-
+<!--  Continue button that redirects user to league page -->
 
 </div>
 
-<script>
+<script> 
 document.getElementById("button_Continue").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/league";
-};
+    location.href = "/WolfOfGeorgeStreet/league"; 
+}; 
 </script>
 
 

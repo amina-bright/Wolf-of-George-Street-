@@ -186,9 +186,9 @@ Hi! Welcome to the League Page!
 
 <div class="row">
   <div class="column"> 
-    
+    <!--  3 buttons on league page -->
     <button class="btn green" id="button_CreateLeague">Create league</button>
-  
+  <!--  Create league button that redirects to create league page -->
   <p>
 	</p><%-- 
     <div class="container">
@@ -203,6 +203,7 @@ Hi! Welcome to the League Page!
     
 <div class="dropdown">
 <button onclick="myFunction()" class="dropbtn">Manage League</button>
+ <!--  manage league button that redirects to manage league page -->
   <div id="myDropdown" class="dropdown-content">
     <a href="#1">League 1</a>
     <a href="#2">League 2</a>
@@ -213,8 +214,11 @@ Hi! Welcome to the League Page!
   
   <div class="column">
     <button class="btn green" id="button_JoinLeague">Join League</button>
+     <!--  join league button that redirects to join league page -->
     <p>
-	</p><%-- 
+	</p>
+	
+	<%-- 
     <div class="container">
   <form action="/action_page.php">
     <label for="fname">League ID</label>
