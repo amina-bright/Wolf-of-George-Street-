@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -40,13 +41,14 @@ public class CreateLeagueConfirmation extends HttpServlet {
 			return;
 		}
 		request.getRequestDispatcher("/jsps/CreateLeagueConfirmation.jsp").forward(request, response);
-	}//transfers to create league confirmation page
+		HttpSession session = request.getSession();
+  	    session.removeAttribute("leagueID"); //remove leagueID from session after displaying it
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request,response);
 		return;
 	}
 

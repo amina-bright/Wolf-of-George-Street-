@@ -33,12 +33,6 @@ public class JoinLeague extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		if(request.getSession().getAttribute("username")==null) {
-			response.sendRedirect(request.getContextPath());
-			return;
-		}
-		
 		request.getRequestDispatcher("/jsps/joinleague.jsp").forward(request, response);
 	}
 
@@ -47,7 +41,6 @@ public class JoinLeague extends HttpServlet {
 	 */
 	@SuppressWarnings("resource")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String button=request.getParameter("Submit");
 		
 		int leagueID = Integer.parseInt(request.getParameter("leagueID"));
@@ -66,33 +59,43 @@ public class JoinLeague extends HttpServlet {
 
 					      stmt = conn.createStatement();
 					      String sql;
-					      //sql query to find the starting principle for the leagueID the user wishes to join
+					      
 					      sql = "SELECT * FROM WolfOfGeorgeStreetDB.League WHERE leagueID = ?";
 					      PreparedStatement stmt2 = conn.prepareStatement(sql);
 					      stmt2.setInt(1, leagueID);
-					      ResultSet rs = stmt2.executeQuery(); //executes the sql query and stores the row that has the leagueID as primary key as rs
+					      ResultSet rs = stmt2.executeQuery();
+					      System.out.println(rs);
 					      while (rs.next()) {
 					          int principle;
-					        principle = rs.getInt(8); //stores the starting principle for the league as principle
-					          //System.out.println(principle);
+					        principle = rs.getInt(8);
+					          System.out.println(principle);
 					          sql = "INSERT INTO LeagueUserList (username, leagueID, liquidMoney)"
 							      		+ "VALUES ('" + request.getSession().getAttribute("username") + "', '" + leagueID + "', '" + principle + "')";
-						      //sql query to add a user into a league
+						      
 						      stmt=conn.prepareStatement(sql);
-						      stmt.executeUpdate(sql); //executes the sql query which inserts the username, leagueID and liquid money into the database
+						      stmt.executeUpdate(sql);
 					        }
 					     
-					  
+					      
+					      //stmt=conn.prepareStatement(sql);
+					      //stmt.executeUpdate();
+					      
+					      //add to the list of users of this league
+					      //sql = "INSERT INTO LeagueUserList (username, leagueID, liquidMoney)"
+						  //    		+ "VALUES ('" + request.getSession().getAttribute("username") + "', '" + leagueID + "', '" + 1000 + "')";
+					      
+					      //stmt=conn.prepareStatement(sql);
+					      //stmt.executeUpdate(sql);
 
 					      stmt.close();
 					      conn.close();
 					      
 				    	  request.setAttribute("success",true);
 				    	 
-				    	  //System.out.println("success");
+				    	  System.out.println("success");
 				     
 				    	  response.sendRedirect(request.getContextPath()+ "/JoinLeagueConfirmation");
-				    	  //Sends the user to the join league confirmation page
+				    	  
 					   }catch(SQLException se){
 					      se.printStackTrace();
 					   }catch(Exception e){

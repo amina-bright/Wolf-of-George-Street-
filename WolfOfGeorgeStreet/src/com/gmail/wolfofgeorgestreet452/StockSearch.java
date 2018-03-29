@@ -58,6 +58,8 @@ public class StockSearch extends HttpServlet {
 		
 		//if the submit button was clicked
 		if("button1".equals(button)) {
+			//System.out.println("The button was pressed");
+			//System.out.println("Search content: " + searchContent);
 			
 			 Connection conn = null;
 			 Statement stmt = null;
@@ -69,7 +71,7 @@ public class StockSearch extends HttpServlet {
 			      //open a connection
 			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-			      //Execute sql query searching fro similar strings in symbols, titles, or market
+			      //Execute sql query searching for similar strings in symbols, titles, or market
 			      stmt = conn.createStatement();
 			      String sql;
 			      sql = "SELECT * FROM StockLookup WHERE symbol LIKE '%" + searchContent + "%'"
@@ -117,6 +119,8 @@ public class StockSearch extends HttpServlet {
 			         se.printStackTrace();
 			      }
 			   }	
+			 
+			  // System.out.println("Goodbye!");
 			
 		}
 	}

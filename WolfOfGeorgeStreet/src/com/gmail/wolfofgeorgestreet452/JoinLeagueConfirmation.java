@@ -40,13 +40,12 @@ public class JoinLeagueConfirmation extends HttpServlet {
 			return;
 		}
 		request.getRequestDispatcher("/jsps/JoinLeagueConfirmation.jsp").forward(request, response);
-	}//transfers to join league confirmation page
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request,response);
 		return;
 	}
 
