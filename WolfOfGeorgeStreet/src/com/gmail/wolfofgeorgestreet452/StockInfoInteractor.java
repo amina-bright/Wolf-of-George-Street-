@@ -44,8 +44,10 @@ public class StockInfoInteractor {
 			return null;
 		}
 		
+		//Add the symbol and api key to the url
 		builder.append("&symbol=" + symbol +"&apikey=" + apiKey);
 		
+		//If the full data is wanted
 		if(full==true) {
 			builder.append("&outputsize=full");
 		}
@@ -55,6 +57,8 @@ public class StockInfoInteractor {
 		HttpURLConnection connection=null;
 		
 		try {
+			
+			//Boilerplaye for http connection
 			URL url=new URL(fullUrl);
 			connection=(HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
@@ -62,15 +66,20 @@ public class StockInfoInteractor {
 			        "application/x-www-form-urlencoded");
 			connection.setRequestProperty("Content-Language", "en-US");
 			
+			//Read from input stream
 			 InputStream is = connection.getInputStream();
 			 BufferedReader rd = new BufferedReader(new InputStreamReader(is));
 			 StringBuilder response = new StringBuilder();
 			 String line;
+			 
+			 //Add the data to a string builder
 			 while ((line = rd.readLine()) != null) {
 			      response.append(line);
 			      response.append('\r');
 			 }
 			 rd.close();
+			 
+			 //Response from the get request
 			 String output=response.toString();
 		    
 			 if(connection!=null) {
@@ -81,6 +90,7 @@ public class StockInfoInteractor {
 				 return null;
 			 }
 			 
+			 //return the response
 			 return output;
 
 		} catch(Exception e) {
@@ -108,6 +118,8 @@ public class StockInfoInteractor {
 			JSONObject obj=new JSONObject(stockData);
 			
 			JSONObject metadata=obj.getJSONObject("Meta Data");
+			
+			//Last time the data was updated
 			String lastRefreshed=metadata.getString("3. Last Refreshed");
 			
 			String dateWanted=null;
@@ -122,6 +134,7 @@ public class StockInfoInteractor {
 				dateWanted=formatter.format(lastDate);
 			}
 			
+			//daily
 			else if(function==1) {
 				SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
 				Date lastDate=formatter.parse(lastRefreshed);
@@ -174,6 +187,7 @@ public class StockInfoInteractor {
 		return null;
 	}
 	
+	//Function to get the last refreshed time from data
 	public static String getLastRefreshed(String stockData) {
 		try {
 			JSONObject obj=new JSONObject(stockData);

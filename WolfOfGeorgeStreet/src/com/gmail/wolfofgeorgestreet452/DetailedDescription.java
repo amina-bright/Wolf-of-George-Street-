@@ -42,44 +42,44 @@ public class DetailedDescription extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//If no one is logged in redirect to the login page
 		if(request.getSession().getAttribute("username")==null) {
 			response.sendRedirect(request.getContextPath());
 			return;
 		}
 		
 		String username=(String) request.getSession().getAttribute("username");
-			
+		
+		//Symbol of the stock requested
 		String symbol=request.getParameter("symbol");
 		
+		//If no symbol specified, error. Return to the login page
 		if(symbol==null) {
 			response.sendRedirect(request.getContextPath());
 			return;
 		}
 		
-		String data=StockInfoInteractor.fetchStockData(symbol, 1, false);
+		//Get the intraday data
+		String data=StockInfoInteractor.fetchStockData(symbol, 0, false);
 		
-		//String dataDayFull=StockInfoInteractor.fetchStockData(symbol, 0, true);
+		//Parse out the prices for the most recent time
+		double[] dataParsed=StockInfoInteractor.getTimeSeriesData(data, 0, 0);
 		
-		double[] dataParsed=StockInfoInteractor.getTimeSeriesData(data, 1, 0);
-
+		//Allocate variable to hold stock that will be sent to the jsp
 		Stock requestedStock=null;
 		
+		//Grab the data from the previous trading day to use to compar with
 		double[] dataParsedBefore=null;
 		int count=1;
 		while(dataParsedBefore==null) {
-			dataParsedBefore=StockInfoInteractor.getTimeSeriesData(data, 1, count);
+			dataParsedBefore=StockInfoInteractor.getTimeSeriesData(data, 0, count);
 			count++;
 		}
-		
-		/*double[][] fullDayData=new double[390][4];
-		
-		for(int i=0;i<390;i++) {
-			fullDayData[i]=StockInfoInteractor.getTimeSeriesData(dataDayFull, 0, i);
-		}*/
 		
 		ArrayList<String> leagueNames=new ArrayList<String>();
 		ArrayList<String> leagueIds=new ArrayList<String>();
 		
+		//JDBC boilerplate
 		Connection conn = null;
 		Statement stmt = null;
 		 
@@ -90,24 +90,30 @@ public class DetailedDescription extends HttpServlet {
 		      //open a connection
 		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-		      //Execute sql query
+		      
 		      stmt = conn.createStatement();
 		      String sql;
+		      
+		      //Get the stock with the requested symbol
 		      sql = "SELECT * FROM StockLookup WHERE symbol= '" + symbol + "'";
+		      
+		      
 		      ResultSet rs = stmt.executeQuery(sql);
 
-		      //Extract the return data
+		      //Extract the title and market of the stock
 		      while(rs.next()){
 		         String title = rs.getString("title");
 		         String market=rs.getString("market");
 		         
-		         //Create a stock out of each set
+		         //Create a stock out of the data
 		         requestedStock=new Stock(symbol,title,market);
 		      }
 		      
+		      //Grab all the leagues the user participates in
 		      sql="SELECT w.leagueID, leagueName From LeagueUserList s, League w WHERE s.username='" + username + "' AND s.leagueID=w.leagueID";
 		      rs=stmt.executeQuery(sql);
 		      
+		      //Add them to the lists
 		      while(rs.next()) {
 		    	  leagueIds.add(rs.getString("leagueID"));
 		    	  leagueNames.add(rs.getString("leagueName"));
@@ -119,49 +125,23 @@ public class DetailedDescription extends HttpServlet {
 		      conn.close();
 		      
 		      
-		      //pass stock to the jsp
+		      //pass stock and its data to the jsp
 		      request.setAttribute("stock",requestedStock);
 		      request.setAttribute("currentPrice", dataParsed[3]);
 		      request.setAttribute("previousClose", dataParsedBefore[3]);
 		      
+		      //Calculate changes in price from previous trading day
 		      double amountChanged=dataParsed[3]-dataParsedBefore[3];
-		      
 		      double percentChanged=amountChanged/dataParsedBefore[3];
 		      
 		      
+		      //Send this information plus the leagues lists to the jsp
 		      request.setAttribute("amountChanged", amountChanged);
 		      request.setAttribute("percentChanged", percentChanged);
 		      request.setAttribute("leagueIds", leagueIds.toArray());
 		      request.setAttribute("leagueNames", leagueNames.toArray());
 		      
-		     /* String lastRefreshTime=StockInfoInteractor.getLastRefreshed(dataDayFull);
-		      
-		      
-		      Map<Object,Object> map = null;
-		      List<Map<Object,Object>> list = new ArrayList<Map<Object,Object>>();
-		      
-		      for(int i=0;i<390;i++) {
-		    	  if(fullDayData[i]==null) {
-		    		  System.out.println("NULL RESULT");
-		    		  continue;
-		    	  }
-		    	  SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		    	  Date lastDate=formatter.parse(lastRefreshTime);
-		    	  long lastTimeStamp=lastDate.getTime();
-		    	  long timeRequested=lastTimeStamp-1000*60*i;
-		    	  lastDate.setTime(timeRequested);
-		    	  String dateWanted=formatter.format(lastDate);
-		    	  map = new HashMap<Object,Object>(); 
-		    	  map.put("label", dateWanted); map.put("y", fullDayData[i][3]);
-		    	  list.add(map);
-		      }
-		      
-		      JSONObject obj=new JSONObject();
-		      obj.put("list", list);
-		      
-		      request.setAttribute("dataPoints", obj.toString());*/
-		      
-		      	
+		      //Display the jsp
 		      request.getRequestDispatcher("/jsps/detailed-description.jsp").forward(request, response);
 		      
 		   }catch(SQLException se){
@@ -186,10 +166,14 @@ public class DetailedDescription extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//If no one logged in redirect to the login page
 		if(request.getSession().getAttribute("username")==null) {
 			response.sendRedirect(request.getContextPath());
 			return;
 		}
+		
+		
+		//Grab all the paramters from the jsp
 		
 		String username=(String) request.getSession().getAttribute("username");
 		
@@ -207,9 +191,10 @@ public class DetailedDescription extends HttpServlet {
 		
 		Double amountDouble=Double.parseDouble(amount);
 		
+		//total cost or profit from a transaction
 		double totalCost=currentPrice.doubleValue()*amountDouble.doubleValue();
 	
-		
+		//Buy transaction
 		if("button1".equals(button) && transcationType.equals("buy")) {
 			
 		
@@ -223,53 +208,59 @@ public class DetailedDescription extends HttpServlet {
 			      //open a connection
 			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 	
-			      //Execute sql query
+			      
 			      stmt = conn.createStatement();
 			      String sql;
+			      
+			      //Find the row corresponding to the user and the selected league
 			      sql = "SELECT * FROM LeagueUserList WHERE username='" + username + "' AND leagueID=" + league + "";
 			      ResultSet rs = stmt.executeQuery(sql);
 			      
 			      double liquidMoney=0;
 			      
-			      //Extract the return data
+			      //Grab the amount of liquid money the user has
 			      while(rs.next()){
 			    	  liquidMoney=rs.getDouble("liquidMoney");
 			      }
 			      
+			      //If the user doesnt have enough money then failure
 			      if(totalCost>liquidMoney) {
 			    	  request.setAttribute("failure", "true");
 			    	  request.setAttribute("reason", "Transaction Failed: Not Enough Liquid Money");
 			    	  doGet(request,response);
 			    	  return;
 			      } 
-			      
+			      	
+			      	//Subtract cost from user's money and update the database
 			      	liquidMoney-=totalCost;
 			    	sql="UPDATE LeagueUserList SET liquidMoney=" + liquidMoney + "WHERE username='" + username + "' AND leagueID=" + league + "";
 			    	conn.prepareStatement(sql).executeUpdate();
 			    	
-			    	
+			    	//Find the asset user league triplet in the asset table 
 			    	sql="SELECT * FROM Asset WHERE username='" + username + "' AND leagueID=" + league + " AND asset='" + symbol + "'" ;
 			    	rs = stmt.executeQuery(sql);
 			    	
-			    	//need to update
+			    	//If it exists it needs to be update
 			    	if(rs.next()) {
 			    		double amountAlready=rs.getDouble("amount");
 			    		sql="UPDATE Asset SET amount=" + (amountAlready+amountDouble.doubleValue()) + " WHERE username='" + username + "' AND leagueID=" + league + " AND asset='" + symbol + "'" ;
 			    		conn.prepareStatement(sql).executeUpdate();
 			    	}
 			    	
-			    	//need to create
+			    	//Else it has to be created
 			    	else {
 			    		sql="INSERT INTO Asset (username, amount, asset, leagueID) VALUES ('" + username + "', " + amountDouble.doubleValue() + ", '" 
 			    				+ symbol + "', " + league + ")";
 			    		conn.prepareStatement(sql).executeUpdate();
 			    	}
 			    	 
+			    	//Create a new entry in the transaction table
 			    	Timestamp ts=new Timestamp(System.currentTimeMillis());
 			    	sql="INSERT INTO Transaction (username, amount, price, asset, transactionType, transactionTime, leagueID) VALUES ('"  +
 			    			username + "', " + amountDouble.doubleValue() + ", " + currentPrice + ",  '" + symbol + "', 'buy', '" +  ts + "', " + league + ")";
 			    	conn.prepareStatement(sql).executeUpdate();
 			    	  
+			    	//return success
 			    	request.setAttribute("success", true);
 			      
 			      
@@ -293,6 +284,7 @@ public class DetailedDescription extends HttpServlet {
 		
 		}
 		
+		//Sell Transaction
 		else if ("button1".equals(button) && transcationType.equals("sell")) {
 			
 			Connection conn = null;
@@ -305,17 +297,20 @@ public class DetailedDescription extends HttpServlet {
 			      //open a connection
 			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 	
-			      //Execute sql query
+			      //Find the user asset league triple in the asset table if it exists
 			      stmt = conn.createStatement();
 			      String sql;
 			      sql = "SELECT * FROM Asset WHERE username='" + username + "' AND leagueID=" + league + " AND asset='" + symbol + "'";
 			      ResultSet rs = stmt.executeQuery(sql);
 			      
 			      double amountInPossession=0;
+			      
+			      //If it exists get the amount of the asset that the user has. If it doesn't exist the amount is set to 0
 			      while(rs.next()) {
 			    	  amountInPossession=rs.getDouble("amount");
 			      }
 			      
+			      //If the user doesn't have enough of the asset to complete the transaction then return failure
 			      if(amountInPossession<amountDouble.doubleValue()) {
 			    	  request.setAttribute("failure", "true");
 			    	  request.setAttribute("reason", "Transaction Failed: Not Enough Of Asset In Possession To Sell");
@@ -324,32 +319,36 @@ public class DetailedDescription extends HttpServlet {
 			    	  
 			      }
 			      
-			      //Delete from table
+			      //Delete from asset table if no more of asset left
 			      if(amountInPossession-amountDouble.doubleValue()==0.0) {
 			    	  sql = "DELETE FROM Asset WHERE username='" + username + "' AND leagueID=" + league + " AND asset='" + symbol + "'";
 			    	  conn.prepareStatement(sql).executeUpdate();
 			      }
 			      
+			      //Else update the table
 			      else {
 			    	  sql = "UPDATE Asset SET amount=" + (amountInPossession-amountDouble.doubleValue()) + " WHERE username='" + username + "' AND leagueID=" + league + " AND asset='" + symbol + "'" ;
 			    	  conn.prepareStatement(sql).executeUpdate();
 			      }
 			      
+			      //Find the user's liquid money
 			      sql = "SELECT * FROM LeagueUserList WHERE username='" + username + "' AND leagueID=" + league + "";
 			      rs = stmt.executeQuery(sql);
 			      
 			      double liquidMoney=0;
 			      
-			      //Extract the return data
+			   
 			      while(rs.next()){
 			    	  liquidMoney=rs.getDouble("liquidMoney");
 			      }
 			      
+			      //Update the liquid money
 			      liquidMoney+=totalCost;
 			      
 			      sql="UPDATE LeagueUserList SET liquidMoney=" + liquidMoney + "WHERE username='" + username + "' AND leagueID=" + league + "";
 			      conn.prepareStatement(sql).executeUpdate();
 			      
+			      //Create a new transaction entry
 			      Timestamp ts=new Timestamp(System.currentTimeMillis());
 			      sql="INSERT INTO Transaction (username, amount, price, asset, transactionType, transactionTime, leagueID) VALUES ('"  +
 			    			username + "', " + amountDouble.doubleValue() + ", " + currentPrice + ",  '" + symbol + "', 'sell', '" +  ts + "', " + league + ")";

@@ -36,9 +36,11 @@ public class Portfolio extends HttpServlet{
 		
 		String username=(String) request.getSession().getAttribute("username");
 		
+		//List for all the lagues the user is in
 		ArrayList<String> leagueNames=new ArrayList<String>();
 		ArrayList<String> leagueIds=new ArrayList<String>();
 		
+		//List of lists for all the assets the user has for each league
 		ArrayList<ArrayList<Stock>> assets=new ArrayList<ArrayList<Stock>>();
 		
 		Connection conn = null;
@@ -51,7 +53,7 @@ public class Portfolio extends HttpServlet{
 		      //open a connection
 		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-		      //Execute sql query
+		      //Grab all the leagues the user is in
 		      stmt = conn.createStatement();
 		      String sql;
 		      sql="SELECT * From LeagueUserList s, League w WHERE s.username='" + username + "' AND s.leagueID=w.leagueID";
@@ -62,10 +64,12 @@ public class Portfolio extends HttpServlet{
 		    	  leagueNames.add(rs.getString("leagueName"));
 		      }
 		      
+		      //For each league grab all the assets the user has for that league and put them in the entry in the assets list
+		      //corresponding to that league
 		      for(int i=0;i<leagueIds.size();i++) {
 		    	  String currentLeague=leagueIds.get(i);
 		    	  
-		    	 ArrayList<Stock> currentLeagueAssets=new ArrayList<Stock>();
+		    	  ArrayList<Stock> currentLeagueAssets=new ArrayList<Stock>();
 		    	  
 		    	  sql="SELECT * FROM Asset, StockLookup WHERE username='" + username + "' AND leagueID=" + currentLeague + " AND asset=symbol";
 		    	  rs=stmt.executeQuery(sql);
@@ -86,12 +90,13 @@ public class Portfolio extends HttpServlet{
 		    	  
 		      }
 		      
+		      //Send the lists to the jsp
 		      request.setAttribute("leagueNames", leagueNames);
 		      request.setAttribute("leagueIds", leagueIds);
 		      request.setAttribute("assets", assets);
 		     
 		      
-		      	
+		     //Display the jsp
 		     request.getRequestDispatcher("/jsps/portfolio.jsp").forward(request, response);
 		      
 		   }catch(SQLException se){

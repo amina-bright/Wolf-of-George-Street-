@@ -58,8 +58,6 @@ public class StockSearch extends HttpServlet {
 		
 		//if the submit button was clicked
 		if("button1".equals(button)) {
-			//System.out.println("The button was pressed");
-			//System.out.println("Search content: " + searchContent);
 			
 			 Connection conn = null;
 			 Statement stmt = null;
@@ -119,8 +117,6 @@ public class StockSearch extends HttpServlet {
 			         se.printStackTrace();
 			      }
 			   }	
-			 
-			  // System.out.println("Goodbye!");
 			
 		}
 	}

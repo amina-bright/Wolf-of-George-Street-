@@ -43,8 +43,9 @@ public class WolfOfGeorgeStreet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//If user logged in then redirect to the portfolio page else display jsp
 		if(request.getSession().getAttribute("username")!=null) {
-			response.sendRedirect(request.getContextPath() + "/stocksearch");
+			response.sendRedirect(request.getContextPath() + "/portfolio");
 		} else {
 			request.getRequestDispatcher("/jsps/home.jsp").forward(request, response);
 		}
@@ -55,6 +56,8 @@ public class WolfOfGeorgeStreet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//Get params
 		String button=request.getParameter("button");
 		String username=request.getParameter("username");
 		String password=request.getParameter("password");
@@ -68,19 +71,22 @@ public class WolfOfGeorgeStreet extends HttpServlet {
 			      Class.forName("com.mysql.jdbc.Driver");
 
 			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
+			      
+			      //Check database for entry corresponding to the login info inputted
 			      String sql;
 			      sql = "SELECT * FROM User	 WHERE username='" + username + "'AND pw='" + password + "'";
 			      stmt=conn.prepareStatement(sql);
 			      ResultSet rs=stmt.executeQuery();
 			      
+			      //If found return success and redirect to portfolio
 			      if(rs.next()) {
 			    	  request.setAttribute("success",true);
 			    	  HttpSession session=request.getSession();
 			    	  session.setAttribute("username", username);
-			    	  response.sendRedirect(request.getContextPath() + "/stocksearch");
+			    	  response.sendRedirect(request.getContextPath() + "/portfolio");
 			      } 
 			      
+			      //Not found return failure and display jsp
 			      else {
 			    	  request.setAttribute("success",false);
 			    	  request.getRequestDispatcher("/jsps/home.jsp").forward(request, response);

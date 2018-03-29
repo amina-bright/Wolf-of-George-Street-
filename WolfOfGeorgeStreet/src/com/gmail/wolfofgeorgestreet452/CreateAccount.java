@@ -44,6 +44,8 @@ public class CreateAccount extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//Get parameters from the jsp
 		String button=request.getParameter("button");
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
@@ -51,6 +53,7 @@ public class CreateAccount extends HttpServlet {
 		String password=request.getParameter("password");
 		String email=request.getParameter("email");
 		
+		//User hit submit
 		if("button1".equals(button)) {
 			
 			 Connection conn = null;
@@ -62,7 +65,8 @@ public class CreateAccount extends HttpServlet {
 			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 			      
 			      Timestamp ts=new Timestamp(System.currentTimeMillis());
-
+			      
+			      //Create a new entry in the user table
 			      String sql;
 			      sql = "INSERT INTO User (username, pw, firstName, lastName, email, emailUpdates, creationTime)"
 			      		+ "VALUES ('" + username + "', '" + password + "', '" + fname + "', '" + lname + "', '" + email + "', b'1', '" + ts + "')";
@@ -74,12 +78,12 @@ public class CreateAccount extends HttpServlet {
 			      
 		    	  request.setAttribute("success",true);
 		    	
-		    	  
+		    	  //Enter username into http session
 		    	  HttpSession session=request.getSession();
-		    	  
 		    	  session.setAttribute("username", username);
 		    	  
-		    	  response.sendRedirect(request.getContextPath()+ "/stocksearch");
+		    	  //redirect to the league page
+		    	  response.sendRedirect(request.getContextPath()+ "/league");
 			      
 			      
 			   }catch(SQLException se){
