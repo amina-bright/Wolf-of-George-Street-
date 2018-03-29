@@ -73,8 +73,7 @@ public class CreateAccount extends HttpServlet {
 			      conn.close();
 			      
 		    	  request.setAttribute("success",true);
-		    	 
-		    	  System.out.println("success");
+		    	
 		    	  
 		    	  HttpSession session=request.getSession();
 		    	  

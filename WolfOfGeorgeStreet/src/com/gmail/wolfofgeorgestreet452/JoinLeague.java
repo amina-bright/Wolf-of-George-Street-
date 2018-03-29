@@ -33,6 +33,12 @@ public class JoinLeague extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getSession().getAttribute("username")==null) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		}
+		
 		request.getRequestDispatcher("/jsps/joinleague.jsp").forward(request, response);
 	}
 
@@ -41,6 +47,7 @@ public class JoinLeague extends HttpServlet {
 	 */
 	@SuppressWarnings("resource")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String button=request.getParameter("Submit");
 		
 		int leagueID = Integer.parseInt(request.getParameter("leagueID"));
@@ -64,11 +71,10 @@ public class JoinLeague extends HttpServlet {
 					      PreparedStatement stmt2 = conn.prepareStatement(sql);
 					      stmt2.setInt(1, leagueID);
 					      ResultSet rs = stmt2.executeQuery();
-					      System.out.println(rs);
 					      while (rs.next()) {
 					          int principle;
 					        principle = rs.getInt(8);
-					          System.out.println(principle);
+					          //System.out.println(principle);
 					          sql = "INSERT INTO LeagueUserList (username, leagueID, liquidMoney)"
 							      		+ "VALUES ('" + request.getSession().getAttribute("username") + "', '" + leagueID + "', '" + principle + "')";
 						      
@@ -92,7 +98,7 @@ public class JoinLeague extends HttpServlet {
 					      
 				    	  request.setAttribute("success",true);
 				    	 
-				    	  System.out.println("success");
+				    	  //System.out.println("success");
 				     
 				    	  response.sendRedirect(request.getContextPath()+ "/JoinLeagueConfirmation");
 				    	  

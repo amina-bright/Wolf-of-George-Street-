@@ -72,7 +72,7 @@
 }
 
 </style>
-<title>Stock Search</title>
+<title>My Portfolio</title>
 </head>
 <body>
 <div class="topnav">
@@ -91,28 +91,48 @@
 
 <div class="main">
 
-<form action="${pageContext.request.contextPath}/stocksearch" method="post">
-	<input type="text" name="searchContent" placeholder="Search.." size=50> <button type="submit" name="button" value="button1">Submit</button>
-</form>
-
-<c:if test="${not empty stocks}" >
-<table border=1 frame=void rules=rows>
+	<c:forEach items="${leagueIds}" varStatus="loop">
+	
+		${leagueNames[loop.index]} : ${leagueIds[loop.index]}
+		
+		<table border=1 frame=void rules=rows>
+		
 		<tr>
 		    <th>Symbol</th>
 		    <th>Title</th>
 		    <th>Market</th>
-	  </tr>
-		<c:forEach items="${stocks}" var="stock">
-			<tr>
-	        	<td>
-		        	<a href="${pageContext.request.contextPath}/detailed-description?symbol=${stock.symbol}">${stock.symbol} </a>
-	        	</td>
-	        	<td>${stock.title}</td> 
-	        	<td>${stock.market}</td>
-	    	</tr>
-		</c:forEach>
-	</table>
-</c:if>
+		    <th>Amount </th>
+	  	</tr>
+			
+			<c:forEach var="currentAsset" items="${assets[loop.index]}" varStatus="loop2">
+				<tr>
+					<td>
+						<a href="${pageContext.request.contextPath}/detailed-description?symbol=${currentAsset.symbol}">${currentAsset.symbol} </a>
+					</td>
+					
+					<td>
+						${currentAsset.title}
+					</td>
+					
+					<td>
+						${currentAsset.market}
+					</td>
+					
+					<td>
+						${currentAsset.amount}
+					</td>
+				
+				
+				</tr>
+			
+			</c:forEach>
+			
+			
+		</table>
+	
+				<br>
+				<br>		
+	</c:forEach>
 
 </div>
 
