@@ -129,10 +129,10 @@
 </div>
 
 <div class="sidenav">
-	<a href ="#">My Portfolio</a>
+	<a href ="/WolfOfGeorgeStreet/portfolio">My Portfolio</a>
 	<a href ="/WolfOfGeorgeStreet/stocksearch">Stocks</a>
 	<a href ="#">Crypto</a>
-	<a href ="#">My Leagues</a>
+	<a href ="/WolfOfGeorgeStreet/league">My Leagues</a>
 </div>
 
 <div class="main">
