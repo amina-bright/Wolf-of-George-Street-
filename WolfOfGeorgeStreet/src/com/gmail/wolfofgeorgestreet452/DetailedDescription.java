@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
+
+import com.mysql.jdbc.PreparedStatement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,9 +47,12 @@ public class DetailedDescription extends HttpServlet {
 			return;
 		}
 		
+		String username=(String) request.getSession().getAttribute("username");
+			
 		String symbol=request.getParameter("symbol");
 		
 		if(symbol==null) {
+			response.sendRedirect(request.getContextPath());
 			return;
 		}
 		
@@ -70,6 +76,9 @@ public class DetailedDescription extends HttpServlet {
 		for(int i=0;i<390;i++) {
 			fullDayData[i]=StockInfoInteractor.getTimeSeriesData(dataDayFull, 0, i);
 		}*/
+		
+		ArrayList<String> leagueNames=new ArrayList<String>();
+		ArrayList<String> leagueIds=new ArrayList<String>();
 		
 		Connection conn = null;
 		Statement stmt = null;
@@ -96,10 +105,19 @@ public class DetailedDescription extends HttpServlet {
 		         requestedStock=new Stock(symbol,title,market);
 		      }
 		      
+		      sql="SELECT w.leagueID, leagueName From LeagueUserList s, League w WHERE s.username='" + username + "' AND s.leagueID=w.leagueID";
+		      rs=stmt.executeQuery(sql);
+		      
+		      while(rs.next()) {
+		    	  leagueIds.add(rs.getString("leagueID"));
+		    	  leagueNames.add(rs.getString("leagueName"));
+		      }
+		      
 		      //close connections
 		      rs.close();
 		      stmt.close();
 		      conn.close();
+		      
 		      
 		      //pass stock to the jsp
 		      request.setAttribute("stock",requestedStock);
@@ -110,8 +128,11 @@ public class DetailedDescription extends HttpServlet {
 		      
 		      double percentChanged=amountChanged/dataParsedBefore[3];
 		      
+		      
 		      request.setAttribute("amountChanged", amountChanged);
 		      request.setAttribute("percentChanged", percentChanged);
+		      request.setAttribute("leagueIds", leagueIds.toArray());
+		      request.setAttribute("leagueNames", leagueNames.toArray());
 		      
 		     /* String lastRefreshTime=StockInfoInteractor.getLastRefreshed(dataDayFull);
 		      
@@ -164,8 +185,201 @@ public class DetailedDescription extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getSession().getAttribute("username")==null) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		}
+		
+		String username=(String) request.getSession().getAttribute("username");
+		
+		String button=request.getParameter("button");
+		
+		String amount=request.getParameter("amount");
+		
+		String transcationType=request.getParameter("transcationType");
+		
+		String league=request.getParameter("league");
+		
+		String symbol=request.getParameter("symbol");
+		
+		Double currentPrice=Double.parseDouble(request.getParameter("price"));
+		
+		Double amountDouble=Double.parseDouble(amount);
+		
+		double totalCost=currentPrice.doubleValue()*amountDouble.doubleValue();
+	
+		
+		if("button1".equals(button) && transcationType.equals("buy")) {
+			
+		
+			Connection conn = null;
+			Statement stmt = null;
+		 
+			try{
+			      //register jdbc driver
+			      Class.forName("com.mysql.jdbc.Driver");
+	
+			      //open a connection
+			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+	
+			      //Execute sql query
+			      stmt = conn.createStatement();
+			      String sql;
+			      sql = "SELECT * FROM LeagueUserList WHERE username='" + username + "' AND leagueID=" + league + "";
+			      ResultSet rs = stmt.executeQuery(sql);
+			      
+			      double liquidMoney=0;
+			      
+			      //Extract the return data
+			      while(rs.next()){
+			    	  liquidMoney=rs.getDouble("liquidMoney");
+			      }
+			      
+			      if(totalCost>liquidMoney) {
+			    	  request.setAttribute("failure", "true");
+			    	  request.setAttribute("reason", "Transaction Failed: Not Enough Liquid Money");
+			    	  doGet(request,response);
+			    	  return;
+			      } 
+			      
+			      	liquidMoney-=totalCost;
+			    	sql="UPDATE LeagueUserList SET liquidMoney=" + liquidMoney + "WHERE username='" + username + "' AND leagueID=" + league + "";
+			    	conn.prepareStatement(sql).executeUpdate();
+			    	
+			    	
+			    	sql="SELECT * FROM Asset WHERE username='" + username + "' AND leagueID=" + league + " AND asset='" + symbol + "'" ;
+			    	rs = stmt.executeQuery(sql);
+			    	
+			    	//need to update
+			    	if(rs.next()) {
+			    		double amountAlready=rs.getDouble("amount");
+			    		sql="UPDATE Asset SET amount=" + (amountAlready+amountDouble.doubleValue()) + " WHERE username='" + username + "' AND leagueID=" + league + " AND asset='" + symbol + "'" ;
+			    		conn.prepareStatement(sql).executeUpdate();
+			    	}
+			    	
+			    	//need to create
+			    	else {
+			    		sql="INSERT INTO Asset (username, amount, asset, leagueID) VALUES ('" + username + "', " + amountDouble.doubleValue() + ", '" 
+			    				+ symbol + "', " + league + ")";
+			    		conn.prepareStatement(sql).executeUpdate();
+			    	}
+			    	 
+			    	Timestamp ts=new Timestamp(System.currentTimeMillis());
+			    	sql="INSERT INTO Transaction (username, amount, price, asset, transactionType, transactionTime, leagueID) VALUES ('"  +
+			    			username + "', " + amountDouble.doubleValue() + ", " + currentPrice + ",  '" + symbol + "', 'buy', '" +  ts + "', " + league + ")";
+			    	conn.prepareStatement(sql).executeUpdate();
+			    	  
+			    	request.setAttribute("success", true);
+			      
+			      
+			}catch(SQLException se){
+			      se.printStackTrace();
+			   }catch(Exception e){
+			      e.printStackTrace();
+			   }finally{
+			      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      }catch(SQLException se2){
+			      }
+			      try{
+			         if(conn!=null)
+			            conn.close();
+			      }catch(SQLException se){
+			         se.printStackTrace();
+			      }
+			   }
+		
+		}
+		
+		else if ("button1".equals(button) && transcationType.equals("sell")) {
+			
+			Connection conn = null;
+			Statement stmt = null;
+		 
+			try{
+			      //register jdbc driver
+			      Class.forName("com.mysql.jdbc.Driver");
+	
+			      //open a connection
+			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+	
+			      //Execute sql query
+			      stmt = conn.createStatement();
+			      String sql;
+			      sql = "SELECT * FROM Asset WHERE username='" + username + "' AND leagueID=" + league + " AND asset='" + symbol + "'";
+			      ResultSet rs = stmt.executeQuery(sql);
+			      
+			      double amountInPossession=0;
+			      while(rs.next()) {
+			    	  amountInPossession=rs.getDouble("amount");
+			      }
+			      
+			      if(amountInPossession<amountDouble.doubleValue()) {
+			    	  request.setAttribute("failure", "true");
+			    	  request.setAttribute("reason", "Transaction Failed: Not Enough Of Asset In Possession To Sell");
+			    	  doGet(request,response);
+			    	  return; 
+			    	  
+			      }
+			      
+			      //Delete from table
+			      if(amountInPossession-amountDouble.doubleValue()==0.0) {
+			    	  sql = "DELETE FROM Asset WHERE username='" + username + "' AND leagueID=" + league + " AND asset='" + symbol + "'";
+			    	  conn.prepareStatement(sql).executeUpdate();
+			      }
+			      
+			      else {
+			    	  sql = "UPDATE Asset SET amount=" + (amountInPossession-amountDouble.doubleValue()) + " WHERE username='" + username + "' AND leagueID=" + league + " AND asset='" + symbol + "'" ;
+			    	  conn.prepareStatement(sql).executeUpdate();
+			      }
+			      
+			      sql = "SELECT * FROM LeagueUserList WHERE username='" + username + "' AND leagueID=" + league + "";
+			      rs = stmt.executeQuery(sql);
+			      
+			      double liquidMoney=0;
+			      
+			      //Extract the return data
+			      while(rs.next()){
+			    	  liquidMoney=rs.getDouble("liquidMoney");
+			      }
+			      
+			      liquidMoney+=totalCost;
+			      
+			      sql="UPDATE LeagueUserList SET liquidMoney=" + liquidMoney + "WHERE username='" + username + "' AND leagueID=" + league + "";
+			      conn.prepareStatement(sql).executeUpdate();
+			      
+			      Timestamp ts=new Timestamp(System.currentTimeMillis());
+			      sql="INSERT INTO Transaction (username, amount, price, asset, transactionType, transactionTime, leagueID) VALUES ('"  +
+			    			username + "', " + amountDouble.doubleValue() + ", " + currentPrice + ",  '" + symbol + "', 'sell', '" +  ts + "', " + league + ")";
+			      conn.prepareStatement(sql).executeUpdate();
+			    	  
+			      request.setAttribute("success", true);
+			      
+			      
+			}catch(SQLException se){
+			      se.printStackTrace();
+			   }catch(Exception e){
+			      e.printStackTrace();
+			   }finally{
+			      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      }catch(SQLException se2){
+			      }
+			      try{
+			         if(conn!=null)
+			            conn.close();
+			      }catch(SQLException se){
+			         se.printStackTrace();
+			      }
+			   }
+			
+			
+		}
+		
 		doGet(request,response);
-		//request.getRequestDispatcher("/jsps/detailed-description.jsp").forward(request, response);	
 	}
 	
 

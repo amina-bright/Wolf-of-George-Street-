@@ -37,6 +37,7 @@
     margin-left: 140px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
+    text-align: center;
 }
 
 @media screen and (max-height: 450px) {
@@ -132,7 +133,7 @@
 	<a href ="#">My Portfolio</a>
 	<a href ="/WolfOfGeorgeStreet/stocksearch">Stocks</a>
 	<a href ="#">Crypto</a>
-	<a href ="#">My Leagues</a>
+	<a href ="/WolfOfGeorgeStreet/league">My Leagues</a>
 </div>
 
 <div class="main">
@@ -179,10 +180,19 @@
 			<input type="number" name="amount" placeholder="Number of Shares" size=25 min="0" step=".01">
 			
 			<select name="transcationType">
-				<option>Buy</option>
-				<option>Sell</option>
-				<option>Short</option>
+				<option value="buy">Buy</option>
+				<option value="sell">Sell</option>
 			</select>
+			
+			<select name="league">
+				<c:forEach items="${leagueIds}" varStatus="loop">
+					<option value="${leagueIds[loop.index]}">${leagueNames[loop.index]}</option>
+				</c:forEach>
+			</select>
+			
+			 <input type="hidden" name="price" value="${currentPrice}">
+			 
+			 <input type="hidden" name="symbol" value="${stock.symbol}">
 			
 			<button type="submit" name="button" value="button1">Submit</button>
 			
@@ -190,7 +200,17 @@
 	
 	</div>
 	
-
+	<c:if test="${success}" >
+		<script>
+			alert("Transaction Completed");
+		</script>
+	</c:if>
+	
+	<c:if test="${failure}" >
+		<script>
+			alert('${reason}');
+		</script>
+	</c:if>
 
 </div>
 
