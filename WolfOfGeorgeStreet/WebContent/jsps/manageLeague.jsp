@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
-    
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+  
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,13 +100,24 @@
 .show {display:block;}
 
 input[type=text], select, textarea {
-    width: 100%;
+    width: 50%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     margin-top: 6px;
     margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=number], select, textarea {
+    width: 25%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 5px;
     resize: vertical;
 }
 
@@ -135,6 +146,14 @@ input[type=submit]:hover {
     padding: 0px 10px;
 }
 
+.form {
+	margin-left: 140px; /* Same width as the sidebar + left position in px */
+    font-size: 22px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
@@ -161,14 +180,14 @@ input[type=submit]:hover {
 }
 
 </style>
-<title>Wolf of George Street</title>
+<title>JoinLeague</title>
 </head>
+
 <body>
 <div class="topnav">
 	<a href="alerts">alerts</a>
 	<a href="help">help</a>
 	<a href="myaccount">My account</a>
-	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
 <div class="sidenav">
@@ -183,73 +202,22 @@ input[type=submit]:hover {
 <div class="main">
 
 <p>
-Hi! Welcome to the League Page!
+Manage League<br>
+
+League ID: ${param.leagueID}<br>
 </p>
-
-
-<div class="row">
-  <div class="column"> 
-    
-    <button class="btn green" id="button_CreateLeague">Create league</button>
-  
-</div>
-  <div class="column">
-    
-<div class="dropdown">
-<button onclick="myFunction()" class="dropbtn">Manage League</button>
-  <div id="myDropdown" class="dropdown-content">
-  
-    <c:if test="${not empty hostedLeagueNames}" > <%-- create a dropdown element for each hosted league --%>
-		<c:forEach items="${hostedLeagueNames}" varStatus="loop">
-			    <a href="${pageContext.request.contextPath}/manageLeague?leagueID=${hostedLeagueIDs[loop.index]}">
-		        ${hostedLeagueNames[loop.index]} </a> 
-		</c:forEach>
-	</c:if>
-    
-    
-  </div>
-</div>
-  </div>
-  
-  <div class="column">
-    <button class="btn green" id="button_JoinLeague">Join League</button>
-    <p>
-	
-  </div>
 </div>
 
-</div>
+
+
+
+
+
+
 
 <script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
 
-document.getElementById("button_CreateLeague").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/createleague";
-};
 
-document.getElementById("button_JoinLeague").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/joinleague";
-};
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
 </script>
 
 

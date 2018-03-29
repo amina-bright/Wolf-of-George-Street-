@@ -89,8 +89,12 @@ Please Login Below
 </form>
 <c:if test="${not empty success}" >
 	<br>
+	<c:if test="${success}" >
+		<text>Login Succeeded </text>
+	</c:if>
+	
 	<c:if test="${not success}" >
-		Login Failed
+		<text>Login Failed </text>
 	</c:if>
 	
 </c:if>

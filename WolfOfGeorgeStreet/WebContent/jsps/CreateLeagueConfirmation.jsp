@@ -34,7 +34,7 @@
 
 .main {
     margin-left: 140px; /* Same width as the sidebar + left position in px */
-    font-size: 16px; /* Increased text to enable scrolling */
+    font-size: 24px; /* Increased text to enable scrolling */
     padding: 20px 10px;
     text-align: center;
 }
@@ -91,20 +91,20 @@
 
 
 <p> 
-Congratulations on creating a League! 
-Your leagueID is:  <c:out value = "${leagueID}"/>
-Use this to invite others to your league. <!--  Congratulates user and outputs the randomly generated leagueID -->
+Congratulations on creating a League! <br>
+Your leagueID is:  <c:out value = "${leagueID}"/> <br>
+Use this to invite others to your league.
 </p>
 
   <button class="btn green" id="button_Continue">Continue</button>
-<!--  Continue button that redirects user to league page -->
+
 
 </div>
 
-<script> 
+<script>
 document.getElementById("button_Continue").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/league"; 
-}; 
+    location.href = "/WolfOfGeorgeStreet/league";
+};
 </script>
 
 
