@@ -128,4 +128,81 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		
 	}
 
+	public boolean CreateLeagueTest(String username,String leagueName, String gamemode,String startdate,String enddate,int crypto,int participants,double principle) {
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		if (participants>100 || participants <0) //Checks if participant input is valid
+			return false;
+		 
+		if (principle>10000 || principle <0) //Checks if principle input is valid
+			return false;
+		
+		if(!gamemode.equals("normal")&&!gamemode.equals("headtohead")) { //Checks if gamemode input is valid
+			return false; 
+		}
+		
+		if(crypto != 0 &&crypto!=1) { //Checks if crypto input is valid
+			return false; 
+		}
+		
+		 try{
+		      Class.forName("com.mysql.jdbc.Driver");
+
+		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		      
+		      //Check database for entry corresponding to the username inputted
+		      String sql;
+		      sql = "SELECT * FROM User WHERE username='" + username + "'";
+		      stmt=conn.prepareStatement(sql);
+		      ResultSet rs=stmt.executeQuery();
+		      
+		      //If found return true
+		      if(rs.next()) {
+		    	  rs.close();
+			      stmt.close();
+			      conn.close();
+		    	  return true;
+		    	  
+		      } 
+		      
+		      else {
+		    	  rs.close();
+			      stmt.close();
+			      conn.close();
+		    	  return false;
+		      }
+		
+		      
+		   }
+		 	catch(SQLException se){
+		      se.printStackTrace();
+	
+		   }
+		 	catch(Exception e){
+		      e.printStackTrace();
+		   }
+		 	finally{
+		      try{
+		         if(stmt!=null)
+		            stmt.close();
+		      }
+		      catch(SQLException se2){
+		      }
+		      try{
+		         if(conn!=null)
+		            conn.close();
+		      }
+		      
+		      catch(SQLException se){
+		         se.printStackTrace();
+		      }
+		   }
+		 
+		 return false;
+		
+		
+	}
+
 }

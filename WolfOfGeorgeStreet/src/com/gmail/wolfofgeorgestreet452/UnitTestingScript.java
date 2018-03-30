@@ -15,6 +15,10 @@ public class UnitTestingScript {
 		PortfolioTest();
 		System.out.println("Beginning Transaction Verification Test...");
 		TranscationVerification();
+		System.out.println("Beginning Create League Test..");
+		CreateLeagueTest();
+		System.out.println("Beginning Join League Test..");
+		JoinLeagueTest();
 	}
 	
 	//This method tests whether a given user exists in the database
@@ -104,4 +108,69 @@ public class UnitTestingScript {
 	    }
 		
 	}
+	
+	public static void CreateLeagueTest() { //This method test if create league can be performed with the user inputted information
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.print("Enter your username: ");
+		String username = scanner.nextLine();
+		 
+		System.out.print("Enter leagueName: ");
+		String leagueName = scanner.nextLine();
+		
+		System.out.print("Enter 'normal' or 'headtohead' for gamemode: ");
+		String gamemode = scanner.nextLine();
+		
+		if(!gamemode.equals("normal")&&!gamemode.equals("headtohead")) {
+			System.out.println("Invalid input. Returning...");
+		}
+		
+		System.out.print("Enter start date in format mm/dd/yyyy: ");
+		String startdate = scanner.nextLine();
+		
+		System.out.print("Enter end date in format mm/dd/yyyy: ");
+		String enddate = scanner.nextLine();
+		
+		System.out.print("Enter '1' to include cryptocurrency transactions or '0' to not include them: ");
+		int crypto = scanner.nextInt();
+		
+		if(crypto != 0 &&crypto!=1) {
+			System.out.println("Invalid input. Returning...");
+		}
+		
+		System.out.print("Enter max particiants: ");
+		int participants = scanner.nextInt();
+		
+		System.out.print("Enter starting principle: ");
+		double principle = scanner.nextDouble();
+		
+		CreateLeague cl=new CreateLeague();
+		boolean result=cl.CreateLeagueTest(username,leagueName,gamemode,startdate,enddate,crypto,participants,principle);
+		
+		if(result==true) {
+			System.out.println("create league successful");
+		} else {
+			System.out.println("create league failed");
+		}
+	}
+	
+	public static void JoinLeagueTest() { //This method test if join league can be performed with the user inputted information
+		Scanner scanner = new Scanner(System.in);
+		 
+		System.out.print("Enter leagueID: ");
+		String leagueId = scanner.nextLine();
+		 
+		JoinLeague jl=new JoinLeague();
+		
+		boolean result=jl.JoinLeagueTest(leagueId);
+		
+		if(result==true) {
+			System.out.println("join league successful");
+		} else {
+			System.out.println("join league failed");
+		}
+	}
+	
+	
+	
 }
