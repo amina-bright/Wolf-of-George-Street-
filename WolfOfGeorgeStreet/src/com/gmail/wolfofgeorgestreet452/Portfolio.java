@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -120,5 +122,75 @@ public class Portfolio extends HttpServlet{
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request,response);
+	}
+	
+	//Function used to test portfolio in unit testing script
+	public HashMap<String,ArrayList<Stock>> portfolioTest(String username) {
+		HashMap<String,ArrayList<Stock>> output=new HashMap<String,ArrayList<Stock>>();
+		
+		//List for all the lagues the user is in
+		ArrayList<String> leagueIds=new ArrayList<String>();
+		Connection conn = null;
+		Statement stmt = null;
+		 
+		try{
+		      //register jdbc driver
+		      Class.forName("com.mysql.jdbc.Driver");
+
+		      //open a connection
+		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+		      //Grab all the leagues the user is in
+		      stmt = conn.createStatement();
+		      String sql;
+		      sql="SELECT * From LeagueUserList s, League w WHERE s.username='" + username + "' AND s.leagueID=w.leagueID";
+		      ResultSet rs=stmt.executeQuery(sql);
+		      
+		      while(rs.next()) {
+		    	  leagueIds.add(rs.getString("leagueID"));
+		      }
+		      
+		      for(int i=0;i<leagueIds.size();i++) {
+		    	  String currentLeague=leagueIds.get(i);
+		    	  
+		    	  ArrayList<Stock> currentLeagueAssets=new ArrayList<Stock>();
+		    	  
+		    	  sql="SELECT * FROM Asset, StockLookup WHERE username='" + username + "' AND leagueID=" + currentLeague + " AND asset=symbol";
+		    	  rs=stmt.executeQuery(sql);
+		    	  
+		    	  while(rs.next()) {
+		    		  String symbol=rs.getString("symbol");
+		    		  String market=rs.getString("market");
+		    		  String title=rs.getString("title");
+		    		  double amount=rs.getDouble("amount");
+		    		  
+		    		  Stock newStock=new Stock(symbol, title, market);
+		    		  newStock.setAmount(amount);
+		    		  
+		    		  currentLeagueAssets.add(newStock);
+		    	  }
+		    	  
+		    	  output.put(leagueIds.get(i),currentLeagueAssets);
+		    	  
+		      }
+		      
+		   }catch(SQLException se){
+		      se.printStackTrace();
+		   }catch(Exception e){
+		      e.printStackTrace();
+		   }finally{
+		      try{
+		         if(stmt!=null)
+		            stmt.close();
+		      }catch(SQLException se2){
+		      }
+		      try{
+		         if(conn!=null)
+		            conn.close();
+		      }catch(SQLException se){
+		         se.printStackTrace();
+		      }
+		   }
+		return output;
 	}
 }

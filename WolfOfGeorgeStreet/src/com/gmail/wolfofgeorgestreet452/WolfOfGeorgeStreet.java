@@ -123,5 +123,66 @@ public class WolfOfGeorgeStreet extends HttpServlet {
 			   }
 		}
 	}
+	
+	//Method used in the testing script simulate login
+	public boolean loginTest(String username, String password) {
+		Connection conn = null;
+		 PreparedStatement stmt = null;
+		 
+		 try{
+		      Class.forName("com.mysql.jdbc.Driver");
+
+		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		      
+		      //Check database for entry corresponding to the login info inputted
+		      String sql;
+		      sql = "SELECT * FROM User	 WHERE username='" + username + "'AND pw='" + password + "'";
+		      stmt=conn.prepareStatement(sql);
+		      ResultSet rs=stmt.executeQuery();
+		      
+		      //If found return true
+		      if(rs.next()) {
+		    	  rs.close();
+			      stmt.close();
+			      conn.close();
+		    	  return true;
+		    	  
+		      } 
+		      
+		      else {
+		    	  rs.close();
+			      stmt.close();
+			      conn.close();
+		    	  return false;
+		      }
+		
+		   	      
+		   }
+		 	catch(SQLException se){
+		      se.printStackTrace();
+	
+		   }
+		 	catch(Exception e){
+		      e.printStackTrace();
+		   }
+		 	finally{
+		      try{
+		         if(stmt!=null)
+		            stmt.close();
+		      }
+		      catch(SQLException se2){
+		      }
+		      try{
+		         if(conn!=null)
+		            conn.close();
+		      }
+		      
+		      catch(SQLException se){
+		         se.printStackTrace();
+		      }
+		   }
+		 
+		 return false;
+	}
 
 }

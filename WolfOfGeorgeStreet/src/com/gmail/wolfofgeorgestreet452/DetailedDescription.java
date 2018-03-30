@@ -381,5 +381,113 @@ public class DetailedDescription extends HttpServlet {
 		doGet(request,response);
 	}
 	
+	public boolean transactionVerificationTest(String username, String type, String league, String symbol, double amount) {
+		String data = StockInfoInteractor.fetchStockData(symbol, 0, false);
+		double[] prices=StockInfoInteractor.getTimeSeriesData(data, 0, 0);
+		
+		double price=prices[3];
+		double totalCost=price*amount;
+		
+		if(type=="buy") {
+			Connection conn = null;
+			Statement stmt = null;
+		 
+			try{
+			      //register jdbc driver
+			      Class.forName("com.mysql.jdbc.Driver");
+	
+			      //open a connection
+			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+	
+			      
+			      stmt = conn.createStatement();
+			      String sql;
+			      
+			      //Find the row corresponding to the user and the selected league
+			      sql = "SELECT * FROM LeagueUserList WHERE username='" + username + "' AND leagueID=" + league + "";
+			      ResultSet rs = stmt.executeQuery(sql);
+			      
+			      double liquidMoney=0;
+			      
+			      //Grab the amount of liquid money the user has
+			      while(rs.next()){
+			    	  liquidMoney=rs.getDouble("liquidMoney");
+			      }
+			      
+			      //If the user doesnt have enough money then failure
+			      if(totalCost>liquidMoney) {
+			    	  return false;
+			      } 
+			      
+			}catch(SQLException se){
+			      se.printStackTrace();
+			   }catch(Exception e){
+			      e.printStackTrace();
+			   }finally{
+			      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      }catch(SQLException se2){
+			      }
+			      try{
+			         if(conn!=null)
+			            conn.close();
+			      }catch(SQLException se){
+			         se.printStackTrace();
+			      }
+			   }
+		}
+		
+		else {
+			Connection conn = null;
+			Statement stmt = null;
+		 
+			try{
+			      //register jdbc driver
+			      Class.forName("com.mysql.jdbc.Driver");
+	
+			      //open a connection
+			      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+	
+			      //Find the user asset league triple in the asset table if it exists
+			      stmt = conn.createStatement();
+			      String sql;
+			      sql = "SELECT * FROM Asset WHERE username='" + username + "' AND leagueID=" + league + " AND asset='" + symbol + "'";
+			      ResultSet rs = stmt.executeQuery(sql);
+			      
+			      double amountInPossession=0;
+			      
+			      //If it exists get the amount of the asset that the user has. If it doesn't exist the amount is set to 0
+			      while(rs.next()) {
+			    	  amountInPossession=rs.getDouble("amount");
+			      }
+			      
+			      //If the user doesn't have enough of the asset to complete the transaction then return failure
+			      if(amountInPossession<amount) {
+			    	  return false;
+			    	  
+			      }
+			      
+			}catch(SQLException se){
+			      se.printStackTrace();
+			   }catch(Exception e){
+			      e.printStackTrace();
+			   }finally{
+			      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      }catch(SQLException se2){
+			      }
+			      try{
+			         if(conn!=null)
+			            conn.close();
+			      }catch(SQLException se){
+			         se.printStackTrace();
+			      }
+			   }
+		}
+		
+		return true;
+	}
 
 }
