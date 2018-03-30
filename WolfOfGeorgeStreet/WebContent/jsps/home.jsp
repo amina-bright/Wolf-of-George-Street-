@@ -69,7 +69,7 @@
 <div class="main">
 
 <P>
-Please Login Below
+Wolf of George Street
 </P>
 
 <form action="${pageContext.request.contextPath}/" method="post">
