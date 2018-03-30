@@ -9,8 +9,11 @@ import java.util.Scanner;
 public class UnitTestingScript {
 	
 	public static void main(String [] args) {
-		//LoginTest();
+		System.out.println("Beginning Login Test...");
+		LoginTest();
+		System.out.println("Beginning Portfolio Test...");
 		PortfolioTest();
+		System.out.println("Beginning Transaction Verification Test...");
 		TranscationVerification();
 	}
 	
