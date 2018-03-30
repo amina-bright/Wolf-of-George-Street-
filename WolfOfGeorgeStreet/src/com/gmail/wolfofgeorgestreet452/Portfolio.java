@@ -169,7 +169,6 @@ public class Portfolio extends HttpServlet{
 		    		  
 		    		  currentLeagueAssets.add(newStock);
 		    	  }
-		    	  
 		    	  output.put(leagueIds.get(i),currentLeagueAssets);
 		    	  
 		      }
