@@ -7,6 +7,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="http://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<link rel="shortcut icon" href="">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="jquery-3.0.0.min.js" type="text/javascript" ></script>
+  <script type="jquery-1.11.0.min.js"></script>
+  <script type="bootstrap.min.js"></script>
 <style>
 .sidenav {
     width: 130px;
@@ -63,22 +74,47 @@
     height:15px;
     font-size: 17px;
 }
-
+.image_off, #home:hover .image_on{
+   display:none
+}
+.image_on, #home:hover .image_off{
+   display:block
+}
 </style>
 <title>Wolf of George Street</title>
 </head>
 <body>
-<div class="topnav">
-	<a href="alerts">Alerts</a>
-	<a href="help">Help</a>
+<div style="font-family:Times New Roman">
+<nav class="navbar navbar-inverse navbar-fixed-top" style="font-family:Times New Roman">
+		      <div class="container">
+		        <div class="navbar-header">
+		          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		            <span class="sr-only">Toggle navigation</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		          </button>
+		        </div>
+		        <div id="navbar" class="navbar-collapse collapse" style="font:Times New Roman">
+		          <ul class="nav navbar-nav">
+                <li><a class="navbar-brand" href="#" >WoGS</a></li>
+		            <li><a href=#>Help</a></li>
+                <li><a href="#">Alerts</a></li>
+
+		          </ul>
+		        </div><!--/.nav-collapse -->
+
+		      </div>
+		    </nav>
 </div>
-
-
 <div class="main">
-
 <P>
 Please Login Below
 </P>
+	<div class = "logo"> 
+		<img onmouseover="artImg(this)" onmouseout="normalImg(this)" id="wolf" src="file:///C:/Users/aval9/Documents/GitHub/Wolf-of-George-Street-/WolfOfGeorgeStreet/WebContent/jsps/imgs/wolfwhite.jpg">
+		<a id="home"><img class="image_on" src="file:///C:/Users/aval9/Documents/GitHub/Wolf-of-George-Street-/WolfOfGeorgeStreet/WebContent/jsps/imgs/wolfmove.gif" alt="logo" /><img class="image_off" src="file:///C:/Users/aval9/Documents/GitHub/Wolf-of-George-Street-/WolfOfGeorgeStreet/WebContent/jsps/imgs/wolfwhite.jpg" alt="logo" /></a>
+	</div>
 
 <form action="${pageContext.request.contextPath}/" method="post">
 	<input type="text" name="username" placeholder="Username" size=50> 
@@ -100,7 +136,16 @@ Please Login Below
 <a href="${pageContext.request.contextPath}/createaccount">Create An Account</a>
 
 </div>
+<script>
+function altImg(x) {
+    x = file:///C:/Users/aval9/Documents/GitHub/Wolf-of-George-Street-/WolfOfGeorgeStreet/WebContent/jsps/imgs/wolfwhite.jpg
+    x.style.width = "64px";
+}
 
-
+function normalImg(x) {
+    x.style.height = "32px";
+    x.style.width = "32px";
+}
+</script>
 </body>
 </html>
