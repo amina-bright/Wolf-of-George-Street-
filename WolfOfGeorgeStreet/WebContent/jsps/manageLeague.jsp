@@ -180,7 +180,7 @@ input[type=submit]:hover {
 }
 
 </style>
-<title>CreateLeague</title>
+<title>ManageLeague</title>
 </head>
 
 <body>
@@ -203,38 +203,13 @@ input[type=submit]:hover {
 <div class="main">
 
 <p>
-Create League<br>
+Manage League<br>
+
+League ID: ${param.leagueID}<br>
 </p>
 </div>
 
-<div class="form"> <!--  form to create a league -->
-<p>
-<form action="${pageContext.request.contextPath}/createleague" method="post">
-		League Name: <input type="text" name="leagueName" required><br>  <!--  asks user to input league name -->
-		
-		
-		Game Mode: <br>
-	    <input type="radio" checked value="1" name="gameMode">Normal<br>
-	    <input type="radio" value="0" name="gameMode">Head-to-Head (NYI)<br><br> <!--  asks user to game mode-->
-	    
-		<fieldset>
-	    <legend>League Settings</legend>
-	    Start Date: <input type="date" name="startDate" required><br> <!--  asks user for start and end date -->
-	    End Date: <input type="date" name="endDate" required><br>
-	    Include Cryptocurrency:
-	    <input type="radio" value= 1 name="crypto">Yes
-	    <input type="radio" checked value= 0 name="crypto">No<br> <!--  asks user if they want to include crypto -->
-	    Max Number of Participants: <input type="number" name="maxParticipantNum" min=0 max = 100 required> (0 - 100)<br>
-	    <!--  asks user to input max participant number -->
-	    Starting Capital: <input type="number" name="startCapital" min = 0 max = 10000 required> ($0 - $10,000)<br>
-	    <!--  asks user to input starting principle -->
-	  </fieldset>
-	
-		<input type="submit" name="Submit" value="submit"> <!--  submit button -->
-	</form>
-</p>
-	
-</div>
+
 
 
 

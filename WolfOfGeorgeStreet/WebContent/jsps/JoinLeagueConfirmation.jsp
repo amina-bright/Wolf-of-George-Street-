@@ -82,8 +82,10 @@
 </head>
 <body>
 <div class="topnav">
-	<a href="alerts">Alerts</a>
-	<a href="help">Help</a>
+	<a href="alerts">alerts</a>
+	<a href="help">help</a>
+	<a href="myaccount">My account</a>
+	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
 

@@ -82,8 +82,10 @@
 </head>
 <body>
 <div class="topnav">
-	<a href="alerts">Alerts</a>
-	<a href="help">Help</a>
+	<a href="alerts">alerts</a>
+	<a href="help">help</a>
+	<a href="myaccount">My account</a>
+	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
 
@@ -91,8 +93,8 @@
 
 
 <p> 
-Congratulations on creating a League! 
-Your leagueID is:  <c:out value = "${leagueID}"/>
+Congratulations on creating a League! <br>
+Your leagueID is:  <c:out value = "${leagueID}"/> <br>
 Use this to invite others to your league. <!--  Congratulates user and outputs the randomly generated leagueID -->
 </p>
 

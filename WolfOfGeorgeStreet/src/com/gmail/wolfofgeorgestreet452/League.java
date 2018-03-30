@@ -35,12 +35,73 @@ public class League extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getSession().getAttribute("username")==null) {
+		if(request.getSession().getAttribute("username")==null) { //if no user is logged in, redirects to login page
 			response.sendRedirect(request.getContextPath());
 			return;
-		}
-		request.getRequestDispatcher("/jsps/League.jsp").forward(request, response);
-	}//transfers to join league page
+		}		
+		
+		 Connection conn = null;
+		 Statement stmt = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		 
+	      //open a connection
+	      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+	      //Execute sql query searching for leagues hosted by the current user
+	      stmt = conn.createStatement();
+	      String sql;
+	            
+	      String username = (String)request.getSession().getAttribute("username"); //retrieves username from session
+	      
+	      sql = "SELECT * FROM League WHERE username= '" + username + "'"; //sql query that will return rows with the username
+	      ResultSet rs = stmt.executeQuery(sql);
+	      
+	      
+	      ArrayList<String> hostedLeagueNames=new ArrayList<String>();
+		  ArrayList<Integer> hostedLeagueIDs=new ArrayList<Integer>();
+	      
+	    //Extract the return data
+	      while(rs.next()){
+	         String leagueName = rs.getString("leagueName");
+	         int leagueID = Integer.parseInt(rs.getString("leagueID"));
+	         
+	         hostedLeagueNames.add(leagueName);
+	         hostedLeagueIDs.add(leagueID);
+	      }
+	      
+	      //close connections
+	      rs.close();
+	      stmt.close();
+	      conn.close();
+	      
+	    //pass arrays to the jsp
+	      request.setAttribute("hostedLeagueNames",hostedLeagueNames);
+	      request.setAttribute("hostedLeagueIDs",hostedLeagueIDs);
+	      
+	      
+	      //display jsp
+	      request.getRequestDispatcher("/jsps/League.jsp").forward(request, response);	
+	      
+		}catch(SQLException se){
+		      se.printStackTrace();
+		   }catch(Exception e){
+		      e.printStackTrace();
+		   }finally{
+		      try{
+		         if(stmt!=null)
+		            stmt.close();
+		      }catch(SQLException se2){
+		      }
+		      try{
+		         if(conn!=null)
+		            conn.close();
+		      }catch(SQLException se){
+		         se.printStackTrace();
+		      }
+		   }
+		
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

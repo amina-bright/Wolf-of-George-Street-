@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
+    
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -166,6 +168,7 @@ input[type=submit]:hover {
 	<a href="alerts">alerts</a>
 	<a href="help">help</a>
 	<a href="myaccount">My account</a>
+	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
 <div class="sidenav">
@@ -174,8 +177,6 @@ input[type=submit]:hover {
 	<a href ="#">Crypto</a>
 	<a href ="/WolfOfGeorgeStreet/league">My Leagues</a>
 </div>
-
-
 
 <div class="main">
 
@@ -189,25 +190,23 @@ Hi! Welcome to the League Page!
     <!--  3 buttons on league page -->
     <button class="btn green" id="button_CreateLeague">Create league</button>
   <!--  Create league button that redirects to create league page -->
-  <p>
-	</p><%-- 
-    <div class="container">
-  <form action="/action_page.php">
-    <label for="fname">League Name</label>
-    <input type="text" id="fname" name="firstname" placeholder="Enter League Name..">
-  </form>
 </div>
---%>
-</div>
+
   <div class="column">
     
 <div class="dropdown">
 <button onclick="myFunction()" class="dropbtn">Manage League</button>
  <!--  manage league button that redirects to manage league page -->
   <div id="myDropdown" class="dropdown-content">
-    <a href="#1">League 1</a>
-    <a href="#2">League 2</a>
-    <a href="#3">League 3</a>
+  	<!-- if the hostedLeagueNames array is not empty, list the elements in the drop-down menu--> 
+    <c:if test="${not empty hostedLeagueNames}" > <%-- create a dro-pdown element for each hosted league --%>
+		<c:forEach items="${hostedLeagueNames}" varStatus="loop">
+				<!-- each drop-down menu's option will redirect to manage league page with the corresponding league ID passed as a 
+				parameter -->
+			    <a href="${pageContext.request.contextPath}/manageLeague?leagueID=${hostedLeagueIDs[loop.index]}">
+		        ${hostedLeagueNames[loop.index]} </a> 
+		</c:forEach>
+	</c:if>
   </div>
 </div>
   </div>
@@ -215,18 +214,8 @@ Hi! Welcome to the League Page!
   <div class="column">
     <button class="btn green" id="button_JoinLeague">Join League</button>
      <!--  join league button that redirects to join league page -->
-    <p>
-	</p>
-	
-	<%-- 
-    <div class="container">
-  <form action="/action_page.php">
-    <label for="fname">League ID</label>
-    <input type="text" id="lname" name="leaguename" placeholder="Enter League ID..">
-  </form>
-  
-</div>--%>
   </div>
+  
 </div>
 
 </div>
