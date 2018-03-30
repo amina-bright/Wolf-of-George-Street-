@@ -188,6 +188,7 @@ input[type=submit]:hover {
 	<a href="alerts">alerts</a>
 	<a href="help">help</a>
 	<a href="myaccount">My account</a>
+	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
 <div class="sidenav">
