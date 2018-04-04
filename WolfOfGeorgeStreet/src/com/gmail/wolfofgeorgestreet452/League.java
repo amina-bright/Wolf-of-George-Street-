@@ -54,20 +54,33 @@ public class League extends HttpServlet {
 	            
 	      String username = (String)request.getSession().getAttribute("username"); //retrieves username from session
 	      
+	      
 	      sql = "SELECT * FROM League WHERE username= '" + username + "'"; //sql query that will return rows with the username
-	      ResultSet rs = stmt.executeQuery(sql);
+	      ResultSet rs=stmt.executeQuery(sql);
 	      
-	      
+	    //List of all the leagues the user is hosting
 	      ArrayList<String> hostedLeagueNames=new ArrayList<String>();
 		  ArrayList<Integer> hostedLeagueIDs=new ArrayList<Integer>();
-	      
-	    //Extract the return data
+		  
+		//Extract the return data
 	      while(rs.next()){
 	         String leagueName = rs.getString("leagueName");
 	         int leagueID = Integer.parseInt(rs.getString("leagueID"));
-	         
 	         hostedLeagueNames.add(leagueName);
 	         hostedLeagueIDs.add(leagueID);
+	      }
+	      
+	      sql = "SELECT * From LeagueUserList s, League w WHERE s.username='" + username + "' AND s.leagueID=w.leagueID"; //grab all the leagues the user is in
+	      
+	      rs=stmt.executeQuery(sql);
+	      
+	      //List for all the leagues the user is in
+	      ArrayList<String> joinedLeagueNames=new ArrayList<String>();
+	      ArrayList<String> joinedLeagueIDs=new ArrayList<String>();
+	      
+	      while(rs.next()) {
+	    	  joinedLeagueIDs.add(rs.getString("leagueID"));
+	    	  joinedLeagueNames.add(rs.getString("leagueName"));
 	      }
 	      
 	      //close connections
@@ -78,7 +91,8 @@ public class League extends HttpServlet {
 	    //pass arrays to the jsp
 	      request.setAttribute("hostedLeagueNames",hostedLeagueNames);
 	      request.setAttribute("hostedLeagueIDs",hostedLeagueIDs);
-	      
+	      request.setAttribute("joinedLeagueNames",joinedLeagueNames);
+	      request.setAttribute("joinedLeagueIDs",joinedLeagueIDs);
 	      
 	      //display jsp
 	      request.getRequestDispatcher("/jsps/League.jsp").forward(request, response);	

@@ -38,9 +38,10 @@ public class Portfolio extends HttpServlet{
 		
 		String username=(String) request.getSession().getAttribute("username");
 		
-		//List for all the lagues the user is in
+		//List for all the leagues the user is in
 		ArrayList<String> leagueNames=new ArrayList<String>();
 		ArrayList<String> leagueIds=new ArrayList<String>();
+		ArrayList<Double> liquidmoneys=new ArrayList<Double>();
 		
 		//List of lists for all the assets the user has for each league
 		ArrayList<ArrayList<Stock>> assets=new ArrayList<ArrayList<Stock>>();
@@ -64,6 +65,7 @@ public class Portfolio extends HttpServlet{
 		      while(rs.next()) {
 		    	  leagueIds.add(rs.getString("leagueID"));
 		    	  leagueNames.add(rs.getString("leagueName"));
+		    	  liquidmoneys.add(rs.getDouble("liquidMoney"));
 		      }
 		      
 		      //For each league grab all the assets the user has for that league and put them in the entry in the assets list
@@ -96,7 +98,7 @@ public class Portfolio extends HttpServlet{
 		      request.setAttribute("leagueNames", leagueNames);
 		      request.setAttribute("leagueIds", leagueIds);
 		      request.setAttribute("assets", assets);
-		     
+		      request.setAttribute("liquidmoneys", liquidmoneys);
 		      
 		     //Display the jsp
 		     request.getRequestDispatcher("/jsps/portfolio.jsp").forward(request, response);

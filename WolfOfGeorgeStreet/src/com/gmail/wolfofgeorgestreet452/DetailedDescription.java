@@ -59,20 +59,20 @@ public class DetailedDescription extends HttpServlet {
 			return;
 		}
 		
-		//Get the daily data
-		String data=StockInfoInteractor.fetchStockData(symbol, 1, false);
+		//Get the intraday data
+		String data=StockInfoInteractor.fetchStockData(symbol, 0, false);
 		
 		//Parse out the prices for the most recent time
-		double[] dataParsed=StockInfoInteractor.getTimeSeriesData(data, 1, 0);
+		double[] dataParsed=StockInfoInteractor.getTimeSeriesData(data, 0, 0);
 		
 		//Allocate variable to hold stock that will be sent to the jsp
 		Stock requestedStock=null;
 		
-		//Grab the data from the previous trading day to use to compare with
+		//Grab the data from the previous trading day to use to compar with
 		double[] dataParsedBefore=null;
 		int count=1;
 		while(dataParsedBefore==null) {
-			dataParsedBefore=StockInfoInteractor.getTimeSeriesData(data, 1, count);
+			dataParsedBefore=StockInfoInteractor.getTimeSeriesData(data, 0, count);
 			count++;
 		}
 		
@@ -382,8 +382,8 @@ public class DetailedDescription extends HttpServlet {
 	}
 	
 	public boolean transactionVerificationTest(String username, String type, String league, String symbol, double amount) {
-		String data = StockInfoInteractor.fetchStockData(symbol, 1, false);
-		double[] prices=StockInfoInteractor.getTimeSeriesData(data, 1, 0);
+		String data = StockInfoInteractor.fetchStockData(symbol, 0, false);
+		double[] prices=StockInfoInteractor.getTimeSeriesData(data, 0, 0);
 		
 		double price=prices[3];
 		double totalCost=price*amount;

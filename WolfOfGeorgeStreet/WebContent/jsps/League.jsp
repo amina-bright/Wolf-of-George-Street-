@@ -187,34 +187,54 @@ Hi! Welcome to the League Page!
 
 <div class="row">
   <div class="column"> 
-    <!--  3 buttons on league page -->
     <button class="btn green" id="button_CreateLeague">Create league</button>
   <!--  Create league button that redirects to create league page -->
+  	<p></p>
+   <div class="row">
+		<div class="dropdown">
+		<button onclick="hostedLeagueDrpDwnFunction()" class="dropbtn">Manage My Hosted Leagues</button>
+		 <!--  manage league button that redirects to manage league page -->
+		  <div id="hostedLeagueDrpDwn" class="dropdown-content">
+		  	<!-- if the hostedLeagueNames array is not empty, list the elements in the drop-down menu--> 
+		    <c:if test="${not empty hostedLeagueNames}" > <%-- create a drop-down element for each hosted league --%>
+				<c:forEach items="${hostedLeagueNames}" varStatus="loop">
+						<!-- each drop-down menu's option will redirect to manage league page with the corresponding league ID passed as a 
+						parameter -->
+					    <a href="${pageContext.request.contextPath}/manageLeague?leagueID=${hostedLeagueIDs[loop.index]}">
+				        ${hostedLeagueNames[loop.index]} </a> 
+				</c:forEach>
+			</c:if>
+		  </div>
+		</div>
+	</div>
 </div>
-
-  <div class="column">
-    
-<div class="dropdown">
-<button onclick="myFunction()" class="dropbtn">Manage League</button>
- <!--  manage league button that redirects to manage league page -->
-  <div id="myDropdown" class="dropdown-content">
-  	<!-- if the hostedLeagueNames array is not empty, list the elements in the drop-down menu--> 
-    <c:if test="${not empty hostedLeagueNames}" > <%-- create a dro-pdown element for each hosted league --%>
-		<c:forEach items="${hostedLeagueNames}" varStatus="loop">
-				<!-- each drop-down menu's option will redirect to manage league page with the corresponding league ID passed as a 
-				parameter -->
-			    <a href="${pageContext.request.contextPath}/manageLeague?leagueID=${hostedLeagueIDs[loop.index]}">
-		        ${hostedLeagueNames[loop.index]} </a> 
-		</c:forEach>
-	</c:if>
-  </div>
-</div>
-  </div>
   
   <div class="column">
     <button class="btn green" id="button_JoinLeague">Join League</button>
      <!--  join league button that redirects to join league page -->
+     <p></p>
+     <div class="row">
+		<div class="dropdown">
+		<button onclick="joinedLeagueDrpDwnFunction()" class="dropbtn">View My Leagues</button>
+		 <!--  joined league button that redirects to league info page -->
+		  <div id="joinedLeagueDrpDwn" class="dropdown-content">
+		  	<!-- if the joinedLeagueNames array is not empty, list the elements in the drop-down menu--> 
+		    <c:if test="${not empty joinedLeagueNames}" > <%-- create a drop-down element for each joined league --%>
+				<c:forEach items="${joinedLeagueNames}" varStatus="loop">
+						<!-- each drop-down menu's option will redirect to leagueInfo page with the corresponding league ID passed as a 
+						parameter -->
+						<a href="${pageContext.request.contextPath}/LeagueInfo?leagueID=${joinedLeagueIDs[loop.index]}">
+				        ${joinedLeagueNames[loop.index]} </a>
+				</c:forEach>
+			</c:if>
+			
+		  </div>
+		</div>
   </div>
+  
+  </div>
+  
+ 
   
 </div>
 
@@ -232,8 +252,12 @@ document.getElementById("button_JoinLeague").onclick = function () {
     location.href = "/WolfOfGeorgeStreet/joinleague";
 };
 
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+function hostedLeagueDrpDwnFunction() {
+    document.getElementById("hostedLeagueDrpDwn").classList.toggle("show");
+}
+
+function joinedLeagueDrpDwnFunction() {
+    document.getElementById("joinedLeagueDrpDwn").classList.toggle("show");
 }
 
 // Close the dropdown if the user clicks outside of it
@@ -250,6 +274,8 @@ window.onclick = function(event) {
     }
   }
 }
+
+
 </script>
 
 
