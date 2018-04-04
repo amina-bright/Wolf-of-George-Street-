@@ -57,6 +57,3 @@ CREATE TABLE LeagueUserList(
     Foreign Key(leagueID) references League(leagueID) on delete CASCADE,
     primary key(username, leagueID)
 );
-
-
-SELECT * From User;

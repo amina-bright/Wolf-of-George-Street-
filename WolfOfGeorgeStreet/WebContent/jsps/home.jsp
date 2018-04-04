@@ -19,7 +19,6 @@
     padding: 8px 0;
     margin: 50px 0px;
 }
-
 .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
@@ -27,33 +26,27 @@
     color: #2196F3;
     display: block;
 }
-
 .sidenav a:hover {
     color: #064579;
 }
-
 .main {
     margin-left: 140px; /* Same width as the sidebar + left position in px */
     font-size: 16px; /* Increased text to enable scrolling */
     padding: 20px 10px;
     text-align: center;
 }
-
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
-
 .topnav {
     background-color: #333;
     overflow: hidden;
 }
-
 .topnav a:hover {
     background-color: #ddd;
     color: black;
 }
-
 .topnav a {
     float: right;
     color: #f2f2f2;
@@ -63,7 +56,6 @@
     height:15px;
     font-size: 17px;
 }
-
 </style>
 <title>Wolf of George Street</title>
 </head>
@@ -77,7 +69,7 @@
 <div class="main">
 
 <P>
-Please Login Below
+Wolf of George Street
 </P>
 
 <form action="${pageContext.request.contextPath}/" method="post">

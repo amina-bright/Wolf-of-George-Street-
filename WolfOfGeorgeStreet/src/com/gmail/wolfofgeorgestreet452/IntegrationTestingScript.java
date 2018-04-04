@@ -1,18 +1,21 @@
 package com.gmail.wolfofgeorgestreet452;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
-public class UnitTestingScript {
+import org.apache.tomcat.util.net.URL;
+
+public class IntegrationTestingScript {
 	
 	public static void main(String [] args) {
 		System.out.println("Beginning Login Test...");
-		LoginTest();
+		CreateAccountTest();
 		System.out.println("Beginning Portfolio Test...");
-		PortfolioTest();
+		PortfolioTesting();
 		System.out.println("Beginning Transaction Verification Test...");
 		TranscationVerification();
 		System.out.println("Beginning Create League Test..");
@@ -21,13 +24,32 @@ public class UnitTestingScript {
 		JoinLeagueTest();
 	}
 	
+	
+	private static void TranscationVerification() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public static void oneTimeSetUp() {
+	    // start my app server and make sure apps are installed
+	}
+	
+	public static void oneTimeTearDown() {
+	    // shut down app server
+	}
+
 	//This method tests whether a given user exists in the database
-	public static void LoginTest() {
+	public static void CreateAccountTest() {
 		Scanner scanner = new Scanner(System.in);
-		 
+		System.out.print("Enter your First Name: ");
+		String fname = scanner.nextLine();
+		System.out.print("Enter your Last Name: ");
+		String lname = scanner.nextLine();
 		System.out.print("Enter your username: ");
 		String username = scanner.nextLine();
-		 
+		System.out.print("Enter your email: ");
+		String email = scanner.nextLine();
 		System.out.print("Enter your password: ");
 		String password = scanner.nextLine();
 		 
@@ -36,14 +58,14 @@ public class UnitTestingScript {
 		boolean result=wg.loginTest(username, password);
 		
 		if(result==true) {
-			System.out.println("login successful");
+			System.out.println("login successful, account created and added to database");
 		} else {
-			System.out.println("login failed");
+			System.out.println("login failed, account already created");
 		}
 	}
 	
 	//This method tests whether a transaction with the inputted details would be possible
-	public static void TranscationVerification() {
+	public static void TranasationTesting() {
 		Scanner scanner = new Scanner(System.in);
 		 
 		System.out.print("Enter your username: ");
@@ -85,7 +107,7 @@ public class UnitTestingScript {
 	}
 	
 	//This method will output the leagueID and asset information for each asset associated with the inputted user
-	public static void PortfolioTest() {
+	public static void PortfolioTesting() {
 		Scanner scanner = new Scanner(System.in);
 		 
 		System.out.print("Enter your username: ");

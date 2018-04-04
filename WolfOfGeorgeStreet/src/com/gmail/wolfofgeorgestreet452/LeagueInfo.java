@@ -37,6 +37,7 @@ public class LeagueInfo extends HttpServlet{
 		}
 		
 		String username=(String) request.getSession().getAttribute("username");
+
 		String leagueID=(String) request.getParameter("leagueID");
 		String leagueName = " ";
 		ArrayList<String> leagueMemberNames=new ArrayList<String>();
