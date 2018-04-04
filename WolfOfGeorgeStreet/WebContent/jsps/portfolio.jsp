@@ -93,8 +93,11 @@
 
 	<c:forEach items="${leagueIds}" varStatus="loop">
 	
-		${leagueNames[loop.index]} : ${leagueIds[loop.index]}
-		
+		${leagueNames[loop.index]} : ${leagueIds[loop.index]} 
+		<br> 
+		Liquid Money: $${liquidmoneys[loop.index]}  <!--  Prints the liquid money for the league -->
+		<p>
+		</p>
 		<table border=1 frame=void rules=rows>
 		
 		<tr>
