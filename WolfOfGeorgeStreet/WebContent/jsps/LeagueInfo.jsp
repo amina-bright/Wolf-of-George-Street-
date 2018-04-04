@@ -91,11 +91,16 @@
 
 <div class="main">
 		
+		${leagueName} : ${param.leagueID} <br>
+		 <p>
+		 Your League Ranking: ${userRank}<br>
+		 Your League Assets: $${userAsset}
+		 </p>
 		<table border=1 frame=void rules=rows>
 		
 		<tr>
 		    <th>Ranking</th>
-		    <th>League MemberName</th>
+		    <th>League Member Name</th>
 		    <th>Assets</th>
 		   
 	  	</tr>
@@ -104,7 +109,7 @@
 				<tr>
 					
 					<td>
-						${leagueMemberNames[loop.index]}
+						${loop.index + 1}
 					</td>
 					
 					<td>

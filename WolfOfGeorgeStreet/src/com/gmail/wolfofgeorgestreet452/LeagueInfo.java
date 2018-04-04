@@ -37,8 +37,9 @@ public class LeagueInfo extends HttpServlet{
 		}
 		
 		String username=(String) request.getSession().getAttribute("username");
-		
-		//List for all the leagues the user is in
+
+		String leagueID=(String) request.getParameter("leagueID");
+		String leagueName = " ";
 		ArrayList<String> leagueMemberNames=new ArrayList<String>();
 		ArrayList<Double> leagueAssets=new ArrayList<Double>();
 		
@@ -57,17 +58,29 @@ public class LeagueInfo extends HttpServlet{
 		      //Grab all the leagues the user is in
 		      stmt = conn.createStatement();
 		      String sql;
-		      sql="SELECT * from LeagueUserList WHERE leagueID = 849973 ORDER BY liquidMoney DESC";
+		      sql="SELECT * from LeagueUserList WHERE leagueID = '"+ leagueID + "' ORDER BY liquidMoney DESC";
 		      ResultSet rs=stmt.executeQuery(sql);
 		      
+		      int i = 0;
 		      while(rs.next()) {
+		    	  i++;
+		    	  if(username.equals(rs.getString("username"))) {
+		    		  request.setAttribute("userAsset", rs.getDouble("liquidMoney"));
+		    		  request.setAttribute("userRank", i);
+		    	  }
 		    	  leagueMemberNames.add(rs.getString("username"));
 		    	  leagueAssets.add(rs.getDouble("liquidMoney"));
 		      }
 		      
-	
+		      sql="SELECT LeagueName from League WHERE leagueID = '"+ leagueID + "' ";
+		      rs = stmt.executeQuery(sql);
+		      
+		      while(rs.next()) {
+		    	  leagueName = rs.getString("LeagueName");
+		      }
 		      
 		      //Send the lists to the jsp
+		      request.setAttribute("leagueName", leagueName);
 		      request.setAttribute("leagueMemberNames", leagueMemberNames);
 		      request.setAttribute("leagueAssets", leagueAssets);
 		      
