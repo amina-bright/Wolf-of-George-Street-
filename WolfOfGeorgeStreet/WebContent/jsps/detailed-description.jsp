@@ -119,6 +119,67 @@
 
 
 </style>
+<script>
+window.onload = function () {
+	
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	zoomEnabled: true,
+	theme: "light2",
+	title:{
+		text: "${stock.title} Past 30 Days before Peformance"
+	},
+	 axisX:{
+		   reversed:  true,
+		   maximum: 30,
+		   title: "Days In the Past"
+		 },
+	axisY:{
+		includeZero: false,
+		title: "Close Price: USD"
+	},
+	data: [{        
+		type: "line",       
+		dataPoints: [
+			{ x: "30", y: ${weekBefore[30]} },
+			{ x: "29", y: ${weekBefore[29]} },
+			{x: "28", y: ${weekBefore[28]} },
+			{x: "27", y: ${weekBefore[27]} },
+			{x: "26", y: ${weekBefore[26]} },
+			{x: "25", y: ${weekBefore[25]} },
+			{x: "24", y: ${weekBefore[24]} },
+			{x: "23", y: ${weekBefore[23]} },
+			{x: "22", y: ${weekBefore[22]} },
+			{x: "21", y: ${weekBefore[21]} },
+			{x: "20", y: ${weekBefore[20]} },
+			{x: "19", y: ${weekBefore[19]} },
+			{x: "18", y: ${weekBefore[18]} },
+			{x: "17", y: ${weekBefore[17]} },
+			{x: "16", y: ${weekBefore[16]} },
+			{x: "15", y: ${weekBefore[15]} },
+			{x: "14", y: ${weekBefore[14]} },
+			{x: "13", y: ${weekBefore[13]} },
+			{x: "12", y: ${weekBefore[12]} },
+			{x: "11", y: ${weekBefore[11]} },
+			{x: "10", y: ${weekBefore[10]} },
+			{x: "9", y: ${weekBefore[9]} },
+			{x: "8", y: ${weekBefore[8]} },
+			{x: "7", y: ${weekBefore[7]} },
+			{x: "6", y: ${weekBefore[6]} },
+			{x: "5", y: ${weekBefore[5]}},
+			{x: "4", y: ${weekBefore[4]}},
+			{x: "3", y: ${weekBefore[3]} },
+			{x: "2", y: ${weekBefore[2]} },
+			{x: "1", y: ${weekBefore[1]} },
+			{x: "0", y: ${weekBefore[0]} }
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
 <title>${param.symbol}</title>
 </head>
 <body>
@@ -172,6 +233,9 @@
 		</c:if>
 		
 	</div>
+	
+	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	
 	<div class="transcationForm" >
 	

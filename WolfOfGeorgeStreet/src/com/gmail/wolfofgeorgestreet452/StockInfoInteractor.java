@@ -139,9 +139,12 @@ public class StockInfoInteractor {
 				SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
 				Date lastDate=formatter.parse(lastRefreshed);
 				long lastTimeStamp=lastDate.getTime();
-				long timeRequested=lastTimeStamp-1000*60*60*24*numPeriodBefore;
+				long timeRequested=(long)lastTimeStamp-(long)1000*(long)60*(long)60*(long)24*(long)numPeriodBefore;
 				lastDate.setTime(timeRequested);
 				dateWanted=formatter.format(lastDate);
+				/*System.out.println(lastTimeStamp);
+				System.out.println(timeRequested);
+				System.out.println(dateWanted);*/
 			}
 			
 			

@@ -76,6 +76,31 @@ public class DetailedDescription extends HttpServlet {
 			count++;
 		}
 		
+		//
+		ArrayList<Double> weekData=new ArrayList<Double>();
+		int nullCount=0;
+		int numNullBefore=0;
+		for(int i=0;i<100;i++) {
+			double[] temp=StockInfoInteractor.getTimeSeriesData(data, 1, i);
+			
+			if(temp==null) {
+				nullCount++;
+				numNullBefore++;
+				continue;
+			}
+			
+			double close = temp[3];
+			int j=0;
+			while(j<numNullBefore+1) {
+				weekData.add(close);
+				j++;
+			}
+			if(weekData.size()>=31) {
+				break;
+			}
+			numNullBefore=0;
+		}
+		request.setAttribute("weekBefore", weekData.toArray());
 		ArrayList<String> leagueNames=new ArrayList<String>();
 		ArrayList<String> leagueIds=new ArrayList<String>();
 		

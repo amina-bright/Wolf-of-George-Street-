@@ -2,6 +2,7 @@
     pageEncoding="US-ASCII"%>
     
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -95,7 +96,7 @@
 	
 		${leagueNames[loop.index]} : ${leagueIds[loop.index]} 
 		<br> 
-		Liquid Money: $${liquidmoneys[loop.index]}  <!--  Prints the liquid money for the league -->
+		Money Available: $<fmt:formatNumber value = "${liquidmoneys[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>  <!--  Prints the liquid money for the league -->
 		<p>
 		</p>
 		<table border=1 frame=void rules=rows>
