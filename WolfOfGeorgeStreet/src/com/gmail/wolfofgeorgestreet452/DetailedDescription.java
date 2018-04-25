@@ -53,54 +53,97 @@ public class DetailedDescription extends HttpServlet {
 		//Symbol of the stock requested
 		String symbol=request.getParameter("symbol");
 		
+		String market=request.getParameter("market");
+		
 		//If no symbol specified, error. Return to the login page
 		if(symbol==null) {
 			response.sendRedirect(request.getContextPath());
 			return;
 		}
 		
-		//Get the daily data
-		String data=StockInfoInteractor.fetchStockData(symbol, 1, false);
-		
-		//Parse out the prices for the most recent time
-		double[] dataParsed=StockInfoInteractor.getTimeSeriesData(data, 1, 0);
-		
+		double[] dataParsed=null;
+		double[] dataParsedBefore=null;
 		//Allocate variable to hold stock that will be sent to the jsp
 		Stock requestedStock=null;
 		
-		//Grab the data from the previous trading day to use to compare with
-		double[] dataParsedBefore=null;
-		int count=1;
-		while(dataParsedBefore==null) {
-			dataParsedBefore=StockInfoInteractor.getTimeSeriesData(data, 1, count);
-			count++;
+		if(market.equals("CRYPTO")) {
+			String data=StockInfoInteractor.fetchCryptoData(symbol, 1);
+			
+			dataParsed=StockInfoInteractor.getTimeSeriesDataCrypto(data, 1, 0);
+			
+			int count=1;
+			while(dataParsedBefore==null) {
+				dataParsedBefore=StockInfoInteractor.getTimeSeriesDataCrypto(data, 1, count);
+			}
+			
+			ArrayList<Double> weekData=new ArrayList<Double>();
+			int nullCount=0;
+			int numNullBefore=0;
+			for(int i=0;i<100;i++) {
+				double[] temp=StockInfoInteractor.getTimeSeriesDataCrypto(data, 1, i);
+				
+				if(temp==null) {
+					nullCount++;
+					numNullBefore++;
+					continue;
+				}
+				
+				double close = temp[3];
+				int j=0;
+				while(j<numNullBefore+1) {
+					weekData.add(close);
+					j++;
+				}
+				if(weekData.size()>=31) {
+					break;
+				}
+				numNullBefore=0;
+			}
+			request.setAttribute("weekBefore", weekData.toArray());
+		} 
+		
+		else {
+			//Get the daily data
+			String data=StockInfoInteractor.fetchStockData(symbol, 1, false);
+			
+			//Parse out the prices for the most recent time
+			dataParsed=StockInfoInteractor.getTimeSeriesData(data, 1, 0);
+		;
+			
+			//Grab the data from the previous trading day to use to compare with
+			int count=1;
+			while(dataParsedBefore==null) {
+				dataParsedBefore=StockInfoInteractor.getTimeSeriesData(data, 1, count);
+				count++;
+			}
+			
+			//
+			ArrayList<Double> weekData=new ArrayList<Double>();
+			int nullCount=0;
+			int numNullBefore=0;
+			for(int i=0;i<100;i++) {
+				double[] temp=StockInfoInteractor.getTimeSeriesData(data, 1, i);
+				
+				if(temp==null) {
+					nullCount++;
+					numNullBefore++;
+					continue;
+				}
+				
+				double close = temp[3];
+				int j=0;
+				while(j<numNullBefore+1) {
+					weekData.add(close);
+					j++;
+				}
+				if(weekData.size()>=31) {
+					break;
+				}
+				numNullBefore=0;
+			}
+			request.setAttribute("weekBefore", weekData.toArray());
 		}
 		
-		//
-		ArrayList<Double> weekData=new ArrayList<Double>();
-		int nullCount=0;
-		int numNullBefore=0;
-		for(int i=0;i<100;i++) {
-			double[] temp=StockInfoInteractor.getTimeSeriesData(data, 1, i);
-			
-			if(temp==null) {
-				nullCount++;
-				numNullBefore++;
-				continue;
-			}
-			
-			double close = temp[3];
-			int j=0;
-			while(j<numNullBefore+1) {
-				weekData.add(close);
-				j++;
-			}
-			if(weekData.size()>=31) {
-				break;
-			}
-			numNullBefore=0;
-		}
-		request.setAttribute("weekBefore", weekData.toArray());
 		ArrayList<String> leagueNames=new ArrayList<String>();
 		ArrayList<String> leagueIds=new ArrayList<String>();
 		
@@ -128,7 +171,7 @@ public class DetailedDescription extends HttpServlet {
 		      //Extract the title and market of the stock
 		      while(rs.next()){
 		         String title = rs.getString("title");
-		         String market=rs.getString("market");
+		        // String market=rs.getString("market");
 		         
 		         //Create a stock out of the data
 		         requestedStock=new Stock(symbol,title,market);

@@ -129,7 +129,7 @@ public class StockInfoInteractor {
 				SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Date lastDate=formatter.parse(lastRefreshed);
 				long lastTimeStamp=lastDate.getTime();
-				long timeRequested=lastTimeStamp-1000*60*numPeriodBefore;
+				long timeRequested=(long)lastTimeStamp-(long)1000*(long)60*(long)numPeriodBefore;
 				lastDate.setTime(timeRequested);
 				dateWanted=formatter.format(lastDate);
 			}
@@ -206,4 +206,197 @@ public class StockInfoInteractor {
 			return null;
 		}
 	}
+	
+	public static String fetchCryptoData(String symbol, int function) {
+		StringBuilder builder=new StringBuilder();
+		
+		builder.append(baseURL);
+		
+		//intraday
+		if(function==0) {
+			builder.append("DIGITAL_CURRENCY_INTRADAY");
+		}
+		
+		//daily
+		else if(function==1) {
+			builder.append("DIGITAL_CURRENCY_DAILY");
+		}
+		
+		//more to come later
+		else {
+			return null;
+		}
+		
+		//Add the symbol and api key to the url
+		builder.append("&symbol=" + symbol +"&market=USD&apikey=" + apiKey);
+		
+		String fullUrl=builder.toString();
+		
+		HttpURLConnection connection=null;
+		
+		try {
+			
+			//Boilerplaye for http connection
+			URL url=new URL(fullUrl);
+			connection=(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Content-Type", 
+			        "application/x-www-form-urlencoded");
+			connection.setRequestProperty("Content-Language", "en-US");
+			
+			//Read from input stream
+			 InputStream is = connection.getInputStream();
+			 BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+			 StringBuilder response = new StringBuilder();
+			 String line;
+			 
+			 //Add the data to a string builder
+			 while ((line = rd.readLine()) != null) {
+			      response.append(line);
+			      response.append('\r');
+			 }
+			 rd.close();
+			 
+			 //Response from the get request
+			 String output=response.toString();
+		    
+			 if(connection!=null) {
+				 connection.disconnect();
+			 }
+			 
+			 if(output.contains("Error Message")) {
+				 return null;
+			 }
+			 
+			 //return the response
+			 return output;
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			if(connection!=null) {
+				 connection.disconnect();
+			 }
+			return null;
+		}
+	}
+	
+	public static double[] getTimeSeriesDataCrypto(String cryptoData, int function, int numPeriodBefore) {
+		double [] output=new double[4];
+		try {
+			JSONObject obj=new JSONObject(cryptoData);
+			
+			JSONObject metadata=obj.getJSONObject("Meta Data");
+			String dateWanted=null;
+			
+			//intra day
+			if(function==0) {
+				//Last time the data was updated
+				String lastRefreshed=metadata.getString("7. Last Refreshed");
+				
+				dateWanted=null;
+				SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date lastDate=formatter.parse(lastRefreshed);
+				long lastTimeStamp=lastDate.getTime();
+				long timeRequested=lastTimeStamp-(long)1000*(long)60*(long)numPeriodBefore;
+				lastDate.setTime(timeRequested);
+				dateWanted=formatter.format(lastDate);
+			}
+			
+			//daily
+			else if(function==1) {
+				//Last time the data was updated
+				String lastRefreshed=metadata.getString("6. Last Refreshed");
+				
+				dateWanted=null;
+				SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+				Date lastDate=formatter.parse(lastRefreshed);
+				long lastTimeStamp=lastDate.getTime();
+				long timeRequested=(long)lastTimeStamp-(long)1000*(long)60*(long)60*(long)24*(long)numPeriodBefore;
+				lastDate.setTime(timeRequested);
+				dateWanted=formatter.format(lastDate);
+				/*System.out.println(lastTimeStamp);
+				System.out.println(timeRequested);
+				System.out.println(dateWanted);*/
+			}
+			
+			
+			JSONObject timeSeries;
+			
+			
+			
+			//intraday
+			if(function==0) {
+				timeSeries=obj.getJSONObject("Time Series (Digital Currency Intraday)");
+				
+				JSONObject wanted=timeSeries.getJSONObject(dateWanted);
+				
+				String price=wanted.getString("1b. price (USD)");
+				
+				output[0]=Double.parseDouble(price);
+				
+				output[1]=0;
+				output[2]=0;
+				output[3]=0;
+			}
+			
+			//daily
+			else if (function==1) {
+				timeSeries=obj.getJSONObject("Time Series (Digital Currency Daily)");
+				JSONObject wanted=timeSeries.getJSONObject(dateWanted);
+				
+				String openString=wanted.getString("1b. open (USD)");
+				String highString=wanted.getString("2a. high (USD)");
+				String lowString=wanted.getString("3b. low (USD)");
+				String closeString=wanted.getString("4b. close (USD)");
+				
+				Double openDouble=Double.parseDouble(openString);
+				Double highDouble=Double.parseDouble(highString);
+				Double lowDouble=Double.parseDouble(lowString);
+				Double closeDouble=Double.parseDouble(closeString);
+				
+				output[0]=openDouble.doubleValue();
+				output[1]=highDouble.doubleValue();
+				output[2]=lowDouble.doubleValue();
+				output[3]=closeDouble.doubleValue();
+			}
+			
+			else {
+				return null;
+			}
+			
+			
+		
+			
+			return output;
+		} catch(Exception e) {
+			//e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public static String getLastRefreshedCrypto(String cryptoData, int function) {
+		try {
+			JSONObject obj=new JSONObject(cryptoData);
+			
+			JSONObject metadata=obj.getJSONObject("Meta Data");
+			String lastRefreshed;
+			if(function==1) {
+				lastRefreshed=metadata.getString("6. Last Refreshed");
+			}
+			
+			else {
+				lastRefreshed=metadata.getString("7. Last Refreshed");	
+			}
+			
+			return lastRefreshed;
+		}
+		
+		catch( Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 }	

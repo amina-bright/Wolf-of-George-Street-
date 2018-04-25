@@ -239,7 +239,7 @@ chart.render();
 	
 	<div class="transcationForm" >
 	
-		<form action="${pageContext.request.contextPath}/detailed-description?symbol=${param.symbol}" method="post">
+		<form action="${pageContext.request.contextPath}/detailed-description?symbol=${param.symbol}&market=${param.market}" method="post">
 			
 			<input type="number" name="amount" placeholder="Number of Shares" size=25 min="0" step=".01">
 			

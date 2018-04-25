@@ -111,7 +111,7 @@
 			<c:forEach var="currentAsset" items="${assets[loop.index]}" varStatus="loop2">
 				<tr>
 					<td>
-						<a href="${pageContext.request.contextPath}/detailed-description?symbol=${currentAsset.symbol}">${currentAsset.symbol} </a>
+						<a href="${pageContext.request.contextPath}/detailed-description?symbol=${currentAsset.symbol}&market=${currentAsset.market}">${currentAsset.symbol} </a>
 					</td>
 					
 					<td>
