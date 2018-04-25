@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -146,6 +147,7 @@ public class DetailedDescription extends HttpServlet {
 		
 		ArrayList<String> leagueNames=new ArrayList<String>();
 		ArrayList<String> leagueIds=new ArrayList<String>();
+		ArrayList<Double> liquidMoneys=new ArrayList<Double>();
 		
 		//JDBC boilerplate
 		Connection conn = null;
@@ -178,13 +180,14 @@ public class DetailedDescription extends HttpServlet {
 		      }
 		      
 		      //Grab all the leagues the user participates in
-		      sql="SELECT w.leagueID, leagueName From LeagueUserList s, League w WHERE s.username='" + username + "' AND s.leagueID=w.leagueID";
+		      sql="SELECT * From LeagueUserList s, League w WHERE s.username='" + username + "' AND s.leagueID=w.leagueID";
 		      rs=stmt.executeQuery(sql);
 		      
 		      //Add them to the lists
 		      while(rs.next()) {
 		    	  leagueIds.add(rs.getString("leagueID"));
 		    	  leagueNames.add(rs.getString("leagueName"));
+		    	  liquidMoneys.add(rs.getDouble("liquidMoney"));
 		      }
 		      
 		      //close connections
@@ -208,6 +211,7 @@ public class DetailedDescription extends HttpServlet {
 		      request.setAttribute("percentChanged", percentChanged);
 		      request.setAttribute("leagueIds", leagueIds.toArray());
 		      request.setAttribute("leagueNames", leagueNames.toArray());
+		      request.setAttribute("liquidMoneys", Arrays.toString(liquidMoneys.toArray()));
 		      
 		      //Display the jsp
 		      request.getRequestDispatcher("/jsps/detailed-description.jsp").forward(request, response);

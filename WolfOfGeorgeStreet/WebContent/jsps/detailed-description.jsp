@@ -117,6 +117,11 @@
 	text-align: center;
 }
 
+#liquidMoney {
+	display:inline;
+	font-size: 18px;
+}
+
 
 </style>
 <script>
@@ -177,7 +182,19 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	}]
 });
 chart.render();
+}
 
+function displayLiquidMoney(temp) {
+	var moneyArray = ${liquidMoneys}
+    	
+    	var index=document.getElementById("leagueChoice").selectedIndex;
+    	document.getElementById("liquidMoney").innerHTML = "Money Available: $" + Math.round(moneyArray[index] * 100) / 100;
+	
+}
+
+function init() {
+	var moneyArray = ${liquidMoneys}
+	document.getElementById("liquidMoney").innerHTML = "Money Available: $" + Math.round(moneyArray[0] * 100) / 100;
 }
 </script>
 <title>${param.symbol}</title>
@@ -241,6 +258,12 @@ chart.render();
 	
 		<form action="${pageContext.request.contextPath}/detailed-description?symbol=${param.symbol}&market=${param.market}" method="post">
 			
+			<span id="liquidMoney">
+				<script>
+					init();
+				</script>
+			</span>
+			
 			<input type="number" name="amount" placeholder="Number of Shares" size=25 min="0" step=".01">
 			
 			<select name="transcationType">
@@ -248,7 +271,7 @@ chart.render();
 				<option value="sell">Sell</option>
 			</select>
 			
-			<select name="league">
+			<select name="league" id="leagueChoice" onchange="displayLiquidMoney(this)">
 				<c:forEach items="${leagueIds}" varStatus="loop">
 					<option value="${leagueIds[loop.index]}">${leagueNames[loop.index]}</option>
 				</c:forEach>
