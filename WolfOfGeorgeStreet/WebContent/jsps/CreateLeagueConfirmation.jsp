@@ -108,14 +108,15 @@ document.getElementById("button_Continue").onclick = function () {
     location.href = "/WolfOfGeorgeStreet/league"; 
 }; 
 </script>
-
 <!-- Chat script -->
-<script type="text/javascript">
-(function () {
- window._FlyzooApplicationId="5ae22ffcbb547e096099f58f5ae22fb2bb547e096099f58b";
- var fz = document.createElement('script'); fz.type = 'text/javascript'; fz.async = true;
- fz.src = '//widget.flyzoo.co/scripts/flyzoo.start.js';
- var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
-})();
-</script>
+-<script type="text/javascript">
+-(function () {
+- window._FlyzooApplicationId="5ae22ffcbb547e096099f58f5ae22fb2bb547e096099f58b";
+- var fz = document.createElement('script'); fz.type = 'text/javascript'; fz.async = true;
+- fz.src = '//widget.flyzoo.co/scripts/flyzoo.start.js';
+- var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
+-})();
+-</script>
+
+</body>
 </html>

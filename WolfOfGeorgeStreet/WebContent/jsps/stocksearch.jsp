@@ -105,7 +105,7 @@
 		<c:forEach items="${stocks}" var="stock">
 			<tr>
 	        	<td>
-		        	<a href="${pageContext.request.contextPath}/detailed-description?symbol=${stock.symbol}&market=${stock.market}">${stock.symbol} </a>
+		        	<a href="${pageContext.request.contextPath}/detailed-description?symbol=${stock.symbol}">${stock.symbol} </a>
 	        	</td>
 	        	<td>${stock.title}</td> 
 	        	<td>${stock.market}</td>
@@ -116,14 +116,6 @@
 
 </div>
 
-<!-- Chat script -->
-<script type="text/javascript">
-(function () {
- window._FlyzooApplicationId="5ae22ffcbb547e096099f58f5ae22fb2bb547e096099f58b";
- var fz = document.createElement('script'); fz.type = 'text/javascript'; fz.async = true;
- fz.src = '//widget.flyzoo.co/scripts/flyzoo.start.js';
- var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
-})();
-</script>
+
 </body>
 </html>
