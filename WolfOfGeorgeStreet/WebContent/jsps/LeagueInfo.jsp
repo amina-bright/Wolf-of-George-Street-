@@ -124,23 +124,92 @@
 				</tr>
 			
 			</c:forEach>
+			<br>
+		
+			
+		</table>
+		
+		<p>
+		 Matchups for this Round 
+		 </p>
+		
+		<table border=1 frame=void rules=rows> <!--  Table to show current matchups -->
+		
+		
+		<tr>
+		    <th>User1</th>
+		    <th>User2</th>
+		    
+		   
+	  	</tr>
+			<c:forEach items="${User1}" varStatus="loop">
+	
+				<tr>
+					
+					<td>
+						${User1[loop.index]}
+					</td>
+					
+					<td>
+						${User2[loop.index]}
+					</td>
+				
+				
+				</tr>
+			
+			</c:forEach>
 			
 			
 		</table>
 	
+	
+		 
+		 <table border=1 frame=void rules=rows> <!-- Table which shows ranking for H2H mode -->
+		
+		<tr>
+		    <th>Ranking</th>
+		    <th>League Member Name</th>
+		    <th>Win</th>
+		   <th>Loss</th>
+		   <th>Percentage</th>
+	  	</tr>
+			<c:forEach items="${leagueMemberNames}" varStatus="loop">
+	
+				<tr>
+					
+					<td>
+						${loop.index + 1}
+					</td>
+					
+					<td>
+						${leagueMemberNamesH2H[loop.index]}
+					</td>
+					
+					<td>
+						${wins[loop.index]}
+					</td>
+					
+					<td>
+						${losses[loop.index]}
+					</td>
+					
+					<td>
+						${percentage[loop.index]}
+					</td>
+				
+				
+				</tr>
+			
+			</c:forEach>
+			<br>
+		
+			
+		</table>
 				<br>
 				<br>		
 
 </div>
 
-<!-- Flyzoo script -->
-<script type="text/javascript">
-(function () {
- window._FlyzooApplicationId="5ae22ffcbb547e096099f58f5ae22fb2bb547e096099f58b";
- var fz = document.createElement('script'); fz.type = 'text/javascript'; fz.async = true;
- fz.src = '//widget.flyzoo.co/scripts/flyzoo.start.js';
- var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
-})();
-</script>
+
 </body>
 </html>

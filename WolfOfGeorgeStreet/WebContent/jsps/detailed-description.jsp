@@ -117,11 +117,6 @@
 	text-align: center;
 }
 
-#liquidMoney {
-	display:inline;
-	font-size: 18px;
-}
-
 
 </style>
 <script>
@@ -182,19 +177,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	}]
 });
 chart.render();
-}
 
-function displayLiquidMoney(temp) {
-	var moneyArray = ${liquidMoneys}
-    	
-    	var index=document.getElementById("leagueChoice").selectedIndex;
-    	document.getElementById("liquidMoney").innerHTML = "Money Available: $" + Math.round(moneyArray[index] * 100) / 100;
-	
-}
-
-function init() {
-	var moneyArray = ${liquidMoneys}
-	document.getElementById("liquidMoney").innerHTML = "Money Available: $" + Math.round(moneyArray[0] * 100) / 100;
 }
 </script>
 <title>${param.symbol}</title>
@@ -256,13 +239,7 @@ function init() {
 	
 	<div class="transcationForm" >
 	
-		<form action="${pageContext.request.contextPath}/detailed-description?symbol=${param.symbol}&market=${param.market}" method="post">
-			
-			<span id="liquidMoney">
-				<script>
-					init();
-				</script>
-			</span>
+		<form action="${pageContext.request.contextPath}/detailed-description?symbol=${param.symbol}" method="post">
 			
 			<input type="number" name="amount" placeholder="Number of Shares" size=25 min="0" step=".01">
 			
@@ -271,7 +248,7 @@ function init() {
 				<option value="sell">Sell</option>
 			</select>
 			
-			<select name="league" id="leagueChoice" onchange="displayLiquidMoney(this)">
+			<select name="league">
 				<c:forEach items="${leagueIds}" varStatus="loop">
 					<option value="${leagueIds[loop.index]}">${leagueNames[loop.index]}</option>
 				</c:forEach>
@@ -301,14 +278,6 @@ function init() {
 
 </div>
 
-<!-- Chat script -->
-<script type="text/javascript">
-(function () {
- window._FlyzooApplicationId="5ae22ffcbb547e096099f58f5ae22fb2bb547e096099f58b";
- var fz = document.createElement('script'); fz.type = 'text/javascript'; fz.async = true;
- fz.src = '//widget.flyzoo.co/scripts/flyzoo.start.js';
- var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
-})();
-</script>
+
 </body>
 </html>

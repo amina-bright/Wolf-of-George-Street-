@@ -221,6 +221,17 @@ Create League<br>
 	    <legend>League Settings</legend>
 	    Start Date: <input type="date" name="startDate" required><br> <!--  asks user for start and end date -->
 	    End Date: <input type="date" name="endDate" required><br>
+	    Round duration: <br> <!--Asks user for round duration  -->
+	    <select name="duration">
+	<option value="1Min">1Min</option>    
+    <option value="Hourly">Hourly</option>
+    <option value="Daily">Daily</option>
+    <option value="Weekly">Weekly</option>
+    <option value="Biweekly">Biweekly</option>
+    <option value="Monthly">Monthly</option>
+  </select><br>
+  		Number of rounds: <input type="number" name="roundNum" min=1 max = 100 required> (0 - 100)<br>
+	    <!--  asks user to input number of rounds -->
 	    Include Cryptocurrency:
 	    <input type="radio" value= 1 name="crypto">Yes
 	    <input type="radio" checked value= 0 name="crypto">No<br> <!--  asks user if they want to include crypto -->
@@ -240,14 +251,17 @@ Create League<br>
 
 
 
-<!-- Chat script -->
-<script type="text/javascript">
-(function () {
- window._FlyzooApplicationId="5ae22ffcbb547e096099f58f5ae22fb2bb547e096099f58b";
- var fz = document.createElement('script'); fz.type = 'text/javascript'; fz.async = true;
- fz.src = '//widget.flyzoo.co/scripts/flyzoo.start.js';
- var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
-})();
+
+<script>
+function visible()
+{
+	
+	
+	
+}
+
 </script>
+
+
 </body>
 </html>
