@@ -97,6 +97,8 @@
 		${leagueNames[loop.index]} : ${leagueIds[loop.index]} 
 		<br> 
 		Money Available: $<fmt:formatNumber value = "${liquidmoneys[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>  <!--  Prints the liquid money for the league -->
+		<br> 
+		Total Asset: $<fmt:formatNumber value = "${liquidmoneys[loop.index] + assetSums[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>  <!--  Prints the total asset for the league -->
 		<p>
 		</p>
 		<table border=1 frame=void rules=rows>

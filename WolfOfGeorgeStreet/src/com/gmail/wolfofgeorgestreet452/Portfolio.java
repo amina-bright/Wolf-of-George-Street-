@@ -45,6 +45,7 @@ public class Portfolio extends HttpServlet{
 		
 		//List of lists for all the assets the user has for each league
 		ArrayList<ArrayList<Stock>> assets=new ArrayList<ArrayList<Stock>>();
+		ArrayList<Double> assetSums=new ArrayList<Double>();
 		
 		Connection conn = null;
 		Statement stmt = null;
@@ -77,6 +78,7 @@ public class Portfolio extends HttpServlet{
 		    	  
 		    	  sql="SELECT * FROM Asset, StockLookup WHERE username='" + username + "' AND leagueID=" + currentLeague + " AND asset=symbol";
 		    	  rs=stmt.executeQuery(sql);
+		    	  double assetSum = 0;
 		    	  
 		    	  while(rs.next()) {
 		    		  String symbol=rs.getString("symbol");
@@ -88,10 +90,25 @@ public class Portfolio extends HttpServlet{
 		    		  newStock.setAmount(amount);
 		    		  
 		    		  currentLeagueAssets.add(newStock);
+		    		  
+		    		//for each asset, obtain the current price
+		    		  double dataParsed[] = null;
+		    		  assetSum = 0;
+		    		  if(market.equals("CRYPTO")) {
+		    			  String data=StockInfoInteractor.fetchCryptoData(symbol, 1);
+			    		  dataParsed=StockInfoInteractor.getTimeSeriesDataCrypto(data, 1, 0);
+		    		  }else {
+		    			  String data=StockInfoInteractor.fetchStockData(symbol, 1, false);
+		    			  dataParsed=StockInfoInteractor.getTimeSeriesData(data, 1, 0);
+		    		  }
+			    		  //add to the running sum of the asset value
+			    		  System.out.println("getting current price of " + symbol);
+			    		  double currentPrice = dataParsed[3];
+			    		  assetSum += currentPrice*amount;
 		    	  }
 		    	  
 		    	  assets.add(i, currentLeagueAssets);
-		    	  
+		    	  assetSums.add(i, assetSum);
 		      }
 		      
 		      //Send the lists to the jsp
@@ -99,6 +116,7 @@ public class Portfolio extends HttpServlet{
 		      request.setAttribute("leagueIds", leagueIds);
 		      request.setAttribute("assets", assets);
 		      request.setAttribute("liquidmoneys", liquidmoneys);
+		      request.setAttribute("assetSums", assetSums);
 		      
 		     //Display the jsp
 		     request.getRequestDispatcher("/jsps/portfolio.jsp").forward(request, response);
