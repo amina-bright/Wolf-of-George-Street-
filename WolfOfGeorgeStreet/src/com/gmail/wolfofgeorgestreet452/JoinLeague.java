@@ -82,7 +82,7 @@ public class JoinLeague extends HttpServlet {
 						      stmt.executeUpdate(sql); //executes the sql query which inserts the username, leagueID and liquid money into the database
 						      int initial=0;
 						     
-						      sql = "INSERT INTO Head2Head (leagueID, username, win, loss,percentage)"
+						      sql = "INSERT INTO Head2Head (leagueID, username, win, loss)"
 							      		+ "VALUES ('" + leagueID + "','" + request.getSession().getAttribute("username") + "',  '" + initial+ "', '"+ initial+ "')";
 						      //sql query to add a user into H2H table
 						      stmt=conn.prepareStatement(sql);
