@@ -13,6 +13,7 @@ import java.sql.*;
 
 import java.util.ArrayList;
 //import java.util.Date;
+import java.util.Calendar;
 import com.mysql.jdbc.Driver;
 
 /**
@@ -53,16 +54,72 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		String button=request.getParameter("Submit");
 		//sets button to a value when submit is pressed 
 		
+		
 		String leagueName = request.getParameter("leagueName"); //Stores user-inputed league Name as string 
 		int gameMode = Integer.parseInt(request.getParameter("gameMode")); //Stores user-inputed gameMode as int
 		java.util.Date startDate = Date.valueOf(request.getParameter("startDate")); //Stores user-inputed start date as date type
-		java.util.Date endDate = Date.valueOf(request.getParameter("endDate")); //Stores user-inputed end date as date type
+		
+		java.util.Date endDate;
+		java.sql.Date endDateSQL;
+		
+		if (gameMode == 1)//Checks if gameMode is normal
+		{
+		
+			endDate = Date.valueOf(request.getParameter("endDate")); //Stores user-inputed end date as date type
+			endDateSQL = new java.sql.Date(endDate.getTime()); //Converts from java date to sql datetime
+		}
+		else //If gameMode is Head2head
+		{
+			int roundNum = Integer.parseInt(request.getParameter("roundNum")); //Stores user-inputed round number as int
+			String roundDur = request.getParameter("duration"); //Stores user-inputted round duration as string
+			//System.out.print(roundNum);
+			//System.out.print(roundDur);
+			
+			Calendar calendar = Calendar.getInstance();  //Creates calendar instance
+				calendar.setTime(startDate); //Sets calendar time
+				
+				switch (roundDur) //Calculates new endDate depending on user input of round number and round duration
+				{
+				case "1Min":
+					calendar.add(Calendar.MINUTE, 1*roundNum); 
+					break;
+					
+				case "Hourly":
+					calendar.add(Calendar.HOUR, 1*roundNum); 
+					break;
+					
+				case "Daily":
+					calendar.add(Calendar.DATE, 1*roundNum);
+					break;
+					
+				case "Weekly":
+					calendar.add(Calendar.DATE, 7*roundNum);
+					break;
+					
+				case "Biweekly" :
+					calendar.add(Calendar.DATE, 14*roundNum);
+					break;
+					
+				case "Monthly":
+					calendar.add(Calendar.MONTH, 1*roundNum);
+					break;					
+					
+				}
+				//System.out.println(calendar.getTime());
+				endDate =  calendar.getTime();//Converts from java date to sql datetime
+				endDateSQL = new java.sql.Date(endDate.getTime()); //Converts from java date to sql datetime
+				System.out.print(endDateSQL);
+		}
+			
+			
+		
+		
 		int crypto = Integer.parseInt(request.getParameter("crypto"));//Stores user-inputed include crypto as int
 		int maxParticipantNum = Integer.parseInt(request.getParameter("maxParticipantNum")); //Stores user-inputed max participants as int
 		double startCapital = Double.parseDouble(request.getParameter("startCapital")); //Stores user-inputed starting principle as double
 		
 		java.sql.Date startDateSQL = new java.sql.Date(startDate.getTime());//Converts from java date to sql datetime
-		java.sql.Date endDateSQL = new java.sql.Date(endDate.getTime());
+		
 		int leagueID = (int)(Math.random()*999999+100000); //generate random number for leagueID
 		
 		
@@ -94,7 +151,19 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			      
 			      stmt=conn.prepareStatement(sql);
 			      stmt.executeUpdate();//executes sql query to add host to the list of users of this league
-
+			      
+			      if (gameMode == 0) { //Checks if head-to-head mode
+					   int initial =0;
+					   
+				    	  sql = "INSERT INTO Head2Head (LeagueID, username, win, loss,percentage)"//sql query to add to h2h mode
+					    		  + "VALUES ('" + leagueID + "', '" + request.getSession().getAttribute("username") + "', '"+initial+" ' , '"+ initial +"')";
+				    	  
+				    	  stmt=conn.prepareStatement(sql);
+					      stmt.executeUpdate();//executes sql query to add to H2H table if in H2H mode
+			      
+			      }
+			      
+			      
 			      stmt.close();
 			      conn.close();
 			      
