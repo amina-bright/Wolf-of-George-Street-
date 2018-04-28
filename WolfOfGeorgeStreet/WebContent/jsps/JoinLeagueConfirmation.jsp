@@ -8,6 +8,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
+
+body {
+	background-color: #FFDE26;
+	}
+	
 .sidenav {
     width: 130px;
     position: fixed;
@@ -45,13 +50,15 @@
 }
 
 .topnav {
-    background-color: #333;
+    background-color: #1A1F28;
+    border: 1px solid;
+    border-radius: 5px;
     overflow: hidden;
 }
 
 .topnav a:hover {
-    background-color: #ddd;
-    color: black;
+   <%-- background-color: #ddd; --%>
+    color: #FFDE26;
 }
 
 .topnav a {
@@ -63,8 +70,12 @@
     height:15px;
     font-size: 17px;
 }
+
 .btn {
-    border: none;
+	margin-top: 15px;
+    border: 1px solid;
+    border-color: black;
+    border-radius: 5px;
     color: white;
     top: 300px;
     left: 200px;
@@ -72,9 +83,12 @@
     font-size: 16px;
     cursor: pointer;
 }
-
-.green {background-color: #4CAF50;} /* Green */
-.green:hover {background-color: #46a049;}
+.btn:hover{
+	background-color:
+		#FFDE26}
+.purple {background-color: #5E0099;} /* Purple */
+.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+				color:black;}
 
 
 </style>
@@ -82,9 +96,9 @@
 </head>
 <body>
 <div class="topnav">
-	<a href="alerts">alerts</a>
-	<a href="help">help</a>
-	<a href="myaccount">My account</a>
+	<a href="alerts">Alerts</a>
+	<a href="help">Help</a>
+	<a href="myaccount">My Account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
@@ -92,11 +106,14 @@
 <div class="main">
 
 
-<p> 
-Congratulations on joining a League! <!-- Congratulates user -->
+<p> <br><br>
+<font size=6>
+Congratulations on Joining a League! <!-- Congratulates user -->
+</font>
+<br><br>
 </p>
 
-  <button class="btn green" id="button_Continue">Continue</button>
+  <button class="btn purple" id="button_Continue">Continue</button>
 <!--  Continue button that redirects user to league page -->
 
 </div>
@@ -115,5 +132,6 @@ document.getElementById("button_Continue").onclick = function () {
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
 })();
 </script>
+
 </body>
 </html>

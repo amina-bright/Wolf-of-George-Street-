@@ -8,13 +8,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
+
+body {
+	background-color: #FFDE26;
+	}
+	
 .sidenav {
-    width: 130px;
+	width: 170px;
     position: fixed;
+    border: 1px solid;
+    border-color: #1A1F28;
+    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #eee;
+    background: #1A1F28;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -24,16 +32,40 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #2196F3;
+    color: #FFFFFF;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #064579;
+    color: #FFDE26;
 }
 
+.btn {
+	margin-top: 15px;
+    border: 1px solid;
+    border-color: black;
+    border-radius: 5px;
+    color: white;
+    top: 300px;
+    left: 200px;
+    padding: 8px 28px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn:hover{
+	background-color:
+		#FFDE26}
+.purple {background-color: #5E0099;} /* Purple */
+.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+				color:black;}
+
+.border{
+	border: 1px solid;
+	border-color: black;
+	border-radius: 5px;
+	}
 .main {
-    margin-left: 140px; /* Same width as the sidebar + left position in px */
+    margin-left: 190px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
@@ -44,13 +76,15 @@
 }
 
 .topnav {
-    background-color: #333;
+    background-color: #1A1F28;
+    border: 1px solid;
+    border-radius: 5px;
     overflow: hidden;
 }
 
 .topnav a:hover {
-    background-color: #ddd;
-    color: black;
+   <%-- background-color: #ddd; --%>
+    color: #FFDE26;
 }
 
 .topnav a {
@@ -78,7 +112,7 @@
 <div class="topnav">
 	<a href="alerts">Alerts</a>
 	<a href="help">Help</a>
-	<a href="myaccount">My account</a>
+	<a href="myaccount">My Account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
@@ -92,9 +126,9 @@
 <div class="main">
 
 <form action="${pageContext.request.contextPath}/stocksearch" method="post">
-	<input type="text" name="searchContent" placeholder="Search.." size=50> <button type="submit" name="button" value="button1">Submit</button>
+	<input type="text" name="searchContent" placeholder="Search.." size=50 class="border"> <button type="submit" name="button" value="button1" class="btn purple">Submit</button>
 </form>
-
+<br><br>
 <c:if test="${not empty stocks}" >
 <table border=1 frame=void rules=rows>
 		<tr>
@@ -105,7 +139,7 @@
 		<c:forEach items="${stocks}" var="stock">
 			<tr>
 	        	<td>
-		        	<a href="${pageContext.request.contextPath}/detailed-description?symbol=${stock.symbol}&market=${stock.market}">${stock.symbol} </a>
+		        	<a href="${pageContext.request.contextPath}/detailed-description?symbol=${stock.symbol}">${stock.symbol} </a>
 	        	</td>
 	        	<td>${stock.title}</td> 
 	        	<td>${stock.market}</td>
@@ -115,6 +149,7 @@
 </c:if>
 
 </div>
+
 
 <!-- Chat script -->
 <script type="text/javascript">

@@ -9,13 +9,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
+
+body {
+	background-color: #FFDE26;
+	}
+	
 .sidenav {
-    width: 130px;
+	width: 170px;
     position: fixed;
+    border: 1px solid;
+    border-color: #1A1F28;
+    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #eee;
+    background: #1A1F28;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -25,16 +33,16 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #2196F3;
+    color: #FFFFFF;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #064579;
+    color: #FFDE26;
 }
 
 .main {
-    margin-left: 140px; /* Same width as the sidebar + left position in px */
+    margin-left: 190px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
@@ -45,13 +53,15 @@
 }
 
 .topnav {
-    background-color: #333;
+    background-color: #1A1F28;
+    border: 1px solid;
+    border-radius: 5px;
     overflow: hidden;
 }
 
 .topnav a:hover {
-    background-color: #ddd;
-    color: black;
+   <%-- background-color: #ddd; --%>
+    color: #FFDE26;
 }
 
 .topnav a {
@@ -79,7 +89,7 @@
 <div class="topnav">
 	<a href="alerts">Alerts</a>
 	<a href="help">Help</a>
-	<a href="myaccount">My account</a>
+	<a href="myaccount">My Account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
@@ -92,10 +102,11 @@
 
 <div class="main">
 
-	<c:forEach items="${leagueIds}" varStatus="loop">
+	 <c:forEach items="${leagueIds}" varStatus="loop">
 	
 		${leagueNames[loop.index]} : ${leagueIds[loop.index]} 
-		<br> 
+		<br><br>
+		<%--Liquid Money: $${liquidmoneys[loop.index]}  <!--  Prints the liquid money for the league --> --%>
 		Money Available: $<fmt:formatNumber value = "${liquidmoneys[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>  <!--  Prints the liquid money for the league -->
 		<br> 
 		Total Asset: $<fmt:formatNumber value = "${liquidmoneys[loop.index] + assetSums[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>  <!--  Prints the total asset for the league -->
@@ -108,12 +119,13 @@
 		    <th>Title</th>
 		    <th>Market</th>
 		    <th>Amount </th>
-	  	</tr>
+	  	</tr>  
 			
 			<c:forEach var="currentAsset" items="${assets[loop.index]}" varStatus="loop2">
 				<tr>
+				
 					<td>
-						<a href="${pageContext.request.contextPath}/detailed-description?symbol=${currentAsset.symbol}&market=${currentAsset.market}">${currentAsset.symbol} </a>
+						<a href="${pageContext.request.contextPath}/detailed-description?symbol=${currentAsset.symbol}">${currentAsset.symbol} </a>
 					</td>
 					
 					<td>
@@ -153,3 +165,5 @@
 </script>
 </body>
 </html>
+</body>
+</html> 

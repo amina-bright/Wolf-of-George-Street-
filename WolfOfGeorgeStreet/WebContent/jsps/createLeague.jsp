@@ -7,13 +7,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
+body{
+	background-color: #FFDE26;
+	}
 .sidenav {
-    width: 130px;
+	width: 170px;
     position: fixed;
+    border: 1px solid;
+    border-color: #1A1F28;
+    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #eee;
+    background: #1A1F28;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -23,12 +29,12 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #2196F3;
+    color: #FFFFFF;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #064579;
+    color: #FFDE26;
 }
 
 .column {
@@ -45,7 +51,9 @@
 }
 
 .btn {
-    border: none;
+	margin-top: 15px;
+    border: 1px solid;
+    border-color: black;
     color: white;
     top: 300px;
     left: 200px;
@@ -53,12 +61,12 @@
     font-size: 16px;
     cursor: pointer;
 }
-
-.green {background-color: #4CAF50;} /* Green */
-.green:hover {background-color: #46a049;}
-
-.blue {background-color: #2196F3;} /* Blue */
-.blue:hover {background: #0b7dda;}
+.btn:hover{
+	background-color:
+		#FFDE26}
+.purple {background-color: #5E0099;} /* Purple */
+.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+				color:black;}
 
 .dropbtn {
     background-color: #3498DB;
@@ -103,7 +111,7 @@ input[type=text], select, textarea {
     width: 50%;
     padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     box-sizing: border-box;
     margin-top: 6px;
     margin-bottom: 16px;
@@ -114,7 +122,7 @@ input[type=number], select, textarea {
     width: 25%;
     padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     box-sizing: border-box;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -122,36 +130,46 @@ input[type=number], select, textarea {
 }
 
 input[type=submit] {
-    background-color: #4CAF50;
+	margin-top: 15px;
+    background-color: #5E0099;
     color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
+    padding: 12px 40px;
+    font-size: 14px;
+    border: 1px solid;;
+    border-radius: 5px;
+    border-color: black;
     cursor: pointer;
 }
 
 input[type=submit]:hover {
-    background-color: #45a049;
+    background-color: #FFDE26;
+    color: black;
 }
 
+input[type=date] {
+	border: 1px solid;
+	border-radius: 5px;
+	border-color: black;
+	}
+	
 .container {
     border-radius: 5px;
-    background-color: #f2f2f2;
+    background-color: #F2F2F2;
     padding: 20px;
 }
 
 .main {
-    margin-left: 140px; /* Same width as the sidebar + left position in px */
+    margin-left: 200px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
 
 .form {
-	margin-left: 140px; /* Same width as the sidebar + left position in px */
+	margin-left: 200px; /* Same width as the sidebar + left position in px */
     font-size: 22px; /* Increased text to enable scrolling */
-    padding: 0px 10px;
+    padding: 2px 10px;
     border-radius: 5px;
-    background-color: #f2f2f2;
+    background-color: #F2F2F2;
 }
 
 @media screen and (max-height: 450px) {
@@ -160,13 +178,15 @@ input[type=submit]:hover {
 }
 
 .topnav {
-    background-color: #333;
+    background-color: #1A1F28;
+    border: 1px solid;
+    border-radius: 5px;
     overflow: hidden;
 }
 
 .topnav a:hover {
-    background-color: #ddd;
-    color: black;
+   <%-- background-color: #ddd; --%>
+    color: #FFDE26;
 }
 
 .topnav a {
@@ -185,9 +205,9 @@ input[type=submit]:hover {
 
 <body>
 <div class="topnav">
-	<a href="alerts">alerts</a>
-	<a href="help">help</a>
-	<a href="myaccount">My account</a>
+	<a href="alerts">Alerts</a>
+	<a href="help">Help</a>
+	<a href="myaccount">My Account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
@@ -214,13 +234,13 @@ Create League<br>
 		
 		
 		Game Mode: <br>
-	    <input type="radio" checked value="1" name="gameMode">Normal<br>
+	    <input type="radio" checked value="1" name="gameMode">Normal<br><br>
 	    <input type="radio" value="0" name="gameMode">Head-to-Head (NYI)<br><br> <!--  asks user to game mode-->
 	    
 		<fieldset>
-	    <legend>League Settings</legend>
-	    Start Date: <input type="date" name="startDate" required><br> <!--  asks user for start and end date -->
-	    End Date: <input type="date" name="endDate" required><br>
+	    <legend>League Settings</legend> <br>
+	    Start Date: <input type="date" name="startDate" required><br><br> <!--  asks user for start and end date -->
+	    End Date: <input type="date" name="endDate" required><br><br>
 	    Round duration: <br> <!--Asks user for round duration  -->
 	    <select name="duration">
 	<option value="1Min">1Min</option>    
@@ -230,18 +250,19 @@ Create League<br>
     <option value="Biweekly">Biweekly</option>
     <option value="Monthly">Monthly</option>
   </select><br>
-  		Number of rounds: <input type="number" name="roundNum" min=1 max = 100 required> (0 - 100)<br>
+  	Number of rounds: <input type="number" name="roundNum" min=1 max = 100 required> (0 - 100)<br>
 	    <!--  asks user to input number of rounds -->
+	    
 	    Include Cryptocurrency:
 	    <input type="radio" value= 1 name="crypto">Yes
-	    <input type="radio" checked value= 0 name="crypto">No<br> <!--  asks user if they want to include crypto -->
-	    Max Number of Participants: <input type="number" name="maxParticipantNum" min=0 max = 100 required> (0 - 100)<br>
+	    <input type="radio" checked value= 0 name="crypto">No<br><br> <!--  asks user if they want to include crypto -->
+	    Max Number of Participants: <input type="number" name="maxParticipantNum" min=0 max = 100 required> (0 - 100)<br><br>
 	    <!--  asks user to input max participant number -->
 	    Starting Capital: <input type="number" name="startCapital" min = 0 max = 10000 required> ($0 - $10,000)<br>
 	    <!--  asks user to input starting principle -->
 	  </fieldset>
 	
-		<input type="submit" name="Submit" value="submit"> <!--  submit button -->
+		<input type="submit" name="Submit" value="Submit"> <!--  submit button -->
 	</form>
 </p>
 	
@@ -261,10 +282,8 @@ Create League<br>
  fz.src = '//widget.flyzoo.co/scripts/flyzoo.start.js';
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
 })();
+
 </script>
-
-
-
 
 
 </body>

@@ -7,13 +7,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
+
+body {
+	background-color: #FFDE26;
+	}
+	
 .sidenav {
-    width: 130px;
+	width: 170px;
     position: fixed;
+    border: 1px solid;
+    border-color: #1A1F28;
+    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #eee;
+    background: #1A1F28;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -23,12 +31,12 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #2196F3;
+    color: #FFFFFF;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #064579;
+    color: #FFDE26;
 }
 
 .column {
@@ -45,7 +53,10 @@
 }
 
 .btn {
-    border: none;
+	margin-top: 15px;
+    border: 1px solid;
+    border-color: black;
+    border-radius: 5px;
     color: white;
     top: 300px;
     left: 200px;
@@ -53,24 +64,27 @@
     font-size: 16px;
     cursor: pointer;
 }
-
-.green {background-color: #4CAF50;} /* Green */
-.green:hover {background-color: #46a049;}
-
-.blue {background-color: #2196F3;} /* Blue */
-.blue:hover {background: #0b7dda;}
+.btn:hover{
+	background-color:
+		#FFDE26}
+.purple {background-color: #5E0099;} /* Purple */
+.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+				color:black;}
 
 .dropbtn {
-    background-color: #3498DB;
+    background-color: #5E0099;
     color: white;
-    padding: 16px;
+    padding: 14px 28px;
     font-size: 16px;
-    border: none;
+    border: 1px solid;
+    border-color: black;
+    border-radius: 5px;
     cursor: pointer;
 }
 
 .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
+    background-color: #FFDE26;
+    color: black;
 }
 
 .dropdown {
@@ -81,7 +95,9 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f1f1f1;
+    background-color: #ddd;
+    border: 1px solid;
+    border-radius: 5px;
     min-width: 160px;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -95,7 +111,8 @@
     display: block;
 }
 
-.dropdown a:hover {background-color: #ddd}
+.dropdown a:hover {background-color: #5E0099;
+				   color: white;}
 
 .show {display:block;}
 
@@ -114,8 +131,8 @@ input[type=submit] {
     background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid;
+    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -130,7 +147,7 @@ input[type=submit]:hover {
 }
 
 .main {
-    margin-left: 140px; /* Same width as the sidebar + left position in px */
+    margin-left: 190px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
@@ -141,13 +158,15 @@ input[type=submit]:hover {
 }
 
 .topnav {
-    background-color: #333;
+    background-color: #1A1F28;
+    border: 1px solid;
+    border-radius: 5px;
     overflow: hidden;
 }
 
 .topnav a:hover {
-    background-color: #ddd;
-    color: black;
+   <%-- background-color: #ddd; --%>
+    color: #FFDE26;
 }
 
 .topnav a {
@@ -159,15 +178,15 @@ input[type=submit]:hover {
     height:15px;
     font-size: 17px;
 }
-
+ 
 </style>
 <title>Wolf of George Street</title>
 </head>
 <body>
 <div class="topnav">
-	<a href="alerts">alerts</a>
-	<a href="help">help</a>
-	<a href="myaccount">My account</a>
+	<a href="alerts">Alerts</a>
+	<a href="help">Help</a>
+	<a href="myaccount">My Account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
@@ -181,18 +200,20 @@ input[type=submit]:hover {
 <div class="main">
 
 <p>
-Hi! Welcome to the League Page!
+<font size=8>
+Welcome to the League Page!
+</font>
 </p>
 
 
 <div class="row">
   <div class="column"> 
-    <button class="btn green" id="button_CreateLeague">Create league</button>
+    <button class="btn purple" id="button_CreateLeague">Create League</button><br><br>
   <!--  Create league button that redirects to create league page -->
   	<p></p>
    <div class="row">
 		<div class="dropdown">
-		<button onclick="hostedLeagueDrpDwnFunction()" class="dropbtn">Manage My Hosted Leagues</button>
+		<button onclick="hostedLeagueDrpDwnFunction()" class="dropbtn">Hosted Leagues</button>
 		 <!--  manage league button that redirects to manage league page -->
 		  <div id="hostedLeagueDrpDwn" class="dropdown-content">
 		  	<!-- if the hostedLeagueNames array is not empty, list the elements in the drop-down menu--> 
@@ -210,7 +231,7 @@ Hi! Welcome to the League Page!
 </div>
   
   <div class="column">
-    <button class="btn green" id="button_JoinLeague">Join League</button>
+    <button class="btn purple" id="button_JoinLeague">Join League</button><br><br>
      <!--  join league button that redirects to join league page -->
      <p></p>
      <div class="row">
@@ -286,5 +307,6 @@ window.onclick = function(event) {
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
 })();
 </script>
+
 </body>
 </html>

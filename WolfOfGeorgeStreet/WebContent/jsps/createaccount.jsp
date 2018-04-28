@@ -4,12 +4,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<style>
+ <style>
+body {
+ background-color: #FFDE26;
+ }
+ .button {
+	margin-top: 15px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: black;
+    color: white;
+    background-color: #5E0099;
+    top: 300px;
+    left: 200px;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.button:hover{
+	background-color: #FFDE26;
+	color: black;
+	 		}
 h1 {text-align:center;}
 h2 {text-align:center;}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<style>
+ <style>
 .main {
     margin-left: 0px; /* Same width as the sidebar + left position in px */
     font-size: 16px; /* Increased text to enable scrolling */
@@ -17,7 +37,7 @@ h2 {text-align:center;}
     text-align: center;
 }
 
-</style>
+</style> 
 <title>Create Account</title>
 </head>
 
@@ -31,17 +51,18 @@ h2 {text-align:center;}
 <div class="main">
 
 <form action="${pageContext.request.contextPath}/createaccount" method="post">
-	<input type="text" name="fname" placeholder="First Name" size=50>
-	<br>
-	<input type="text" name="lname" placeholder="Last Name" size=50>
-	<br>
-	<input type="text" name="username" placeholder="Username*" size=50> 
-	<br>
-	<input type="text" name="password" placeholder="Password*" size=50> 
-	<br>
-	<input type="text" name="email" placeholder="Email*" size=50> 
-	<br>
-	<button type="submit" name="button" value="button1">Submit</button>
+	<input type="text" name="fname" placeholder="First Name*" size=50> <br>
+	<br/>
+	<input type="text" name="lname" placeholder="Last Name*" size=50> <br>
+	<br/>
+	<input type="text" name="username" placeholder="Username*" size=50> <br>
+	<br/>
+	<input type="text" name="password" placeholder="Password*" size=50> <br>
+	<br/>
+	<input type="text" name="email" placeholder="Email*" size=50> <br>
+	<br/>
+	<button type="submit" name="button" value="button1" class="button">Submit</button> 
+	
 </form>
 <br>
 <br>

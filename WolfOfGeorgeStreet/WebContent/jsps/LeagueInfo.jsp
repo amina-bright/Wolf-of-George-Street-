@@ -8,13 +8,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
+
+body {
+	background-color: #FFDE26;
+	}
+	
 .sidenav {
-    width: 130px;
+	width: 170px;
     position: fixed;
+    border: 1px solid;
+    border-color: #1A1F28;
+    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #eee;
+    background: #1A1F28;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -24,12 +32,12 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #2196F3;
+    color: #FFFFFF;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #064579;
+    color: #FFDE26;
 }
 
 input[type=text], select, textarea {
@@ -42,7 +50,6 @@ input[type=text], select, textarea {
     margin-bottom: 16px;
     resize: vertical;
 }
-
 input[type=number], select, textarea {
     width: 25%;
     padding: 8px;
@@ -53,7 +60,6 @@ input[type=number], select, textarea {
     margin-bottom: 5px;
     resize: vertical;
 }
-
 input[type=submit] {
     background-color: #4CAF50;
     color: white;
@@ -63,11 +69,8 @@ input[type=submit] {
     cursor: pointer;
 }
 
-.green {background-color: #4CAF50;} /* Green */
-.green:hover {background-color: #46a049;}
-
 .main {
-    margin-left: 140px; /* Same width as the sidebar + left position in px */
+    margin-left: 190px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
@@ -78,13 +81,15 @@ input[type=submit] {
 }
 
 .topnav {
-    background-color: #333;
+    background-color: #1A1F28;
+    border: 1px solid;
+    border-radius: 5px;
     overflow: hidden;
 }
 
 .topnav a:hover {
-    background-color: #ddd;
-    color: black;
+   <%-- background-color: #ddd; --%>
+    color: #FFDE26;
 }
 
 .topnav a {
@@ -112,7 +117,7 @@ input[type=submit] {
 <div class="topnav">
 	<a href="alerts">Alerts</a>
 	<a href="help">Help</a>
-	<a href="myaccount">My account</a>
+	<a href="myaccount">My Account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
@@ -124,10 +129,10 @@ input[type=submit] {
 </div>
 
 <div class="main">
-		
+		<br><br>
 		${leagueName} : ${param.leagueID} <br>
 		 <p>
-		 Your League Ranking: ${userRank}<br>
+		 Your League Ranking: ${userRank}<br><br>
 		 Your League Assets: $${userAsset}
 		 </p>
 		<table border=1 frame=void rules=rows>
@@ -158,12 +163,11 @@ input[type=submit] {
 				</tr>
 			
 			</c:forEach>
-			<br>
-		
+			
 			
 		</table>
-		
-		<p>
+	
+				<p>
 		 Matchups for this Round 
 		 </p>
 		
