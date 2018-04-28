@@ -32,6 +32,40 @@
     color: #064579;
 }
 
+input[type=text], select, textarea {
+    width: 50%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=number], select, textarea {
+    width: 25%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.green {background-color: #4CAF50;} /* Green */
+.green:hover {background-color: #46a049;}
+
 .main {
     margin-left: 140px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
@@ -124,14 +158,105 @@
 				</tr>
 			
 			</c:forEach>
+			<br>
+		
+			
+		</table>
+		
+		<p>
+		 Matchups for this Round 
+		 </p>
+		
+		<table border=1 frame=void rules=rows> <!--  Table to show current matchups -->
+		
+		
+		<tr>
+		    <th>User1</th>
+		    <th>User2</th>
+		    
+		   
+	  	</tr>
+			<c:forEach items="${User1}" varStatus="loop">
+	
+				<tr>
+					
+					<td>
+						${User1[loop.index]}
+					</td>
+					
+					<td>
+						${User2[loop.index]}
+					</td>
+				
+				
+				</tr>
+			
+			</c:forEach>
 			
 			
 		</table>
 	
+	
+		 
+		 <table border=1 frame=void rules=rows> <!-- Table which shows ranking for H2H mode -->
+		
+		<tr>
+		    <th>Ranking</th>
+		    <th>League Member Name</th>
+		    <th>Win</th>
+		   <th>Loss</th>
+		   <th>Percentage</th>
+	  	</tr>
+			<c:forEach items="${leagueMemberNames}" varStatus="loop">
+	
+				<tr>
+					
+					<td>
+						${loop.index + 1}
+					</td>
+					
+					<td>
+						${leagueMemberNamesH2H[loop.index]}
+					</td>
+					
+					<td>
+						${wins[loop.index]}
+					</td>
+					
+					<td>
+						${losses[loop.index]}
+					</td>
+					
+					<td>
+						${percentage[loop.index]}
+					</td>
+				
+				
+				</tr>
+			
+			</c:forEach>
+			<br>
+		
+			
+		</table>
+		<!--  
+		<form action="${pageContext.request.contextPath}/Leagueinfo?leagueID=${param.leagueID}" method="post">
+		<input type="submit" name="Submit" value="submit">   submit button 
+	</form> 
+	-->
 				<br>
 				<br>		
 
 </div>
+
+
+
+
+<script>
+document.getElementById("button_Update_Round").onclick = function () {
+    location.href = "/WolfOfGeorgeStreet/LeagueInfo?leagueID=${param.leagueID}";
+};
+</script>
 
 <!-- Flyzoo script -->
 <script type="text/javascript">
@@ -142,5 +267,6 @@
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
 })();
 </script>
+
 </body>
 </html>
