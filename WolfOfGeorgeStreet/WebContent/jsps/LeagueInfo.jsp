@@ -2,27 +2,20 @@
     pageEncoding="US-ASCII"%>
     
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
-
-body {
-	background-color: #FFDE26;
-	}
-	
 .sidenav {
-	width: 170px;
+    width: 130px;
     position: fixed;
-    border: 1px solid;
-    border-color: #1A1F28;
-    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #eee;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -32,45 +25,16 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: #2196F3;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #FFDE26;
-}
-
-input[type=text], select, textarea {
-    width: 50%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    resize: vertical;
-}
-input[type=number], select, textarea {
-    width: 25%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    resize: vertical;
-}
-input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    color: #064579;
 }
 
 .main {
-    margin-left: 190px; /* Same width as the sidebar + left position in px */
+    margin-left: 140px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
@@ -81,15 +45,13 @@ input[type=submit] {
 }
 
 .topnav {
-    background-color: #1A1F28;
-    border: 1px solid;
-    border-radius: 5px;
+    background-color: #333;
     overflow: hidden;
 }
 
 .topnav a:hover {
-   <%-- background-color: #ddd; --%>
-    color: #FFDE26;
+    background-color: #ddd;
+    color: black;
 }
 
 .topnav a {
@@ -117,7 +79,7 @@ input[type=submit] {
 <div class="topnav">
 	<a href="alerts">Alerts</a>
 	<a href="help">Help</a>
-	<a href="/WolfOfGeorgeStreet/updateaccount">My Account</a>
+	<a href="myaccount">My account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
@@ -129,11 +91,11 @@ input[type=submit] {
 </div>
 
 <div class="main">
-		<br><br>
+		
 		${leagueName} : ${param.leagueID} <br>
 		 <p>
-		 Your League Ranking: ${userRank}<br><br>
-		 Your League Assets: $${userAsset}
+		 Your League Ranking: ${userRank}<br>
+		 Value of Your Portfolio: $<fmt:formatNumber value = "${userPortfolioValue}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
 		 </p>
 		<table border=1 frame=void rules=rows>
 		
@@ -143,7 +105,7 @@ input[type=submit] {
 		    <th>Assets</th>
 		   
 	  	</tr>
-			<c:forEach items="${leagueMemberNames}" varStatus="loop">
+			<c:forEach items="${user_portfoliovalue_list}" varStatus="loop">
 	
 				<tr>
 					
@@ -152,11 +114,11 @@ input[type=submit] {
 					</td>
 					
 					<td>
-						${leagueMemberNames[loop.index]}
+						${user_portfoliovalue_list[loop.index].getUsername()}
 					</td>
 					
 					<td>
-						${leagueAssets[loop.index]}
+						$<fmt:formatNumber value = "${user_portfoliovalue_list[loop.index].getPortfolioValue()}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
 					</td>
 				
 				
@@ -167,100 +129,10 @@ input[type=submit] {
 			
 		</table>
 	
-				<p>
-		 Matchups for this Round 
-		 </p>
-		
-		<table border=1 frame=void rules=rows> <!--  Table to show current matchups -->
-		
-		
-		<tr>
-		    <th>User1</th>
-		    <th>User2</th>
-		    
-		   
-	  	</tr>
-			<c:forEach items="${User1}" varStatus="loop">
-	
-				<tr>
-					
-					<td>
-						${User1[loop.index]}
-					</td>
-					
-					<td>
-						${User2[loop.index]}
-					</td>
-				
-				
-				</tr>
-			
-			</c:forEach>
-			
-			
-		</table>
-	
-	
-		 
-		 <table border=1 frame=void rules=rows> <!-- Table which shows ranking for H2H mode -->
-		
-		<tr>
-		    <th>Ranking</th>
-		    <th>League Member Name</th>
-		    <th>Win</th>
-		   <th>Loss</th>
-		   <th>Percentage</th>
-	  	</tr>
-			<c:forEach items="${leagueMemberNames}" varStatus="loop">
-	
-				<tr>
-					
-					<td>
-						${loop.index + 1}
-					</td>
-					
-					<td>
-						${leagueMemberNamesH2H[loop.index]}
-					</td>
-					
-					<td>
-						${wins[loop.index]}
-					</td>
-					
-					<td>
-						${losses[loop.index]}
-					</td>
-					
-					<td>
-						${percentage[loop.index]}
-					</td>
-				
-				
-				</tr>
-			
-			</c:forEach>
-			<br>
-		
-			
-		</table>
-		<!--  
-		<form action="${pageContext.request.contextPath}/Leagueinfo?leagueID=${param.leagueID}" method="post">
-		<input type="submit" name="Submit" value="submit">   submit button 
-	</form> 
-	-->
 				<br>
 				<br>		
 
 </div>
-
-
-
-
-<script>
-document.getElementById("button_Update_Round").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/LeagueInfo?leagueID=${param.leagueID}";
-};
-</script>
 
 <!-- Flyzoo script -->
 <script type="text/javascript">
@@ -271,6 +143,5 @@ document.getElementById("button_Update_Round").onclick = function () {
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
 })();
 </script>
-
 </body>
 </html>
