@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,36 +45,7 @@ public class LeagueInfo extends HttpServlet{
  		
  		if("submit".equals(button)) {			
  		System.out.print("button_pressed");	
- 		}
- 		
-		
-		 Timer timer = new Timer();
-     	 TimerTask task = new TimerTask() {
-	      	
-	      	public void run()
-	      	{
-	      		Calendar cal = Calendar.getInstance(); 
-	      		 
-				int second = cal.get(Calendar.MINUTE);//get the second
-				if(second == 1){
-					System.out.println("doing the scheduled task");
-					
-	
-				
-				
-				
-				
-				}
-	      		
-	      		
-	      	}
-     	  };
-					
-					
-			
-		
-     	 
-     	  
+ 		}    	  
      	  
 		String username=(String) request.getSession().getAttribute("username");
 
@@ -104,7 +76,7 @@ public class LeagueInfo extends HttpServlet{
 		      int i = 0;
 		      while(rs.next()) {
 		    	  i++;
-		    	  if(username.equals(rs.getString("username"))) {
+		    	  if(username.equals(rs.getString("username").trim())) {
 		    		  request.setAttribute("userAsset", rs.getDouble("liquidMoney"));
 		    		  request.setAttribute("userRank", i);
 		    	  }
@@ -117,7 +89,51 @@ public class LeagueInfo extends HttpServlet{
 		      
 		      while(rs.next()) {
 		    	  leagueName = rs.getString("LeagueName");
-		      }
+		      }		      
+		      
+		      ArrayList<Double> assetSums=new ArrayList<Double>();
+		      
+		      for(int h =0;h<leagueMemberNames.size();h++)
+		      {
+		      sql="SELECT * FROM Asset, StockLookup WHERE username='" + leagueMemberNames.get(h) + "' AND leagueID=" + leagueID + " AND asset=symbol";
+	    	  rs=stmt.executeQuery(sql);
+	    	  double assetSum = 0;
+	    	  
+	    	  while(rs.next()) {
+	    		  String symbol=rs.getString("symbol");
+	    		  String market=rs.getString("market");
+	    		  String title=rs.getString("title");
+	    		  double amount=rs.getDouble("amount");
+	    		  
+	    		  Stock newStock=new Stock(symbol, title, market);
+	    		  newStock.setAmount(amount);
+	    		  
+	    		 
+	    		  
+	    		//for each asset, obtain the current price
+	    		  double dataParsed[] = null;
+	    		  assetSum = 0;
+	    		  while(dataParsed==null) {
+	    		  if(market.equals("CRYPTO")) {
+	    				  String data=StockInfoInteractor.fetchCryptoData(symbol, 1);
+	    				  dataParsed=StockInfoInteractor.getTimeSeriesDataCrypto(data, 1, 0);
+	    		  }else {
+	    				  String data=StockInfoInteractor.fetchStockData(symbol, 1, false);
+	    				  dataParsed=StockInfoInteractor.getTimeSeriesData(data, 1, 0);
+	    		  }
+	    		  if(dataParsed==null) {
+	    			 //System.out.println("TEST: " + System.currentTimeMillis());
+	    			  TimeUnit.SECONDS.sleep(10);
+	    		  }
+	    		  }
+		    		  //add to the running sum of the asset value
+		    		  //System.out.println("getting current price of " + symbol);
+		    		  double currentPrice = dataParsed[3];
+		    		  assetSum += currentPrice*amount;
+	    	  }
+	    	  
+	    	  assetSums.add(h, assetSum);
+	      }
 		      
 		      ArrayList<String> leagueMemberNames_temp= new ArrayList<String>();
 		      for(int x=0;x<leagueMemberNames.size();x++)
@@ -144,7 +160,7 @@ public class LeagueInfo extends HttpServlet{
 		      int round;
 		      round=0;
 		      		      		
-		      		timer.schedule(task, 2000, 5000);
+		      	
 		      		/*
 		      		for(int h=0;h<leagueMemberNames_temp.size()/2;h++)
 				      {
@@ -236,6 +252,7 @@ public class LeagueInfo extends HttpServlet{
 		      request.setAttribute("wins", wins);
 		      request.setAttribute("losses", losses);
 		      request.setAttribute("percentage", percentage);
+		      request.setAttribute("assetSums", assetSums);
 		      
 		     //Display the jsp
 		     request.getRequestDispatcher("/jsps/LeagueInfo.jsp").forward(request, response);

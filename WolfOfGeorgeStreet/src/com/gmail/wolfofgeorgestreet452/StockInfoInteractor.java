@@ -184,7 +184,8 @@ public class StockInfoInteractor {
 			
 			return output;
 		} catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
+			//System.out.println(stockData);
 		}
 		
 		return null;
@@ -369,7 +370,7 @@ public class StockInfoInteractor {
 			
 			return output;
 		} catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 		return null;
