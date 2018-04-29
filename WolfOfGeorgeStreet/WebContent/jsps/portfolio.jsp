@@ -125,7 +125,7 @@ body {
 				<tr>
 				
 					<td>
-						<a href="${pageContext.request.contextPath}/detailed-description?symbol=${currentAsset.symbol}">${currentAsset.symbol} </a>
+						<a href="${pageContext.request.contextPath}/detailed-description?symbol=${currentAsset.symbol}&market=${param.market}">${currentAsset.symbol} </a>
 					</td>
 					
 					<td>

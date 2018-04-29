@@ -139,7 +139,7 @@ body {
 		<c:forEach items="${stocks}" var="stock">
 			<tr>
 	        	<td>
-		        	<a href="${pageContext.request.contextPath}/detailed-description?symbol=${stock.symbol}">${stock.symbol} </a>
+		        	<a href="${pageContext.request.contextPath}/detailed-description?symbol=${stock.symbol}&market=${stock.market}">${stock.symbol} </a>
 	        	</td>
 	        	<td>${stock.title}</td> 
 	        	<td>${stock.market}</td>

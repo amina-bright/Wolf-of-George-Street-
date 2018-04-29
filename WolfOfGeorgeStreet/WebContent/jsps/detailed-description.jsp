@@ -289,7 +289,7 @@ function init() {
 	
 	<div class="transcationForm" >
 	
-		<form action="${pageContext.request.contextPath}/detailed-description?symbol=${param.symbol}" method="post">
+		<form action="${pageContext.request.contextPath}/detailed-description?symbol=${param.symbol}&market=${param.market}" method="post">
 			
 			<span id="liquidMoney">
 				<script>
