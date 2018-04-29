@@ -207,7 +207,7 @@ input[type=date] {
 <div class="topnav">
 	<a href="alerts">Alerts</a>
 	<a href="help">Help</a>
-	<a href="myaccount">My Account</a>
+	<a href="/WolfOfGeorgeStreet/updateaccount">My Account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
