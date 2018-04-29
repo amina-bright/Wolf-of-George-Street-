@@ -7,21 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
-
-body {
-	background-color: #FFDE26;
-	}
-	
 .sidenav {
-	width: 170px;
+    width: 130px;
     position: fixed;
-    border: 1px solid;
-    border-color: #1A1F28;
-    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #eee;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -31,12 +23,12 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: #2196F3;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #FFDE26;
+    color: #064579;
 }
 
 .column {
@@ -53,9 +45,7 @@ body {
 }
 
 .btn {
-	margin-top: 15px;
-    border: 1px solid;
-    border-color: black;
+    border: none;
     color: white;
     top: 300px;
     left: 200px;
@@ -63,12 +53,12 @@ body {
     font-size: 16px;
     cursor: pointer;
 }
-.btn:hover{
-	background-color:
-		#FFDE26}
-.purple {background-color: #5E0099;} /* Purple */
-.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
-				color:black;}
+
+.green {background-color: #4CAF50;} /* Green */
+.green:hover {background-color: #46a049;}
+
+.blue {background-color: #2196F3;} /* Blue */
+.blue:hover {background: #0b7dda;}
 
 .dropbtn {
     background-color: #3498DB;
@@ -124,7 +114,7 @@ input[type=number], select, textarea {
     width: 25%;
     padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
     box-sizing: border-box;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -132,41 +122,34 @@ input[type=number], select, textarea {
 }
 
 input[type=submit] {
- 	margin-top: 15px;
- 	margin-left: 100px;
-    background-color: #5E0099;
+    background-color: #4CAF50;
     color: white;
-    padding: 12px 40px;
-    font-size: 14px;
-    border: 1px solid;;
-    border-radius: 5px;
-    border-color: black;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
 }
 
 input[type=submit]:hover {
-    background-color: #FFDE26;
-    color: black;
+    background-color: #45a049;
 }
 
 .container {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
-    margin-left: 190px;
-    width: 700px;
 }
 
 .main {
-    margin-left: 190px; /* Same width as the sidebar + left position in px */
+    margin-left: 140px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
 
 .form {
-	margin-left: 0px; /* Same width as the sidebar + left position in px */
+	margin-left: 140px; /* Same width as the sidebar + left position in px */
     font-size: 22px; /* Increased text to enable scrolling */
-    padding: 2px 10px;
+    padding: 0px 10px;
     border-radius: 5px;
     background-color: #f2f2f2;
 }
@@ -177,15 +160,13 @@ input[type=submit]:hover {
 }
 
 .topnav {
-    background-color: #1A1F28;
-    border: 1px solid;
-    border-radius: 5px;
+    background-color: #333;
     overflow: hidden;
 }
 
 .topnav a:hover {
-   <%-- background-color: #ddd; --%>
-    color: #FFDE26;
+    background-color: #ddd;
+    color: black;
 }
 
 .topnav a {
@@ -204,9 +185,9 @@ input[type=submit]:hover {
 
 <body>
 <div class="topnav">
-	<a href="alerts">Alerts</a>
-	<a href="help">Help</a>
-	<a href="/WolfOfGeorgeStreet/updateaccount">My Account</a>
+	<a href="alerts">alerts</a>
+	<a href="help">help</a>
+	<a href="myaccount">My account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
@@ -222,13 +203,10 @@ input[type=submit]:hover {
 <div class="main">
 
 <p>
-<font size=8>
 Join League<br>
-</font>
 </p>
 </div>
 
-<div class="container">
 <div class="form"> <!--  Form to join a league -->
 <p>
 <form action="${pageContext.request.contextPath}/joinleague" method="post">
@@ -237,11 +215,11 @@ Join League<br>
 		
 		
 	
-		<input type="submit" name="Submit" value="Submit">
+		<input type="submit" name="Submit" value="submit">
 		 <!--  Submit button -->
 	</form>
 <p>
-	</div>
+	
 </div>
 
 
@@ -262,6 +240,5 @@ Join League<br>
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
 })();
 </script>
-
 </body>
 </html>

@@ -7,19 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
 
 @WebServlet("/LeagueInfo")
 public class LeagueInfo extends HttpServlet{
@@ -36,52 +30,19 @@ public class LeagueInfo extends HttpServlet{
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 		if(request.getSession().getAttribute("username")==null) {
- 			response.sendRedirect(request.getContextPath());
- 			return;
- 		}  
- 		String button=request.getParameter("Submit");
- 		
- 		if("submit".equals(button)) {			
- 		System.out.print("button_pressed");	
- 		}
- 		
+		if(request.getSession().getAttribute("username")==null) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		}
 		
-		 Timer timer = new Timer();
-     	 TimerTask task = new TimerTask() {
-	      	
-	      	public void run()
-	      	{
-	      		Calendar cal = Calendar.getInstance(); 
-	      		 
-				int second = cal.get(Calendar.MINUTE);//get the second
-				if(second == 1){
-					System.out.println("doing the scheduled task");
-					
-	
-				
-				
-				
-				
-				}
-	      		
-	      		
-	      	}
-     	  };
-					
-					
-			
-		
-     	 
-     	  
-     	  
 		String username=(String) request.getSession().getAttribute("username");
 
 		String leagueID=(String) request.getParameter("leagueID");
 		String leagueName = " ";
 		
-		ArrayList<String> leagueMemberNames=new ArrayList<String>();
-		ArrayList<Double> leagueAssets=new ArrayList<Double>();
+		//array of containers for usernames and their corresponding portfolio values
+		ArrayList<UserPortfolio> user_portfoliovalue_list = new ArrayList<UserPortfolio>();
+		
 		
 		//List of lists for all the assets the user has for each league
 		
@@ -98,18 +59,51 @@ public class LeagueInfo extends HttpServlet{
 		      //Grab all the leagues the user is in
 		      stmt = conn.createStatement();
 		      String sql;
-		      sql="SELECT * from LeagueUserList WHERE leagueID = '"+ leagueID + "' ORDER BY liquidMoney DESC";
+		      sql="SELECT * from LeagueUserList WHERE leagueID = '"+ leagueID + "'";
 		      ResultSet rs=stmt.executeQuery(sql);
-		      
-		      int i = 0;
+		       
+		      int size = 0;
 		      while(rs.next()) {
-		    	  i++;
-		    	  if(username.equals(rs.getString("username"))) {
-		    		  request.setAttribute("userAsset", rs.getDouble("liquidMoney"));
-		    		  request.setAttribute("userRank", i);
+		    	  int rank = size;
+		    	  double value = 0;
+		    	  
+		    	  //adds the specific user's liquid money and current value of asset and return as portfolio value
+		    	  value = rs.getDouble("liquidMoney") + LeagueFunctions.getUserLeagueAsset(leagueID, rs.getString("username"));
+		    	  UserPortfolio currentPair = new UserPortfolio(rs.getString("username"),value);
+		    	  /*
+		    	  System.out.println(currentPair.getUsername());
+		    	  System.out.println(currentPair.getPortfolioValue());
+		    	  */
+		    	  if(size == 0) { //first element
+		    		  
+		    		  user_portfoliovalue_list.add(currentPair);
+		    	  }else { //not the first element; must determine correct ranking
+		    		 
+		    		  for(int i = size; i > 0; i--) {
+		    		  	//compare the portfolio values of the two elements
+			    		  if(currentPair.getPortfolioValue() > user_portfoliovalue_list.get(i - 1).getPortfolioValue()){ //the new portfolio is greater
+			    			  //insert
+			    			 rank = i - 1;
+			    		  }else {//the new portfolio is lesser than or equal  
+			    			  rank = i;
+			    			  break; //no need to continue the for loop
+			    		  }
+			    	  } 
+		    		//use the determined rank value to insert the current pair at the right rank in the list
+		    		  
+		    		  user_portfoliovalue_list.add(rank,currentPair);
 		    	  }
-		    	  leagueMemberNames.add(rs.getString("username"));
-		    	  leagueAssets.add(rs.getDouble("liquidMoney"));
+	    		  size++;
+		      }
+		      
+		      for(int i = size-1; i >= 0; i--) {
+		    	  if(user_portfoliovalue_list.get(i).getUsername().equals(username)) { //current row is referring to the current user's information
+	    			  //System.out.println("current user info found");
+		    		  request.setAttribute("userRank", i+1);
+				      request.setAttribute("userPortfolioValue", user_portfoliovalue_list.get(i).getPortfolioValue());
+		    	  }else {
+		    		  //System.out.println(user_portfoliovalue_list.get(i).getUsername() + " is not the current user");
+		    	  }
 		      }
 		      
 		      sql="SELECT LeagueName from League WHERE leagueID = '"+ leagueID + "' ";
@@ -119,123 +113,13 @@ public class LeagueInfo extends HttpServlet{
 		    	  leagueName = rs.getString("LeagueName");
 		      }
 		      
-		      ArrayList<String> leagueMemberNames_temp= new ArrayList<String>();
-		      for(int x=0;x<leagueMemberNames.size();x++)
-		      {
-		    	  leagueMemberNames_temp.add(leagueMemberNames.get(x)); //Creates duplicate league member names arraylist 
-		      }  	//for match-making
-		      
-		      
-		      
-		      ArrayList<String> User1=new ArrayList<String>();
-		      ArrayList<String> User2=new ArrayList<String>();
-		     
-		      Collections.shuffle(leagueMemberNames_temp); //Randomizes order of names to determine matchups
-		      
-		      for(int x=0;x<leagueMemberNames_temp.size()/2;x++)
-		      {
-				User1.add(leagueMemberNames_temp.get(x)); 								//Adds users to arraylist for matchmaking		
-				User2.add(leagueMemberNames_temp.get(leagueMemberNames.size()/2+x));
-		      }
-				
-		      int initial; //Dummy variables used to enter values into the database
-		      initial=0;
-		      int hi=10;
-		      int round;
-		      round=0;
-		      		      		
-		      		timer.schedule(task, 2000, 5000);
-		      		/*
-		      		for(int h=0;h<leagueMemberNames_temp.size()/2;h++)
-				      {
-				    	  sql = "INSERT INTO Head2HeadMatchUp (LeagueID, round,username1 ,username2,User1_StartVal, User2_StartVal)"//sql query to add to h2h mode
-				    		  + "VALUES ('" + leagueID + "', '" + initial + "', '"+ User1.get(h)+ " ' , '"+ User2.get(h) + "', '"+initial+ "','"+ hi +"')";
-			      
-			    	  stmt=conn.prepareStatement(sql);
-				      stmt.executeUpdate(sql);//executes sql query to add to H2Hmatchups if in H2H mode
-				      }
-		      		*/
-		      		for(int g=0;g<leagueMemberNames_temp.size()/2;g++)
-				      {
-		      		sql = "SELECT * from Head2HeadMatchUp where username1='"+ User1.get(g) + "'  and leagueID = '"+ leagueID + "'and round= '"+ round + "'";
-		      		rs = stmt.executeQuery(sql);
-				      
-				      while(rs.next()) {
-				    	 
-				    	 double U1_StartVal = rs.getDouble("User1_StartVal"); //Gets the portfolio value of users at start of round
-				    	 double U2_StartVal = rs.getDouble("User2_StartVal");
-				    	 
-				    	 double U1_EndVal = rs.getDouble("User1_EndVal"); //Gets the portfolio value of users at end of round
-				    	 double U2_EndVal = rs.getDouble("User2_EndVal");
-				    	 
-				    	 String U1 = rs.getString("username1");//Gets usernames to send to the jsp for leaderboard
-				    	 String U2 = rs.getString("username2");
-				    	 
-				    	 double U1_profit = U1_StartVal - U1_EndVal; //Calculates who won the round
-				    	 double U2_profit = U2_StartVal - U2_EndVal;
-				    	 
-				    	 if (U1_profit>U2_profit) { //If User1 won, give user1 a win and user2 a loss
-				    		sql = "update WolfOfGeorgeStreetDB.Head2Head set win =win +1 where leagueID = '"+ leagueID +"' and username = '"+U1+"'" ; 
-				    		stmt=conn.prepareStatement(sql);
-						    stmt.executeUpdate(sql);
-						    
-						    sql = "update WolfOfGeorgeStreetDB.Head2Head set loss =loss +1 where leagueID = '"+ leagueID +"' and username = '"+U2+"'" ; 
-				    		stmt=conn.prepareStatement(sql);
-						    stmt.executeUpdate(sql);
-				    	 } else {//If User2 won, give user2 a win and user1 a loss
-				    		 sql = "update WolfOfGeorgeStreetDB.Head2Head set win =win +1 where leagueID = '"+ leagueID +"' and username = '"+U2+"'" ; 
-					    		stmt=conn.prepareStatement(sql);
-							    stmt.executeUpdate(sql);
-							    
-							    sql = "update WolfOfGeorgeStreetDB.Head2Head set loss =loss +1 where leagueID = '"+ leagueID +"' and username = '"+U1+"'" ; 
-					    		stmt=conn.prepareStatement(sql);
-							    stmt.executeUpdate(sql);
-				    		 
-				    		 
-				    	 }
-				    	 }
-				    	 
-				      }
-		      		
-		      		
-		      		ArrayList<Integer> wins=new ArrayList<Integer>(); //arraylist with user wins
-		      		ArrayList<Integer> losses=new ArrayList<Integer>(); //arraylist with user losses
-		      		ArrayList<String> leagueMemberNamesH2H=new ArrayList<String>(); //arraylist with membernames in H2H mode
-		      		sql="SELECT * from Head2Head WHERE leagueID = '"+ leagueID + "' ORDER BY win desc, loss asc";//Sql query to determine H2H standings based on Win/Loss
-				      ResultSet rs2=stmt.executeQuery(sql);
-				      
-				      int ii = 0;
-				      while(rs2.next()) {
-				    	  leagueMemberNamesH2H.add(rs2.getString("username")); //Gets username from database
-				    	  wins.add(rs2.getInt("win")); //Gets amount of wins from database
-				    	  losses.add(rs2.getInt("loss"));//Gets amount of loss from database
-				      }
-				      
-				    ArrayList<Double> percentage=new ArrayList<Double>();  
-		      		for (int q=0;q<wins.size();q++) //Calculates user win-loss percentage
-		      		{		      			
-		      			if (wins.get(q)+losses.get(q)== 0) //Prevents division by zero
-		      			{
-		      				percentage.add((1.00));
-		      			}else	
-		      				percentage.add((double) wins.get(q)/(wins.get(q)+losses.get(q)));	
-		      		}
-		      		
-				      stmt.close();
-				      conn.close();
-		      
-		      
 		      
 		      //Send the lists to the jsp
 		      request.setAttribute("leagueName", leagueName);
-		      request.setAttribute("leagueMemberNames", leagueMemberNames);
-		      request.setAttribute("leagueMemberNamesH2H", leagueMemberNamesH2H);
-		      request.setAttribute("leagueAssets", leagueAssets);
-		      request.setAttribute("User1", User1);
-		      request.setAttribute("User2", User2);
-		      request.setAttribute("wins", wins);
-		      request.setAttribute("losses", losses);
-		      request.setAttribute("percentage", percentage);
+		      request.setAttribute("user_portfoliovalue_list", user_portfoliovalue_list);
+		      
+		      
+		      
 		      
 		     //Display the jsp
 		     request.getRequestDispatcher("/jsps/LeagueInfo.jsp").forward(request, response);
@@ -257,19 +141,10 @@ public class LeagueInfo extends HttpServlet{
 		         se.printStackTrace();
 		      }
 		   }
-		
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//doGet(request,response);
-		System.out.print("button_pressed");
-		String button=request.getParameter("Submit");
-		if("submit".equals(button)) {	
-			System.out.print("button_pressed");
-		}
-		
-		
+		doGet(request,response);
 	}
 	
 	
