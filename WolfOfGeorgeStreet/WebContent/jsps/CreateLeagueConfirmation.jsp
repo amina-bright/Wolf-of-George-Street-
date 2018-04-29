@@ -8,19 +8,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
-body{
-	background-color: #FFDE26;
-	}
 .sidenav {
-	width: 170px;
+    width: 130px;
     position: fixed;
-    border: 1px solid;
-    border-color: #1A1F28;
-    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #eee;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -30,12 +24,12 @@ body{
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: #2196F3;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #FFDE26;
+    color: #064579;
 }
 
 .main {
@@ -51,15 +45,13 @@ body{
 }
 
 .topnav {
-    background-color: #1A1F28;
+    background-color: #333;
     overflow: hidden;
-    border: 1px solid;
-    border-color: black;
-    border-radius: 5px;
 }
 
 .topnav a:hover {
-    color: #FFDE26;
+    background-color: #ddd;
+    color: black;
 }
 
 .topnav a {
@@ -71,12 +63,8 @@ body{
     height:15px;
     font-size: 17px;
 }
-
 .btn {
-	margin-top: 15px;
-    border: 1px solid;
-    border-color: black;
-    border-radius: 5px;
+    border: none;
     color: white;
     top: 300px;
     left: 200px;
@@ -84,12 +72,9 @@ body{
     font-size: 16px;
     cursor: pointer;
 }
-.btn:hover{
-	background-color:
-		#FFDE26}
-.purple {background-color: #5E0099;} /* Purple */
-.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
-				color:black;}
+
+.green {background-color: #4CAF50;} /* Green */
+.green:hover {background-color: #46a049;}
 
 
 </style>
@@ -97,9 +82,9 @@ body{
 </head>
 <body>
 <div class="topnav">
-	<a href="alerts">Alerts</a>
-	<a href="help">Help</a>
-	<a href="/WolfOfGeorgeStreet/updateaccount">My Account</a>
+	<a href="alerts">alerts</a>
+	<a href="help">help</a>
+	<a href="myaccount">My account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
@@ -108,12 +93,12 @@ body{
 
 
 <p> 
-Congratulations on creating a League! <br><br>
-Your leagueID is:  <c:out value = "${leagueID}"/> <br><br>
+Congratulations on creating a League! <br>
+Your leagueID is:  <c:out value = "${leagueID}"/> <br>
 Use this to invite others to your league. <!--  Congratulates user and outputs the randomly generated leagueID -->
 </p>
 
-  <button class="btn purple" id="button_Continue">Continue</button>
+  <button class="btn green" id="button_Continue">Continue</button>
 <!--  Continue button that redirects user to league page -->
 
 </div>
@@ -133,6 +118,4 @@ document.getElementById("button_Continue").onclick = function () {
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
 })();
 </script>
-
-</body>
 </html>

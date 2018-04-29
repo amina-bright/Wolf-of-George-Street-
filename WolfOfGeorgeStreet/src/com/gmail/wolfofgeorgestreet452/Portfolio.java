@@ -102,7 +102,7 @@ public class Portfolio extends HttpServlet{
 		    			  dataParsed=StockInfoInteractor.getTimeSeriesData(data, 1, 0);
 		    		  }
 			    		  //add to the running sum of the asset value
-			    		  System.out.println("getting current price of " + symbol);
+			    		  //System.out.println("getting current price of " + symbol);
 			    		  double currentPrice = dataParsed[3];
 			    		  assetSum += currentPrice*amount;
 		    	  }

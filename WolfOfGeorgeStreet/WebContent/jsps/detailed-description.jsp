@@ -9,46 +9,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
-
-body {
-	background-color: #FFDE26;
-	}
-	
-.button {
-	margin-top: 15px;
-    border: 1px solid;
-    border-radius: 5px;
-    border-color: black;
-    color: white;
-    background-color: #5E0099;
-    top: 300px;
-    left: 200px;
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-.button:hover{
-	background-color: #FFDE26;
-	color: black;
-	 		}
-	 		
-.border {
-	border: 1px solid;
-	border-color: black;
-	border-radius: 5px;
-	padding: 2px 2px;
-	}
-			
 .sidenav {
-	width: 170px;
+    width: 130px;
     position: fixed;
-    border: 1px solid;
-    border-color: #1A1F28;
-    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #eee;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -58,12 +25,12 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: #2196F3;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #FFDE26;
+    color: #064579;
 }
 
 .main {
@@ -79,15 +46,13 @@ body {
 }
 
 .topnav {
-    background-color: #1A1F28;
+    background-color: #333;
     overflow: hidden;
-    border: 1px solid;
-    border-color: black;
-    border-radius: 5px;
 }
 
 .topnav a:hover {
-    color: #FFDE26;
+    background-color: #ddd;
+    color: black;
 }
 
 .topnav a {
@@ -157,11 +122,12 @@ body {
 	font-size: 18px;
 }
 
-</style>
 
+</style>
 <script>
 window.onload = function () {
 	
+
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 	zoomEnabled: true,
@@ -217,6 +183,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 });
 chart.render();
 }
+
 function displayLiquidMoney(temp) {
 	var moneyArray = ${liquidMoneys}
     	
@@ -224,19 +191,19 @@ function displayLiquidMoney(temp) {
     	document.getElementById("liquidMoney").innerHTML = "Money Available: $" + Math.round(moneyArray[index] * 100) / 100;
 	
 }
+
 function init() {
 	var moneyArray = ${liquidMoneys}
 	document.getElementById("liquidMoney").innerHTML = "Money Available: $" + Math.round(moneyArray[0] * 100) / 100;
 }
 </script>
-
 <title>${param.symbol}</title>
 </head>
 <body>
 <div class="topnav">
 	<a href="alerts">Alerts</a>
 	<a href="help">Help</a>
-	<a href="/WolfOfGeorgeStreet/updateaccount">My Account</a>
+	<a href="myaccount">My account</a>
 	<a href="/WolfOfGeorgeStreet/logout">Logout</a>
 </div>
 
@@ -297,14 +264,14 @@ function init() {
 				</script>
 			</span>
 			
-			<input type="number" name="amount" placeholder="Number of Shares" size=25 min="0" step=".01" class="border">
+			<input type="number" name="amount" placeholder="Number of Shares" size=25 min="0" step=".01">
 			
-			<select name="transcationType" class="border">
+			<select name="transcationType">
 				<option value="buy">Buy</option>
 				<option value="sell">Sell</option>
 			</select>
 			
-			<select name="league" class="border" id="leagueChoice" onchange="displayLiquidMoney(this)">
+			<select name="league" id="leagueChoice" onchange="displayLiquidMoney(this)">
 				<c:forEach items="${leagueIds}" varStatus="loop">
 					<option value="${leagueIds[loop.index]}">${leagueNames[loop.index]}</option>
 				</c:forEach>
@@ -314,7 +281,7 @@ function init() {
 			 
 			 <input type="hidden" name="symbol" value="${stock.symbol}">
 			
-			<button type="submit" name="button" value="button1" class="button">Submit</button>
+			<button type="submit" name="button" value="button1">Submit</button>
 			
 		</form>
 	
