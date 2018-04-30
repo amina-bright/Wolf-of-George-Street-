@@ -7,21 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
-
-body {
-	background-color: #FFDE26;
-	}
-	
 .sidenav {
-	width: 170px;
+    width: 130px;
     position: fixed;
-    border: 1px solid;
-    border-color: #1A1F28;
-    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #eee;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -31,12 +23,12 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: #2196F3;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #FFDE26;
+    color: #064579;
 }
 
 .column {
@@ -149,7 +141,7 @@ input[type=submit]:hover {
 }
 
 .main {
-    margin-left: 190px; /* Same width as the sidebar + left position in px */
+    margin-left: 140px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
@@ -168,15 +160,13 @@ input[type=submit]:hover {
 }
 
 .topnav {
-    background-color: #1A1F28;
-    border: 1px solid;
-    border-radius: 5px;
+    background-color: #333;
     overflow: hidden;
 }
 
 .topnav a:hover {
-   <%-- background-color: #ddd; --%>
-    color: #FFDE26;
+    background-color: #ddd;
+    color: black;
 }
 
 .topnav a {
@@ -195,9 +185,9 @@ input[type=submit]:hover {
 
 <body>
 <div class="topnav">
-	<a href="alerts">Alerts</a>
-	<a href="help">Help</a>
-	<a href="/WolfOfGeorgeStreet/updateaccount">My Account</a>
+	<a href="alerts">alerts</a>
+	<a href="help">help</a>
+	<a href="myaccount">My account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
@@ -213,25 +203,41 @@ input[type=submit]:hover {
 <div class="main">
 
 <p>
-Manage League<br><br>
-
-League ID: ${param.leagueID}<br>
+Manage League<br>
 </p>
 </div>
 
+<div class="form"> <!--  form to create a league -->
+<p>
+<form action="${pageContext.request.contextPath}/manageLeague" method="post">
 
+		Please Enter Previous League Name:<input type="text" name="OldleagueName" required><br>
 
-
-
+		New League Name: <input type="text" name="leagueName" required><br>  <!--  asks user to input league name -->
+	
+		
+		
+	    
+		<fieldset>
+	    <legend> Update League Settings</legend>
+	    Include Cryptocurrency:
+	    <input type="radio" value= 1 name="crypto">Yes
+	    <input type="radio" checked value= 0 name="crypto">No<br> <!--  asks user if they want to include crypto -->
+	    Max Number of Participants: <input type="number" name="maxParticipantNum" min=0 max = 100 required> (0 - 100)<br>
+	    <!--  asks user to input max participant number -->
+	  </fieldset>
+	
+		<input type="submit" name="Submit" value="submit"> <!--  submit button -->
+	</form>
+</p>
+	
+</div>
 
 
 
 <script>
 
-
 </script>
-
-
 <!-- Flyzoo script -->
 <script type="text/javascript">
 (function () {
@@ -240,6 +246,10 @@ League ID: ${param.leagueID}<br>
  fz.src = '//widget.flyzoo.co/scripts/flyzoo.start.js';
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
 })();
+
+
 </script>
+
+
 </body>
 </html>
