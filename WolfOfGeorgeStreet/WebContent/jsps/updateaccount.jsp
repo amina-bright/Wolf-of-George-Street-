@@ -34,9 +34,16 @@ h2 {text-align:center;}
 <form action="${pageContext.request.contextPath}/updateaccount" method="post">
 <p>First Name: <input type="text" name="fname" value="${first}"/></p>
 <p>Last Name: <input type="text" name="lname" value="${last}"/></p>
-<p>Username: <input type="text" name="username" value="${username}"/></p>
+<p>Username: ${username}</p>
 <p>Password: <input type="text"  name="password" value="${password}"/></p>
 <p>Email: <input type="text" name="email" value="${email}"/></p>
+<p>Strategy: 
+	<select name="strategy">
+		<option value="Moderate">Moderate </option>
+		<option value="Aggressive">Aggressive</option>
+		<option value="Conservative">Conservative</option>
+	</select>
+</p>
 	<br> <br>
 	<button type="submit" name="button" value="button1"name="button">Submit</button>
 </form>

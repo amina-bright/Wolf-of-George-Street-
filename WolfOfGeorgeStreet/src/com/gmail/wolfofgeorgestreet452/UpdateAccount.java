@@ -70,6 +70,7 @@ public class UpdateAccount extends HttpServlet {
 		  String email= null;
 		  String password= null;
 		  String userName = null;
+		  String strategy = null;
 		//Extract the return data
 	      while(rs.next()){
 	         firstName = rs.getString("firstName");
@@ -77,6 +78,7 @@ public class UpdateAccount extends HttpServlet {
 	         lastName = rs.getString("lastName");
 	         password = rs.getString("pw");
 	         username = rs.getString("username");
+	         strategy = rs.getString("strategy");
 	         //int leagueID = Integer.parseInt(rs.getString("leagueID"));
 	         //hostedLeagueIDs.add(leagueID);
 	      }
@@ -105,6 +107,7 @@ public class UpdateAccount extends HttpServlet {
 	      request.setAttribute("first",firstName);
 	      request.setAttribute("password",password);
 	      request.setAttribute("email",email);
+	      request.setAttribute("strategy", strategy);
 	      
 	      //display jsp
 	      request.getRequestDispatcher("/jsps/updateaccount.jsp").forward(request, response);	
@@ -138,9 +141,10 @@ public class UpdateAccount extends HttpServlet {
 		String button  = request.getParameter("button");
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
-		String username=request.getParameter("username");
+		String username=(String) request.getSession().getAttribute("username");
 		String password=request.getParameter("password");
 		String email=request.getParameter("email");
+		String strategy=request.getParameter("strategy");
 		
 		//User hit submit
 		if("button1".equals(button)) {
@@ -157,7 +161,9 @@ public class UpdateAccount extends HttpServlet {
 			      
 			      //Create a new entry in the user table
 			      String sql;
-			      sql = "Update User Set Username='"+ username +"', firstName='"+ fname+"', lastName='"+ lname +"', pw='"+ password +"'  email ='"+ email +"' ";
+			      sql = "Update User Set firstName='"+ fname+"', lastName='"+ lname +"', pw='"+
+			    		  password +"',  email ='"+ email +"', strategy ='" + strategy + "' WHERE Username='" + username + "'";
+			     
 			      stmt=conn.prepareStatement(sql);
 			      stmt.executeUpdate();
 
@@ -171,7 +177,7 @@ public class UpdateAccount extends HttpServlet {
 		    	  session.setAttribute("username", username);
 		    	  
 		    	  //redirect to the league page
-		    	  response.sendRedirect(request.getContextPath()+ "/league");
+		    	  response.sendRedirect(request.getContextPath()+ "/portfolio");
 			      
 			      
 			   }catch(SQLException se){

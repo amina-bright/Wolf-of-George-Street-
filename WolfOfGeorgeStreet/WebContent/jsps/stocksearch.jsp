@@ -148,6 +148,28 @@ body {
 	</table>
 </c:if>
 
+<c:if test="${not empty recommended}" >
+Recommended Assets for ${strategy} Strategy: 
+<table border=1 frame=void rules=rows>
+		<tr>
+		    <th>Symbol</th>
+		    <th>Title</th>
+		    <th>Market</th>
+	  </tr>
+		<c:forEach items="${recommended}" var="stock2">
+			<tr>
+	        	<td>
+		        	<a href="${pageContext.request.contextPath}/detailed-description?symbol=${stock2.symbol}&market=${stock2.market}">${stock2.symbol} </a>
+	        	</td>
+	        	<td>${stock2.title}</td> 
+	        	<td>${stock2.market}</td>
+	    	</tr>
+		</c:forEach>
+	</table>
+</c:if>
+
+
+
 </div>
 
 
