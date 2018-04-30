@@ -52,8 +52,9 @@ public class LeagueInfo extends HttpServlet{
 		String leagueID=(String) request.getParameter("leagueID");
 		String leagueName = " ";
 		
-		ArrayList<String> leagueMemberNames=new ArrayList<String>();
-		ArrayList<Double> leagueAssets=new ArrayList<Double>();
+		//ArrayList<String> leagueMemberNames=new ArrayList<String>();
+		
+		ArrayList<UserPortfolio> userPortfolioValue_list = new ArrayList<UserPortfolio>();
 		
 		//List of lists for all the assets the user has for each league
 		
@@ -73,16 +74,47 @@ public class LeagueInfo extends HttpServlet{
 		      sql="SELECT * from LeagueUserList WHERE leagueID = '"+ leagueID + "' ORDER BY liquidMoney DESC";
 		      ResultSet rs=stmt.executeQuery(sql);
 		      
-		      int i = 0;
+		     
 		      while(rs.next()) {
-		    	  i++;
-		    	  if(username.equals(rs.getString("username").trim())) {
-		    		  request.setAttribute("userAsset", rs.getDouble("liquidMoney"));
-		    		  request.setAttribute("userRank", i);
+		    	  double assetValue = LeagueFunctions.getUserLeagueAssetValue(rs.getString("username").trim(), leagueID);
+		    	  if(rs.getString("username").trim().equals(username)) {
+		    		  request.setAttribute("userCash", rs.getDouble("liquidMoney"));
+		    		  request.setAttribute("userAsset", assetValue);
 		    	  }
-		    	  leagueMemberNames.add(rs.getString("username"));
-		    	  leagueAssets.add(rs.getDouble("liquidMoney"));
+		    	  UserPortfolio current = new UserPortfolio(rs.getString("username").trim(),rs.getDouble("liquidMoney") + assetValue);
+		    	  
+		    	  
+		    	  //find the right ranking in the list for the current portfolio
+		    	  if(userPortfolioValue_list.size() == 0) {//first element
+		    		  userPortfolioValue_list.add(current);
+		    	  }else {
+		    		  int rank = 0;
+		    		  for(int i = 0; i < userPortfolioValue_list.size();i++) {
+			    		  if(current.getPortfolioValue() > userPortfolioValue_list.get(i).getPortfolioValue()) {//current portfolio is greater
+			    			  userPortfolioValue_list.add(i, current);
+			    			  rank = i + 1;
+			    			  break;//no need to continue the for loop
+			    		  }
+			    	  }
+		    		  if(rank == 0) {//the current portfolio is the lowest(haven't changed)
+		    			  userPortfolioValue_list.add(current); //add the current portfolio at the end of the list
+		    		  }
+		    	  }	  
 		      }
+		      
+		      //ranked list of portfolios is ready. now I must find the current user's info from the list
+		      /*
+		       for(int i = 0; i < userPortfolioValue_list.size();i++) {
+	    		  System.out.println(userPortfolioValue_list.get(i).getUsername() + userPortfolioValue_list.get(i).getPortfolioValue());
+	    	  }
+		      */
+		      for(int i = 0; i < userPortfolioValue_list.size();i++) {
+	    		  if(userPortfolioValue_list.get(i).getUsername().equals(username)) {//current user
+	    			  request.setAttribute("userRank", i+1);
+	    			  request.setAttribute("userPortfolioValue", userPortfolioValue_list.get(i).getPortfolioValue());
+	    			  break;//no need to continue the for loop
+	    		  }
+	    	  }
 		      
 		      sql="SELECT LeagueName from League WHERE leagueID = '"+ leagueID + "' ";
 		      rs = stmt.executeQuery(sql);
@@ -91,54 +123,11 @@ public class LeagueInfo extends HttpServlet{
 		    	  leagueName = rs.getString("LeagueName");
 		      }		      
 		      
-		      ArrayList<Double> assetSums=new ArrayList<Double>();
-		      
-		      for(int h =0;h<leagueMemberNames.size();h++)
-		      {
-		      sql="SELECT * FROM Asset, StockLookup WHERE username='" + leagueMemberNames.get(h) + "' AND leagueID=" + leagueID + " AND asset=symbol";
-	    	  rs=stmt.executeQuery(sql);
-	    	  double assetSum = 0;
-	    	  
-	    	  while(rs.next()) {
-	    		  String symbol=rs.getString("symbol");
-	    		  String market=rs.getString("market");
-	    		  String title=rs.getString("title");
-	    		  double amount=rs.getDouble("amount");
-	    		  
-	    		  Stock newStock=new Stock(symbol, title, market);
-	    		  newStock.setAmount(amount);
-	    		  
-	    		 
-	    		  
-	    		//for each asset, obtain the current price
-	    		  double dataParsed[] = null;
-	    		  assetSum = 0;
-	    		  while(dataParsed==null) {
-	    		  if(market.equals("CRYPTO")) {
-	    				  String data=StockInfoInteractor.fetchCryptoData(symbol, 1);
-	    				  dataParsed=StockInfoInteractor.getTimeSeriesDataCrypto(data, 1, 0);
-	    		  }else {
-	    				  String data=StockInfoInteractor.fetchStockData(symbol, 1, false);
-	    				  dataParsed=StockInfoInteractor.getTimeSeriesData(data, 1, 0);
-	    		  }
-	    		  if(dataParsed==null) {
-	    			 //System.out.println("TEST: " + System.currentTimeMillis());
-	    			  TimeUnit.SECONDS.sleep(10);
-	    		  }
-	    		  }
-		    		  //add to the running sum of the asset value
-		    		  //System.out.println("getting current price of " + symbol);
-		    		  double currentPrice = dataParsed[3];
-		    		  assetSum += currentPrice*amount;
-	    	  }
-	    	  
-	    	  assetSums.add(h, assetSum);
-	      }
-		      
+		     //start of head to head
 		      ArrayList<String> leagueMemberNames_temp= new ArrayList<String>();
-		      for(int x=0;x<leagueMemberNames.size();x++)
+		      for(int x=0;x<userPortfolioValue_list.size();x++)
 		      {
-		    	  leagueMemberNames_temp.add(leagueMemberNames.get(x)); //Creates duplicate league member names arraylist 
+		    	  leagueMemberNames_temp.add(userPortfolioValue_list.get(x).getUsername()); //Creates duplicate league member names arraylist 
 		      }  	//for match-making
 		      
 		      
@@ -151,7 +140,7 @@ public class LeagueInfo extends HttpServlet{
 		      for(int x=0;x<leagueMemberNames_temp.size()/2;x++)
 		      {
 				User1.add(leagueMemberNames_temp.get(x)); 								//Adds users to arraylist for matchmaking		
-				User2.add(leagueMemberNames_temp.get(leagueMemberNames.size()/2+x));
+				User2.add(leagueMemberNames_temp.get(userPortfolioValue_list.size()/2+x));
 		      }
 				
 		      int initial; //Dummy variables used to enter values into the database
@@ -244,15 +233,15 @@ public class LeagueInfo extends HttpServlet{
 		      
 		      //Send the lists to the jsp
 		      request.setAttribute("leagueName", leagueName);
-		      request.setAttribute("leagueMemberNames", leagueMemberNames);
+		      //request.setAttribute("leagueMemberNames", leagueMemberNames);
 		      request.setAttribute("leagueMemberNamesH2H", leagueMemberNamesH2H);
-		      request.setAttribute("leagueAssets", leagueAssets);
+		      request.setAttribute("userPortfolioValue_list", userPortfolioValue_list);
 		      request.setAttribute("User1", User1);
 		      request.setAttribute("User2", User2);
 		      request.setAttribute("wins", wins);
 		      request.setAttribute("losses", losses);
 		      request.setAttribute("percentage", percentage);
-		      request.setAttribute("assetSums", assetSums);
+		      //request.setAttribute("assetSums", assetSums);
 		      
 		     //Display the jsp
 		     request.getRequestDispatcher("/jsps/LeagueInfo.jsp").forward(request, response);

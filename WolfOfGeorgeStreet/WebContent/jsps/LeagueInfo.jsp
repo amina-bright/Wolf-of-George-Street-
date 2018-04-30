@@ -2,6 +2,7 @@
     pageEncoding="US-ASCII"%>
     
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -130,10 +131,15 @@ input[type=submit] {
 
 <div class="main">
 		<br><br>
-		${leagueName} : ${param.leagueID} <br>
+		${leagueName}: ${param.leagueID} <br>
 		 <p>
-		 Your League Ranking: ${userRank}<br><br>
-		 Your League Assets: $${userAsset}
+		 Your League Ranking: ${userRank}<br>
+		 Your Cash: $<fmt:formatNumber value = "${userCash}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					<br>
+		 The value of Your Assets: $<fmt:formatNumber value = "${userAsset}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					<br>			
+		 The Total Value of Your Portfolio: $<fmt:formatNumber value = "${userPortfolioValue}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					
 		 </p>
 		<table border=1 frame=void rules=rows>
 		
@@ -143,7 +149,7 @@ input[type=submit] {
 		    <th>Assets</th>
 		   
 	  	</tr>
-			<c:forEach items="${leagueMemberNames}" varStatus="loop">
+			<c:forEach items="${userPortfolioValue_list}" varStatus="loop">
 	
 				<tr>
 					
@@ -152,11 +158,12 @@ input[type=submit] {
 					</td>
 					
 					<td>
-						${leagueMemberNames[loop.index]}
+						${userPortfolioValue_list[loop.index].getUsername()}	
 					</td>
 					
 					<td>
-						${leagueAssets[loop.index]}
+						$<fmt:formatNumber value = "${userPortfolioValue_list[loop.index].getPortfolioValue()}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					
 					</td>
 				
 				
