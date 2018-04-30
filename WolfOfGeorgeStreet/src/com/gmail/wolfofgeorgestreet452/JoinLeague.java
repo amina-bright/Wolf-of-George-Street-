@@ -121,7 +121,7 @@ public class JoinLeague extends HttpServlet {
 					   }	
 				}//end of if
 				
-			}
+	}
 
 	public boolean JoinLeagueTest(String leagueId) {
 		Connection conn = null;

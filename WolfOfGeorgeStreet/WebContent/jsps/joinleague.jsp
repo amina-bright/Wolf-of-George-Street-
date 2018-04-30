@@ -237,7 +237,7 @@ Join League<br>
 		
 		
 	
-		<input type="submit" name="Submit" value="Submit">
+		<input type="submit" name="Submit" value="submit">
 		 <!--  Submit button -->
 	</form>
 <p>
