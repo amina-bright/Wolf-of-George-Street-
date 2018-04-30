@@ -3,6 +3,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -397,6 +398,103 @@ public class StockInfoInteractor {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static String fetchStockDataBatch(String[] symbols) {
+		StringBuilder builder=new StringBuilder();
+		
+		builder.append(baseURL);
+
+		builder.append("BATCH_STOCK_QUOTES");
+
+		
+		//Add the symbol and api key to the url
+		builder.append("&apikey=" + apiKey + "&symbols=");
+		
+		for(int i=0;i<symbols.length;i++) {
+			if(i==symbols.length-1) {
+				builder.append(symbols[i]);
+			}
+			
+			else {
+				builder.append(symbols[i] + ",");
+			}
+		}
+		
+		String fullUrl=builder.toString();
+		
+		HttpURLConnection connection=null;
+		
+		try {
+			
+			//Boilerplaye for http connection
+			URL url=new URL(fullUrl);
+			connection=(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Content-Type", 
+			        "application/x-www-form-urlencoded");
+			connection.setRequestProperty("Content-Language", "en-US");
+			
+			//Read from input stream
+			 InputStream is = connection.getInputStream();
+			 BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+			 StringBuilder response = new StringBuilder();
+			 String line;
+			 
+			 //Add the data to a string builder
+			 while ((line = rd.readLine()) != null) {
+			      response.append(line);
+			      response.append('\r');
+			 }
+			 rd.close();
+			 
+			 //Response from the get request
+			 String output=response.toString();
+		    
+			 if(connection!=null) {
+				 connection.disconnect();
+			 }
+			 
+			 if(output.contains("Error Message")) {
+				 return null;
+			 }
+			 
+			 //return the response
+			 return output;
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			if(connection!=null) {
+				 connection.disconnect();
+			 }
+			return null;
+		}
+		
+	}
+	
+	public static double[] getPriceFromBatch(String data) {
+		double[] output=null;
+		try {
+			JSONObject obj=new JSONObject(data);
+			
+			JSONArray prices=obj.getJSONArray(("Stock Quotes"));
+			
+			output=new double[prices.length()];
+			
+			for(int i=0;i<prices.length();i++) {
+				JSONObject temp=(JSONObject) prices.get(i);
+				output[i]=Double.parseDouble(temp.getString("2. price"));
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return output;
+		
+		
+		
 	}
 	
 	

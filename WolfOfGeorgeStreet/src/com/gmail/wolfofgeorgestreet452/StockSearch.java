@@ -92,6 +92,7 @@ public class StockSearch extends HttpServlet {
 	    	  }
 	    	  request.setAttribute("recommended", reccomended.toArray());
 	    	  
+	    	  
 	    	  request.getRequestDispatcher("/jsps/stocksearch.jsp").forward(request, response);
 	      }
 		}catch(SQLException se){
