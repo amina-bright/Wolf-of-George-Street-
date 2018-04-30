@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 
 public class StockInfoInteractor {
 	private static String apiKey="7BX0DHJ8VQXXO3L";
@@ -400,7 +401,7 @@ public class StockInfoInteractor {
 		}
 	}
 	
-	public static String fetchStockDataBatch(String[] symbols) {
+	public static String fetchStockDataBatch(ArrayList<Stock> stocks) {
 		StringBuilder builder=new StringBuilder();
 		
 		builder.append(baseURL);
@@ -411,13 +412,13 @@ public class StockInfoInteractor {
 		//Add the symbol and api key to the url
 		builder.append("&apikey=" + apiKey + "&symbols=");
 		
-		for(int i=0;i<symbols.length;i++) {
-			if(i==symbols.length-1) {
-				builder.append(symbols[i]);
+		for(int i=0;i<stocks.size();i++) {
+			if(i==stocks.size()-1) {
+				builder.append(stocks.get(i).getSymbol());
 			}
 			
 			else {
-				builder.append(symbols[i] + ",");
+				builder.append(stocks.get(i).getSymbol() + ",");
 			}
 		}
 		
