@@ -222,7 +222,7 @@ input[type=date] {
 
 <p>
 <font size=8>
-Update League
+Update Account
 <br>
 </font>
 </p>
