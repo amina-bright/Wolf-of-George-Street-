@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
+    
+     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
   
 
 <!DOCTYPE html>
@@ -199,56 +201,43 @@ input[type=submit]:hover {
 </div>
 
 
-
 <div class="main">
 
 <p>
-Manage League<br><br>
-
- <button class="btn green" id="button_LeagueVote">Start a Vote</button>
- 
- <button class="btn green" id="button_LeagueVoteConclude">Conclude a Vote</button> <br><br>
-${leagueName}<br>
+<font size=8>
+Vote for league settings!
+</font>
 </p>
+
+
+
+</div>
+<c:forEach items="${VoteParam}" varStatus="loop">
+<div class="form"> <!--  form to create a league -->
+
+<form action="${pageContext.request.contextPath}/LeagueVotingUser?leagueID=${leagueID}&VoteInstanceID=${VoteInstanceIDs[loop.index]}" method="post">
+
+Kick member:
+
+
+	
+	<!--   <input type="radio" value= 1 name="crypto">${leagueMemberVote[loop.index]}
+	
+	<option value="${VoteParam[loop.index]}">${VoteParam[loop.index]}</option>      -->
+	${VoteParam[loop.index]}<input type="radio" value= 1 name="kick">Yes 
+	<input type="radio" value= 0 name="kick">No 
+
+   <br>      
+
+<input type="submit" name="Submit" value="Submit vote"> <!--  submit button -->
+	</form>
+
+</c:forEach>	
+	
 </div>
 
-<div class="form"> <!--  form to create a league -->
-<p>
-<form action="${pageContext.request.contextPath}/manageLeague" method="post">
 
-
-		Please Enter Previous League Name:<input type="text" name="OldleagueName" required><br>
-
-		New League Name: <input type="text" name="leagueName" required><br>  <!--  asks user to input league name -->
-	
-		
-		
-	    
-		<fieldset>
-	    <legend> Update League Settings</legend>
-	    Include Cryptocurrency:
-	    <input type="radio" value= 1 name="crypto">Yes
-	    <input type="radio" checked value= 0 name="crypto">No<br> <!--  asks user if they want to include crypto -->
-	    Max Number of Participants: <input type="number" name="maxParticipantNum" min=0 max = 100 required> (0 - 100)<br>
-	    <!--  asks user to input max participant number -->
-	  </fieldset>
-	
-		<input type="submit" name="Submit" value="submit"> <!--  submit button -->
-	</form>
-</p>
-</div>	
-	
-	
-<script>
-document.getElementById("button_LeagueVote").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/LeagueVoting?leagueID=${leagueID}";
-};
-
-document.getElementById("button_LeagueVoteConclude").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/LeagueVotingConclude?leagueID=${leagueID}";
-};
-</script>
-<!-- Flyzoo script -->
+<!-- Chat script -->
 <script type="text/javascript">
 (function () {
  window._FlyzooApplicationId="5ae22ffcbb547e096099f58f5ae22fb2bb547e096099f58b";
@@ -256,10 +245,7 @@ document.getElementById("button_LeagueVoteConclude").onclick = function () {
  fz.src = '//widget.flyzoo.co/scripts/flyzoo.start.js';
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
 })();
-
-
 </script>
-
 
 </body>
 </html>

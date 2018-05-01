@@ -11,11 +11,11 @@
 <style>
 
 body {
-	background-color: #FFFFFF;
+	background-color: #FFDE26;
 	}
 	
 .sidenav {
-	width: 150px;
+	width: 170px;
     position: fixed;
     border: 1px solid;
     border-color: #1A1F28;
@@ -23,7 +23,7 @@ body {
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #FFC53F;
+    background: #1A1F28;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -33,12 +33,12 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: black;
+    color: #FFFFFF;
     display: block;
 }
 
 .sidenav a:hover {
-    background-color: #FFDE26;
+    color: #FFDE26;
 }
 
 input[type=text], select, textarea {
@@ -70,6 +70,30 @@ input[type=submit] {
     cursor: pointer;
 }
 
+.btn {
+	margin-top: 15px;
+    border: 1px solid;
+    border-color: black;
+    border-radius: 5px;
+    color: white;
+    top: 300px;
+    left: 200px;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.green {background-color: #4CAF50;} /* Green */
+.green:hover {background-color: #46a049;}
+
+.btn:hover{
+	background-color:
+		#FFDE26}
+.purple {background-color: #5E0099;} /* Purple */
+.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+				color:black;}
+
+
 .main {
     margin-left: 190px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
@@ -82,7 +106,7 @@ input[type=submit] {
 }
 
 .topnav {
-    background-color: #FFC53F;
+    background-color: #1A1F28;
     border: 1px solid;
     border-radius: 5px;
     overflow: hidden;
@@ -90,12 +114,12 @@ input[type=submit] {
 
 .topnav a:hover {
    <%-- background-color: #ddd; --%>
-    background-color: #FFDE26;
+    color: #FFDE26;
 }
 
 .topnav a {
     float: right;
-    color: black;
+    color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -110,27 +134,7 @@ input[type=submit] {
     margin-right: 16px;
     font-size: 17px;
 }
-p {
-    border-bottom: 6px solid #FFDE26 ;
-    background-color: lightgrey;
-    display: table; 
-}
 
-table{
- border-collapse: collapse;
-    width: 100%;
-}
-
-th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-tr:hover {background-color: #FFC53F;
-}
-
-.ch { font-weight: bold; }
 </style>
 <title>League Rankings</title>
 </head>
@@ -151,22 +155,21 @@ tr:hover {background-color: #FFC53F;
 
 <div class="main">
 		<br><br>
-	<p>	${leagueName}: ${param.leagueID} 
-	<br>
-	 League Ranking: ${userRank} 
-	 <br>
-	  Cash : $<fmt:formatNumber value = "${userCash}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> 
-		<br>			
-		 Assets: $<fmt:formatNumber value = "${userAsset}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> 
-		<br>					
-		 Portfolio Value: $<fmt:formatNumber value = "${userPortfolioValue}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> 
-			</p>		
+		${leagueName}: ${param.leagueID} <br>
+		 <p>
+		 Your League Ranking: ${userRank}<br>
+		 Your Cash: $<fmt:formatNumber value = "${userCash}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					<br>
+		 The value of Your Assets: $<fmt:formatNumber value = "${userAsset}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					<br>			
+		 The Total Value of Your Portfolio: $<fmt:formatNumber value = "${userPortfolioValue}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					
 		 </p>
 		<table border=1 frame=void rules=rows>
 		
 		<tr>
 		    <th>Ranking</th>
-		    <th>Name</th>
+		    <th>League Member Name</th>
 		    <th>Assets</th>
 		   
 	  	</tr>
@@ -196,9 +199,8 @@ tr:hover {background-color: #FFC53F;
 		</table>
 	
 				<p>
-				<hr>
-		<p> Matchups for this Round </p>
-		
+		 Matchups for this Round 
+		 </p>
 		
 		<table border=1 frame=void rules=rows> <!--  Table to show current matchups -->
 		
@@ -229,13 +231,13 @@ tr:hover {background-color: #FFC53F;
 			
 		</table>
 	
-	<hr>
+	
 		 
 		 <table border=1 frame=void rules=rows> <!-- Table which shows ranking for H2H mode -->
 		
 		<tr>
 		    <th>Ranking</th>
-		    <th>Name</th>
+		    <th>League Member Name</th>
 		    <th>Win</th>
 		   <th>Loss</th>
 		   <th>Percentage</th>
@@ -269,9 +271,16 @@ tr:hover {background-color: #FFC53F;
 			
 			</c:forEach>
 			<br>
-		
 			
 		</table>
+		
+		
+		<c:if test="${not empty VoteParam}" >
+        
+        <button class="btn green" id="button_Vote">View Votes in Progress</button><br>
+        
+		</c:if>
+				
 		<!--  
 		<form action="${pageContext.request.contextPath}/Leagueinfo?leagueID=${param.leagueID}" method="post">
 		<input type="submit" name="Submit" value="submit">   submit button 
@@ -289,6 +298,13 @@ tr:hover {background-color: #FFC53F;
 document.getElementById("button_Update_Round").onclick = function () {
     location.href = "/WolfOfGeorgeStreet/LeagueInfo?leagueID=${param.leagueID}";
 };
+</script>
+<script>
+document.getElementById("button_Vote").onclick = function () {
+    location.href = "/WolfOfGeorgeStreet/LeagueVotingUser?leagueID=${param.leagueID}";
+};
+
+
 </script>
 
 <!-- Flyzoo script -->

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
+    
+     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
   
 
 <!DOCTYPE html>
@@ -199,56 +201,89 @@ input[type=submit]:hover {
 </div>
 
 
-
 <div class="main">
 
 <p>
-Manage League<br><br>
-
- <button class="btn green" id="button_LeagueVote">Start a Vote</button>
- 
- <button class="btn green" id="button_LeagueVoteConclude">Conclude a Vote</button> <br><br>
-${leagueName}<br>
+<font size=8>
+Finalize changes to league based on User Votes!
+</font>
 </p>
-</div>
 
-<div class="form"> <!--  form to create a league -->
+
+
+
+
+<table border=1 frame=void rules=rows>
+		
+		<tr>
+		    <th>User</th>
+		    <th>Votes to kick</th>
+		    <th>Votes not to kick</th>
+		   
+		   
+	  	</tr>
+			<c:forEach items="${VoteParam1}" varStatus="loop">
+	
+				<tr>
+					
+					<td>
+						${VoteParam1[loop.index]}
+					</td>
+					
+					<td>
+						${yes[loop.index]}	
+					</td>
+					
+					<td>
+						${no[loop.index]}
+					</td>
+					
+				
+				</tr>
+			
+			</c:forEach>
+			
+			
+		</table>
+		
+<div class="form">
 <p>
-<form action="${pageContext.request.contextPath}/manageLeague" method="post">
+<form action="${pageContext.request.contextPath}/LeagueVotingConclude?leagueID=${leagueID}" method="post">
 
-
-		Please Enter Previous League Name:<input type="text" name="OldleagueName" required><br>
-
-		New League Name: <input type="text" name="leagueName" required><br>  <!--  asks user to input league name -->
+<p> Kick member:
+<select name="member">
+<c:forEach items="${kickable}" varStatus="loop">
 	
-		
-		
+	<!--   <input type="radio" value= 1 name="crypto">${leagueMemberVote[loop.index]} -->
+	
+	<option value="${kickable[loop.index]}">${kickable[loop.index]}</option>    
+    
+
 	    
-		<fieldset>
-	    <legend> Update League Settings</legend>
-	    Include Cryptocurrency:
-	    <input type="radio" value= 1 name="crypto">Yes
-	    <input type="radio" checked value= 0 name="crypto">No<br> <!--  asks user if they want to include crypto -->
-	    Max Number of Participants: <input type="number" name="maxParticipantNum" min=0 max = 100 required> (0 - 100)<br>
-	    <!--  asks user to input max participant number -->
-	  </fieldset>
-	
-		<input type="submit" name="Submit" value="submit"> <!--  submit button -->
+</c:forEach>	    
+	 
+    </select><br>      
+ 
+
+<input type="submit" name="Submit" value="Kick"> <!--  submit button -->
 	</form>
 </p>
-</div>	
 	
-	
-<script>
-document.getElementById("button_LeagueVote").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/LeagueVoting?leagueID=${leagueID}";
-};
+</div>
 
-document.getElementById("button_LeagueVoteConclude").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/LeagueVotingConclude?leagueID=${leagueID}";
+
+
+</div>
+
+
+<script>
+
+document.getElementById("button_Kick").onclick = function () {
+    location.href = "/WolfOfGeorgeStreet/LeagueKick?leagueID=${param.leagueID}";
 };
 </script>
-<!-- Flyzoo script -->
+
+<!-- Chat script -->
 <script type="text/javascript">
 (function () {
  window._FlyzooApplicationId="5ae22ffcbb547e096099f58f5ae22fb2bb547e096099f58b";
@@ -256,10 +291,7 @@ document.getElementById("button_LeagueVoteConclude").onclick = function () {
  fz.src = '//widget.flyzoo.co/scripts/flyzoo.start.js';
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
 })();
-
-
 </script>
-
 
 </body>
 </html>
