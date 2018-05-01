@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -74,12 +75,15 @@ public class Portfolio extends HttpServlet{
 		      for(int i=0;i<leagueIds.size();i++) {
 		    	  String currentLeague=leagueIds.get(i);
 		    	  
-		    	  ArrayList<Stock> currentLeagueAssets=new ArrayList<Stock>();
+		    	  ArrayList<Stock> currentLeagueAssets = new ArrayList<Stock>();
+		    	  ArrayList<Stock> listOfNonCrypto = new ArrayList<Stock>();
+		    	  double portfolioValue = 0;
+		    	 
 		    	  
 		    	  sql="SELECT * FROM Asset, StockLookup WHERE username='" + username + "' AND leagueID=" + currentLeague + " AND asset=symbol";
 		    	  rs=stmt.executeQuery(sql);
 		    	  double assetSum = 0;
-		    	  
+		    	  double dataParsed[] = null;
 		    	  while(rs.next()) {
 		    		  String symbol=rs.getString("symbol");
 		    		  String market=rs.getString("market");
@@ -89,23 +93,33 @@ public class Portfolio extends HttpServlet{
 		    		  Stock newStock=new Stock(symbol, title, market);
 		    		  newStock.setAmount(amount);
 		    		  
-		    		  currentLeagueAssets.add(newStock);
-		    		  
 		    		//for each asset, obtain the current price
-		    		  double dataParsed[] = null;
-		    		  assetSum = 0;
 		    		  if(market.equals("CRYPTO")) {
-		    			  String data=StockInfoInteractor.fetchCryptoData(symbol, 1);
-			    		  dataParsed=StockInfoInteractor.getTimeSeriesDataCrypto(data, 1, 0);
+		    			  boolean breakBool=false;
+		    			  while(!breakBool) {
+			    			  String data=StockInfoInteractor.fetchCryptoData(symbol, 1);
+				    		  dataParsed=StockInfoInteractor.getTimeSeriesDataCrypto(data, 1, 0);
+				    		  if(dataParsed==null) {
+					    			 //System.out.println("TEST: " + System.currentTimeMillis());
+					    			  TimeUnit.SECONDS.sleep((long)0.1);
+					    	  }
+				    		  breakBool=true;
+		    			  }
+			    		  double currentPrice = dataParsed[0];
+			    		   		portfolioValue += currentPrice*amount;
 		    		  }else {
-		    			  String data=StockInfoInteractor.fetchStockData(symbol, 1, false);
-		    			  dataParsed=StockInfoInteractor.getTimeSeriesData(data, 1, 0);
+		    			  listOfNonCrypto.add(newStock);
+		    			  
 		    		  }
-			    		  //add to the running sum of the asset value
-			    		  //System.out.println("getting current price of " + symbol);
-			    		  double currentPrice = dataParsed[3];
-			    		  assetSum += currentPrice*amount;
+		    		  currentLeagueAssets.add(newStock);
 		    	  }
+		    	  String batchString = StockInfoInteractor.fetchStockDataBatch(listOfNonCrypto);
+		    	  double[] stockPrices = StockInfoInteractor.getPriceFromBatch(batchString);
+		    	  
+		    	  for(int j = 0; j < listOfNonCrypto.size();j++){
+		    		  portfolioValue += stockPrices[j] * listOfNonCrypto.get(j).getAmount();
+		    	  }
+		    	  assetSum = portfolioValue + liquidmoneys.get(i);
 		    	  
 		    	  assets.add(i, currentLeagueAssets);
 		    	  assetSums.add(i, assetSum);

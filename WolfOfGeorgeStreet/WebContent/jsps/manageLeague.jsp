@@ -7,19 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
-body{
-	background-color: #FFFFFF;
-	}
 .sidenav {
-	width: 150px;
+    width: 130px;
     position: fixed;
-    border: 1px solid;
-    border-color: black;
-    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #FFC53F;
+    background: #eee;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -29,12 +23,12 @@ body{
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: black;
+    color: #2196F3;
     display: block;
 }
 
 .sidenav a:hover {
-    background-color: #FFDE26;
+    color: #064579;
 }
 
 .column {
@@ -51,22 +45,20 @@ body{
 }
 
 .btn {
-	margin-top: 15px;
-    border: 1px solid;
-    border-color: black;
-    color: black;
+    border: none;
+    color: white;
     top: 300px;
     left: 200px;
     padding: 14px 28px;
     font-size: 16px;
     cursor: pointer;
 }
-.btn:hover{
-	background-color:
-		#FFDE26}
-.yellow {background-color: #FFC53F;} /* Purple */
-.yellow:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
-				color:black;}
+
+.green {background-color: #4CAF50;} /* Green */
+.green:hover {background-color: #46a049;}
+
+.blue {background-color: #2196F3;} /* Blue */
+.blue:hover {background: #0b7dda;}
 
 .dropbtn {
     background-color: #3498DB;
@@ -111,7 +103,7 @@ input[type=text], select, textarea {
     width: 50%;
     padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
     box-sizing: border-box;
     margin-top: 6px;
     margin-bottom: 16px;
@@ -122,7 +114,7 @@ input[type=number], select, textarea {
     width: 25%;
     padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
     box-sizing: border-box;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -130,46 +122,36 @@ input[type=number], select, textarea {
 }
 
 input[type=submit] {
-	margin-top: 15px;
-    background-color: #FFC53F;
-    color: black;
-    padding: 12px 40px;
-    font-size: 14px;
-    border: 1px solid;;
-    border-radius: 5px;
-    border-color: black;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
 }
 
 input[type=submit]:hover {
-    background-color: #FFDE26;
-    color: black;
+    background-color: #45a049;
 }
 
-input[type=date] {
-	border: 1px solid;
-	border-radius: 5px;
-	border-color: black;
-	}
-	
 .container {
     border-radius: 5px;
-    background-color: #F2F2F2;
+    background-color: #f2f2f2;
     padding: 20px;
 }
 
 .main {
-    margin-left: 200px; /* Same width as the sidebar + left position in px */
+    margin-left: 140px; /* Same width as the sidebar + left position in px */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
 
 .form {
-	margin-left: 200px; /* Same width as the sidebar + left position in px */
+	margin-left: 140px; /* Same width as the sidebar + left position in px */
     font-size: 22px; /* Increased text to enable scrolling */
-    padding: 2px 10px;
+    padding: 0px 10px;
     border-radius: 5px;
-    background-color: #F2F2F2;
+    background-color: #f2f2f2;
 }
 
 @media screen and (max-height: 450px) {
@@ -178,20 +160,18 @@ input[type=date] {
 }
 
 .topnav {
-    background-color: #FFC53F;
-    border: 1px solid;
-    border-radius: 5px;
+    background-color: #333;
     overflow: hidden;
 }
 
 .topnav a:hover {
-   <%-- background-color: #ddd; --%>
-    background-color: #FFDE26;
+    background-color: #ddd;
+    color: black;
 }
 
 .topnav a {
     float: right;
-    color: black;
+    color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -240,6 +220,7 @@ ${leagueName}
 <p>
 <form action="${pageContext.request.contextPath}/manageLeague" method="post">
 
+
 		Please Enter Previous League Name:<input type="text" name="OldleagueName" required><br>
 
 		New League Name: <input type="text" name="leagueName" required><br>  <!--  asks user to input league name -->
@@ -261,19 +242,20 @@ ${leagueName}
 	
 	
 </p>
+</div>	
 	
-</div>
-
-
-
+	
 <script>
 document.getElementById("button_LeagueVote").onclick = function () {
     location.href = "/WolfOfGeorgeStreet/LeagueVoting?leagueID=${leagueID}";
 };
+
+document.getElementById("button_LeagueVoteConclude").onclick = function () {
+    location.href = "/WolfOfGeorgeStreet/LeagueVotingConclude?leagueID=${leagueID}";
+
 document.getElementById("button_LeagueVoteConclude").onclick = function () {
     location.href = "/WolfOfGeorgeStreet/LeagueVotingConclude?leagueID=${leagueID}";
 };
-
 </script>
 <!-- Flyzoo script -->
 <script type="text/javascript">

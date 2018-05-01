@@ -221,6 +221,7 @@ th, td {
 tr:hover {background-color: #FFC53F;
 }
 
+
 </style>
 <title>ManageLeague</title>
 </head>
@@ -247,6 +248,7 @@ tr:hover {background-color: #FFC53F;
 <font size=8>
 Finalize Changes 
 </font>
+
 
 
 

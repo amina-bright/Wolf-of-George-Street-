@@ -30,6 +30,7 @@ body{
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
+
     color: #FFFFFF;
     display: block;
 }
@@ -72,6 +73,7 @@ body{
     font-size: 17px;
 }
 
+
 .btn {
 	margin-top: 15px;
     border: 1px solid;
@@ -84,13 +86,13 @@ body{
     font-size: 16px;
     cursor: pointer;
 }
+  
 .btn:hover{
 	background-color:
 		#FFDE26}
 .yellow {background-color: #FFC53F;} /* yellow */
 .yellow:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
 				color:black;}
-
 
 
 </style>

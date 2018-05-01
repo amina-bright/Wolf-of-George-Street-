@@ -9,6 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
+
 body{
 	background-color: #FFFFFF;
 	}
@@ -22,6 +23,7 @@ body{
     top: 20px;
     left: 10px;
     background: #FFC53F;
+
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -31,6 +33,7 @@ body{
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
+
     color: black;
     display: block;
 }
@@ -57,18 +60,21 @@ body{
     border: 1px solid;
     border-color: black;
     color: black;
+
     top: 300px;
     left: 200px;
     padding: 14px 28px;
     font-size: 16px;
     cursor: pointer;
 }
+
 .btn:hover{
 	background-color:
 		#FFDE26}
 .yellow {background-color: #FFC53F;} /* Purple */
 .yellow:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
 				color:black;}
+
 
 .dropbtn {
     background-color: #3498DB;
@@ -113,7 +119,9 @@ input[type=text], select, textarea {
     width: 50%;
     padding: 12px;
     border: 1px solid #ccc;
+  
     border-radius: 5px;
+
     box-sizing: border-box;
     margin-top: 6px;
     margin-bottom: 16px;
@@ -125,6 +133,7 @@ input[type=number], select, textarea {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
+
     box-sizing: border-box;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -140,6 +149,7 @@ input[type=submit] {
     border: 1px solid;;
     border-radius: 5px;
     border-color: black;
+
     cursor: pointer;
 }
 
@@ -157,21 +167,25 @@ input[type=date] {
 .container {
     border-radius: 5px;
     background-color: #F2F2F2;
+
     padding: 20px;
 }
 
 .main {
     margin-left: 200px; /* Same width as the sidebar + left position in px */
+
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
 
 .form {
+
 	margin-left: 200px; /* Same width as the sidebar + left position in px */
     font-size: 22px; /* Increased text to enable scrolling */
     padding: 2px 10px;
     border-radius: 5px;
     background-color: #F2F2F2;
+
 }
 
 @media screen and (max-height: 450px) {
@@ -183,12 +197,14 @@ input[type=date] {
     background-color: #FFC53F;
     border: 1px solid;
     border-radius: 5px;
+
     overflow: hidden;
 }
 
 .topnav a:hover {
    <%-- background-color: #ddd; --%>
     background-color: #FFDE26;
+
 }
 
 .topnav a {
@@ -200,6 +216,7 @@ input[type=date] {
     height:15px;
     font-size: 17px;
 }
+
 </style>
 <title>ManageLeague</title>
 </head>

@@ -72,6 +72,7 @@ body{
     font-size: 17px;
 }
 
+
 .btn {
 	margin-top: 15px;
     border: 1px solid;
@@ -84,6 +85,7 @@ body{
     font-size: 16px;
     cursor: pointer;
 }
+
 .btn:hover{
 	background-color:
 		#FFDE26}
