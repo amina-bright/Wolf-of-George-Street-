@@ -147,7 +147,7 @@ public class UpdateAccount extends HttpServlet {
 		String strategy=request.getParameter("strategy");
 		
 		//User hit submit
-		if("button1".equals(button)) {
+		if("Submit".equals(button)) {
 			
 			 Connection conn = null;
 			 PreparedStatement stmt = null;

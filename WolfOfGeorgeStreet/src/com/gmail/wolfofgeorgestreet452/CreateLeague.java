@@ -155,7 +155,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			      if (gameMode == 0) { //Checks if head-to-head mode
 					   int initial =0;
 					   
-				    	  sql = "INSERT INTO Head2Head (LeagueID, username, win, loss,percentage)"//sql query to add to h2h mode
+				    	  sql = "INSERT INTO Head2Head (LeagueID, username, win, loss)"//sql query to add to h2h mode
 					    		  + "VALUES ('" + leagueID + "', '" + request.getSession().getAttribute("username") + "', '"+initial+" ' , '"+ initial +"')";
 				    	  
 				    	  stmt=conn.prepareStatement(sql);
