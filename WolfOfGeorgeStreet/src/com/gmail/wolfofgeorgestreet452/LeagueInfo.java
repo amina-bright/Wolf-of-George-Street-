@@ -226,13 +226,32 @@ public class LeagueInfo extends HttpServlet{
 		      				percentage.add((double) wins.get(q)/(wins.get(q)+losses.get(q)));	
 		      		}
 		      		
+		      		
+		      		sql="SELECT * from Voting WHERE leagueID = '"+ leagueID + "' ";//Sql query to view votes in progress for the league
+				    rs2=stmt.executeQuery(sql);
+				    ArrayList<String> VoteParam= new ArrayList<String>();
+				    ArrayList<String> Votetype= new ArrayList<String>();
+				    ArrayList<Integer> VoteInstanceIDs= new ArrayList<Integer>();
+				     
+				      while(rs2.next()) {
+				    	  VoteParam.add(rs2.getString("parameter")); //Gets parameter,like user to kick, from database
+				    	  Votetype.add(rs2.getString("voteType")); //Gets amount of wins from database
+				    	  VoteInstanceIDs.add(rs2.getInt("voteInstanceID"));//Gets amount of loss from database
+				      }
+		      		
 				      stmt.close();
 				      conn.close();
 		      
-		      
+		      //for (int f= 0;f<VoteParam.size();f++) {
+		    //	  System.out.print(VoteParam.get(f));
+		    //	  System.out.print(Votetype.get(f));
+		    //	  System.out.print(VoteInstanceIDs.get(f));
+		    	  
+		   //   }
 		      
 		      //Send the lists to the jsp
 		      request.setAttribute("leagueName", leagueName);
+		      request.setAttribute("leagueID", leagueID);
 		      //request.setAttribute("leagueMemberNames", leagueMemberNames);
 		      request.setAttribute("leagueMemberNamesH2H", leagueMemberNamesH2H);
 		      request.setAttribute("userPortfolioValue_list", userPortfolioValue_list);
@@ -242,6 +261,9 @@ public class LeagueInfo extends HttpServlet{
 		      request.setAttribute("losses", losses);
 		      request.setAttribute("percentage", percentage);
 		      //request.setAttribute("assetSums", assetSums);
+		      request.setAttribute("VoteParam", VoteParam);
+		      request.setAttribute("Votetype", Votetype);
+		      request.setAttribute("VoteInstanceIDs", VoteInstanceIDs);
 		      
 		     //Display the jsp
 		     request.getRequestDispatcher("/jsps/LeagueInfo.jsp").forward(request, response);
