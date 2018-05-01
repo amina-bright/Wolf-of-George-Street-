@@ -9,7 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
-
 body {
 	background-color: #FFFFFF;
 	}
@@ -69,6 +68,23 @@ input[type=submit] {
     border-radius: 4px;
     cursor: pointer;
 }
+.btn {
+	margin-top: 15px;
+    border: 1px solid;
+    border-color: black;
+    color: black;
+    top: 300px;
+    left: 200px;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn:hover{
+	background-color:
+		#FFDE26}
+.yellow {background-color: #FFC53F;} /* Purple */
+.yellow:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+				color:black;}
 
 .main {
     margin-left: 190px; /* Same width as the sidebar + left position in px */
@@ -130,7 +146,14 @@ th, td {
 tr:hover {background-color: #FFC53F;
 }
 
-.ch { font-weight: bold; }
+
+.main input[type=text] {
+    float: center;
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+}
 </style>
 <title>League Rankings</title>
 </head>
@@ -151,22 +174,22 @@ tr:hover {background-color: #FFC53F;
 
 <div class="main">
 		<br><br>
-	<p>	${leagueName}: ${param.leagueID} 
-	<br>
-	 League Ranking: ${userRank} 
-	 <br>
-	  Cash : $<fmt:formatNumber value = "${userCash}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> 
-		<br>			
-		 Assets: $<fmt:formatNumber value = "${userAsset}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> 
-		<br>					
-		 Portfolio Value: $<fmt:formatNumber value = "${userPortfolioValue}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> 
-			</p>		
+		${leagueName}: ${param.leagueID} <br>
+		 <p>
+		 Your League Ranking: ${userRank}<br>
+		 Your Cash: $<fmt:formatNumber value = "${userCash}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					<br>
+		 The value of Your Assets: $<fmt:formatNumber value = "${userAsset}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					<br>			
+		 The Total Value of Your Portfolio: $<fmt:formatNumber value = "${userPortfolioValue}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					
 		 </p>
+<c:if test = "${gameMode == 'normal'}">
 		<table border=1 frame=void rules=rows>
 		
 		<tr>
 		    <th>Ranking</th>
-		    <th>Name</th>
+		    <th>League Member Name</th>
 		    <th>Assets</th>
 		   
 	  	</tr>
@@ -194,21 +217,30 @@ tr:hover {background-color: #FFC53F;
 			
 			
 		</table>
+	</c:if>
 	
-				<p>
-				<hr>
-		<p> Matchups for this Round </p>
+
+	<c:if test = "${gameMode == 'head2head'}">
+
 		
-		
+		<p>
+		Game Mode: Head-2-Head <br><br>
+		 Matchups for this Round 
+		 </p>
+	
 		<table border=1 frame=void rules=rows> <!--  Table to show current matchups -->
 		
 		
 		<tr>
 		    <th>User1</th>
+		    <th>User1 Portfolio Value</th>
 		    <th>User2</th>
+		    <th>User2 Portfolio Value</th>
+		    <th>Currently Winning</th>
 		    
 		   
 	  	</tr>
+	  	
 			<c:forEach items="${User1}" varStatus="loop">
 	
 				<tr>
@@ -218,7 +250,20 @@ tr:hover {background-color: #FFC53F;
 					</td>
 					
 					<td>
+					$<fmt:formatNumber value = "${User1Val[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					</td>
+					
+					<td>
 						${User2[loop.index]}
+					</td>
+					
+					<td>
+					$<fmt:formatNumber value = "${User2Val[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+						
+					</td>
+					
+					<td>
+						${Winning[loop.index]}
 					</td>
 				
 				
@@ -229,13 +274,13 @@ tr:hover {background-color: #FFC53F;
 			
 		</table>
 	
-	<hr>
+	
 		 
 		 <table border=1 frame=void rules=rows> <!-- Table which shows ranking for H2H mode -->
 		
 		<tr>
 		    <th>Ranking</th>
-		    <th>Name</th>
+		    <th>League Member Name</th>
 		    <th>Win</th>
 		   <th>Loss</th>
 		   <th>Percentage</th>
@@ -269,9 +314,20 @@ tr:hover {background-color: #FFC53F;
 			
 			</c:forEach>
 			<br>
-		
 			
 		</table>
+		
+
+		</c:if>
+
+		
+		<c:if test="${not empty VoteParam}" >
+        
+        <button class="btn green" id="button_Vote">View Votes in Progress</button><br>
+        
+		</c:if>
+				
+
 		<!--  
 		<form action="${pageContext.request.contextPath}/Leagueinfo?leagueID=${param.leagueID}" method="post">
 		<input type="submit" name="Submit" value="submit">   submit button 
@@ -288,6 +344,11 @@ tr:hover {background-color: #FFC53F;
 <script>
 document.getElementById("button_Update_Round").onclick = function () {
     location.href = "/WolfOfGeorgeStreet/LeagueInfo?leagueID=${param.leagueID}";
+};
+</script>
+<script>
+document.getElementById("button_Vote").onclick = function () {
+    location.href = "/WolfOfGeorgeStreet/LeagueVotingUser?leagueID=${param.leagueID}";
 };
 </script>
 

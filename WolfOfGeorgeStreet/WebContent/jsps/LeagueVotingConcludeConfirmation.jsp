@@ -8,13 +8,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
+body{
+	background-color: #FFFFFF;
+	}
 .sidenav {
-    width: 130px;
+	width: 150px;
     position: fixed;
+    border: 1px solid;
+    border-color: #1A1F28;
+    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #eee;
+    background: #1A1F28;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -24,12 +30,12 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #2196F3;
+    color: #FFFFFF;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #064579;
+    color: #FFDE26;
 }
 
 .main {
@@ -45,36 +51,46 @@
 }
 
 .topnav {
-    background-color: #333;
+    background-color: #FFC53F;
     overflow: hidden;
+    border: 1px solid;
+    border-color: black;
+    border-radius: 5px;
 }
 
 .topnav a:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: #FFDE26;
 }
 
 .topnav a {
     float: right;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     height:15px;
     font-size: 17px;
 }
+
 .btn {
-    border: none;
-    color: white;
+	margin-top: 15px;
+    border: 1px solid;
+    border-color: black;
+    border-radius: 5px;
+    color: black;
     top: 300px;
     left: 200px;
     padding: 14px 28px;
     font-size: 16px;
     cursor: pointer;
 }
+.btn:hover{
+	background-color:
+		#FFDE26}
+.yellow {background-color: #FFC53F;} /* yellow */
+.yellow:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+				color:black;}
 
-.green {background-color: #4CAF50;} /* Green */
-.green:hover {background-color: #46a049;}
 
 
 </style>
@@ -93,7 +109,7 @@
 
 
 <p> 
-Your League settings have been updated! <br>
+The member has been kicked from the league! <br>
 </p>
 
   <button class="btn green" id="button_Continue">Continue</button>
