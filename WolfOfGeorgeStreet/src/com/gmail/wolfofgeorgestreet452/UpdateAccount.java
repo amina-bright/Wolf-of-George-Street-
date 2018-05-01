@@ -138,7 +138,7 @@ public class UpdateAccount extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//Get parameters from the jsp
-		String button  = request.getParameter("button");
+		String button  = request.getParameter("Submit");
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
 		String username=(String) request.getSession().getAttribute("username");
@@ -147,7 +147,7 @@ public class UpdateAccount extends HttpServlet {
 		String strategy=request.getParameter("strategy");
 		
 		//User hit submit
-		if("Submit".equals(button)) {
+		if("submit".equals(button)) {
 			
 			 Connection conn = null;
 			 PreparedStatement stmt = null;
