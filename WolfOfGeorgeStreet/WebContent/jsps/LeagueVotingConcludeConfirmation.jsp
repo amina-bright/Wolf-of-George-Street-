@@ -93,7 +93,7 @@
 
 
 <p> 
-Your League settings have been updated! <br>
+The member has been kicked from the league! <br>
 </p>
 
   <button class="btn green" id="button_Continue">Continue</button>

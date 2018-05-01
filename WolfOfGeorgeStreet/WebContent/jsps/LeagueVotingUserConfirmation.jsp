@@ -93,7 +93,7 @@
 
 
 <p> 
-Your League settings have been updated! <br>
+Thank you for your vote! <br>
 </p>
 
   <button class="btn green" id="button_Continue">Continue</button>

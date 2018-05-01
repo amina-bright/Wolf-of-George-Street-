@@ -44,7 +44,64 @@ public class ManageLeague extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 			return;
 		}		
-		request.getRequestDispatcher("/jsps/manageLeague.jsp").forward(request, response);	
+		
+		String leagueID=request.getParameter("leagueID");
+		//System.out.print(leagueID);
+		
+		request.setAttribute("leagueID", leagueID);
+		
+		Connection conn = null;
+		Statement stmt = null;
+		 
+		try{
+		      //register jdbc driver
+		      Class.forName("com.mysql.jdbc.Driver");
+
+		      //open a connection
+		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+		      //Grab all the leagues the user is in
+		      stmt = conn.createStatement();
+		      String sql;
+		      
+		 sql="SELECT LeagueName from League WHERE leagueID = '"+ leagueID + "' ";
+	     ResultSet rs = stmt.executeQuery(sql);
+	     String leagueName = " ";
+	      
+	      while(rs.next()) {
+	    	  leagueName = rs.getString("LeagueName");
+	      }		
+		
+	      stmt.close();
+	      conn.close();
+  
+  
+  
+  //Send the lists to the jsp
+  request.setAttribute("leagueName", leagueName);
+  request.setAttribute("leagueID", leagueID);
+  
+		 }catch(SQLException se){
+		      se.printStackTrace();
+		   }catch(Exception e){
+		      e.printStackTrace();
+		   }finally{
+		      try{
+		         if(stmt!=null)
+		            stmt.close();
+		      }catch(SQLException se2){
+		      }
+		      try{
+		         if(conn!=null)
+		            conn.close();
+		      }catch(SQLException se){
+		         se.printStackTrace();
+		      }
+		   }
+	      
+		request.getRequestDispatcher("/jsps/manageLeague.jsp").forward(request, response);
+		
+		
 	}
 
 	/**

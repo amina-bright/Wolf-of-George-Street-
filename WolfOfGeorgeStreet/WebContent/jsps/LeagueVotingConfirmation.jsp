@@ -93,7 +93,7 @@
 
 
 <p> 
-Your League settings have been updated! <br>
+Your League changes have been proposed to the other league Members! <br>
 </p>
 
   <button class="btn green" id="button_Continue">Continue</button>
