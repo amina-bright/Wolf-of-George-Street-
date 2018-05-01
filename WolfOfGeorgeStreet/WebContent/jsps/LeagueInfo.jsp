@@ -11,11 +11,11 @@
 <style>
 
 body {
-	background-color: #FFDE26;
+	background-color: #FFFFFF;
 	}
 	
 .sidenav {
-	width: 170px;
+	width: 150px;
     position: fixed;
     border: 1px solid;
     border-color: #1A1F28;
@@ -23,7 +23,7 @@ body {
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #FFC53F;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -33,12 +33,12 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: black;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 input[type=text], select, textarea {
@@ -82,7 +82,7 @@ input[type=submit] {
 }
 
 .topnav {
-    background-color: #1A1F28;
+    background-color: #FFC53F;
     border: 1px solid;
     border-radius: 5px;
     overflow: hidden;
@@ -90,12 +90,12 @@ input[type=submit] {
 
 .topnav a:hover {
    <%-- background-color: #ddd; --%>
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 .topnav a {
     float: right;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -110,7 +110,27 @@ input[type=submit] {
     margin-right: 16px;
     font-size: 17px;
 }
+p {
+    border-bottom: 6px solid #FFDE26 ;
+    background-color: lightgrey;
+    display: table; 
+}
 
+table{
+ border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color: #FFC53F;
+}
+
+.ch { font-weight: bold; }
 </style>
 <title>League Rankings</title>
 </head>
@@ -131,21 +151,22 @@ input[type=submit] {
 
 <div class="main">
 		<br><br>
-		${leagueName}: ${param.leagueID} <br>
-		 <p>
-		 Your League Ranking: ${userRank}<br>
-		 Your Cash: $<fmt:formatNumber value = "${userCash}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
-					<br>
-		 The value of Your Assets: $<fmt:formatNumber value = "${userAsset}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
-					<br>			
-		 The Total Value of Your Portfolio: $<fmt:formatNumber value = "${userPortfolioValue}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
-					
+	<p>	${leagueName}: ${param.leagueID} 
+	<br>
+	 League Ranking: ${userRank} 
+	 <br>
+	  Cash : $<fmt:formatNumber value = "${userCash}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> 
+		<br>			
+		 Assets: $<fmt:formatNumber value = "${userAsset}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> 
+		<br>					
+		 Portfolio Value: $<fmt:formatNumber value = "${userPortfolioValue}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> 
+			</p>		
 		 </p>
 		<table border=1 frame=void rules=rows>
 		
 		<tr>
 		    <th>Ranking</th>
-		    <th>League Member Name</th>
+		    <th>Name</th>
 		    <th>Assets</th>
 		   
 	  	</tr>
@@ -175,8 +196,9 @@ input[type=submit] {
 		</table>
 	
 				<p>
-		 Matchups for this Round 
-		 </p>
+				<hr>
+		<p> Matchups for this Round </p>
+		
 		
 		<table border=1 frame=void rules=rows> <!--  Table to show current matchups -->
 		
@@ -207,13 +229,13 @@ input[type=submit] {
 			
 		</table>
 	
-	
+	<hr>
 		 
 		 <table border=1 frame=void rules=rows> <!-- Table which shows ranking for H2H mode -->
 		
 		<tr>
 		    <th>Ranking</th>
-		    <th>League Member Name</th>
+		    <th>Name</th>
 		    <th>Win</th>
 		   <th>Loss</th>
 		   <th>Percentage</th>

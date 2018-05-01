@@ -9,11 +9,11 @@
 <style>
 
 body {
-	background-color: #FFDE26;
+	background-color: #FFFFFF;
 	}
 	
 .sidenav {
-	width: 170px;
+	width: 150px;
     position: fixed;
     border: 1px solid;
     border-color: #1A1F28;
@@ -21,7 +21,7 @@ body {
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #FFC53F;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -31,12 +31,12 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: black;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 .column {
@@ -57,29 +57,32 @@ body {
     border: 1px solid;
     border-color: black;
     border-radius: 5px;
-    color: white;
+    color: black;
     top: 300px;
     left: 200px;
     padding: 14px 28px;
     font-size: 16px;
     cursor: pointer;
+    display: block;
+   
 }
 .btn:hover{
 	background-color:
 		#FFDE26}
-.purple {background-color: #5E0099;} /* Purple */
-.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+.color {background-color: #FFC53F;} /* Purple */
+.color:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
 				color:black;}
 
 .dropbtn {
-    background-color: #5E0099;
-    color: white;
+    background-color: #FFC53F;
+    color: black;
     padding: 14px 28px;
     font-size: 16px;
     border: 1px solid;
     border-color: black;
     border-radius: 5px;
     cursor: pointer;
+    display: block;
 }
 
 .dropbtn:hover, .dropbtn:focus {
@@ -111,8 +114,8 @@ body {
     display: block;
 }
 
-.dropdown a:hover {background-color: #5E0099;
-				   color: white;}
+.dropdown a:hover {background-color: #FFDE26;
+				   color: black;}
 
 .show {display:block;}
 
@@ -158,7 +161,7 @@ input[type=submit]:hover {
 }
 
 .topnav {
-    background-color: #1A1F28;
+    background-color: #FFC53F;
     border: 1px solid;
     border-radius: 5px;
     overflow: hidden;
@@ -166,12 +169,12 @@ input[type=submit]:hover {
 
 .topnav a:hover {
    <%-- background-color: #ddd; --%>
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 .topnav a {
     float: right;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -208,7 +211,7 @@ Welcome to the League Page!
 
 <div class="row">
   <div class="column"> 
-    <button class="btn purple" id="button_CreateLeague">Create League</button><br><br>
+    <button class="btn color" id="button_CreateLeague">Create League</button><br><br>
   <!--  Create league button that redirects to create league page -->
   	<p></p>
    <div class="row">
@@ -231,7 +234,7 @@ Welcome to the League Page!
 </div>
   
   <div class="column">
-    <button class="btn purple" id="button_JoinLeague">Join League</button><br><br>
+    <button class="btn color" id="button_JoinLeague">Join League</button><br><br>
      <!--  join league button that redirects to join league page -->
      <p></p>
      <div class="row">

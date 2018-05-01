@@ -10,11 +10,11 @@
 <style>
 
 body {
-	background-color: #FFDE26;
+	background-color: #FFFFFF;
 	}
 	
 .sidenav {
-	width: 170px;
+	width: 150px;
     position: fixed;
     border: 1px solid;
     border-color: #1A1F28;
@@ -22,7 +22,7 @@ body {
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #FFC53F;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -32,12 +32,12 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: black;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 .btn {
@@ -45,7 +45,7 @@ body {
     border: 1px solid;
     border-color: black;
     border-radius: 5px;
-    color: white;
+    color: black;
     top: 300px;
     left: 200px;
     padding: 8px 28px;
@@ -55,8 +55,8 @@ body {
 .btn:hover{
 	background-color:
 		#FFDE26}
-.purple {background-color: #5E0099;} /* Purple */
-.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+.color {background-color: #FFC53F;} /* button color */
+.color:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
 				color:black;}
 
 .border{
@@ -76,7 +76,7 @@ body {
 }
 
 .topnav {
-    background-color: #1A1F28;
+    background-color: #FFC53F;
     border: 1px solid;
     border-radius: 5px;
     overflow: hidden;
@@ -84,12 +84,12 @@ body {
 
 .topnav a:hover {
    <%-- background-color: #ddd; --%>
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 .topnav a {
     float: right;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -103,6 +103,20 @@ body {
     margin-top: 8px;
     margin-right: 16px;
     font-size: 17px;
+}
+
+table{
+ border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color: #FFC53F;
 }
 
 </style>
