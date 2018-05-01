@@ -243,7 +243,7 @@ function init() {
 <div class="sidenav">
 	<a href ="/WolfOfGeorgeStreet/portfolio">My Portfolio</a>
 	<a href ="/WolfOfGeorgeStreet/stocksearch">Stocks</a>
-	<a href ="#">Crypto</a>
+	<a href ="/WolfOfGeorgeStreet/trophies">Trophies</a>
 	<a href ="/WolfOfGeorgeStreet/league">My Leagues</a>
 </div>
 

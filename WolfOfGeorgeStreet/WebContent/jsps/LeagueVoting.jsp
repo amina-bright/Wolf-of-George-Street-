@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
+    
+     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
   
 
 <!DOCTYPE html>
@@ -199,14 +201,14 @@ input[type=date] {
     font-size: 17px;
 }
 </style>
-<title>CreateLeague</title>
+<title>ManageLeague</title>
 </head>
 
 <body>
 <div class="topnav">
-	<a href="alerts">Alerts</a>
-	<a href="help">Help</a>
-	<a href="/WolfOfGeorgeStreet/updateaccount">My Account</a>
+	<a href="alerts">alerts</a>
+	<a href="help">help</a>
+	<a href="myaccount">My account</a>
 	<a href=/WolfOfGeorgeStreet/logout>Logout</a>
 </div>
 
@@ -218,62 +220,55 @@ input[type=date] {
 </div>
 
 
-
 <div class="main">
 
 <p>
-Create League<br>
+<font size=8>
+League Voting 
+</font>
 </p>
+
+<p>
+<font size=5>
+Select settings for your League Members to Vote on.
+</font>
+</p>
+
+
+
 </div>
 
 <div class="form"> <!--  form to create a league -->
 <p>
-<form action="${pageContext.request.contextPath}/createleague" method="post">
-		League Name: <input type="text" name="leagueName" required><br>  <!--  asks user to input league name -->
-		
-		
-		Game Mode: <br>
-	    <input type="radio" checked value="1" name="gameMode">Normal<br><br>
-	    <input type="radio" value="0" name="gameMode">Head-to-Head (NYI)<br><br> <!--  asks user to game mode-->
-	    
-		<fieldset>
-	    <legend>League Settings</legend> <br>
-	    Start Date: <input type="date" name="startDate" required><br><br> <!--  asks user for start and end date -->
-	    End Date: <input type="date" name="endDate" required><br><br>
-	    Round duration: <br> <!--Asks user for round duration  -->
-	    <select name="duration">
-	<option value="1Min">1Min</option>    
-    <option value="Hourly">Hourly</option>
-    <option value="Daily">Daily</option>
-    <option value="Weekly">Weekly</option>
-    <option value="Biweekly">Biweekly</option>
-    <option value="Monthly">Monthly</option>
-  </select><br>
-  	Number of rounds: <input type="number" name="roundNum" min=1 max = 100 required> (0 - 100)<br>
-	    <!--  asks user to input number of rounds -->
-	    
-	    Include Cryptocurrency:
-	    <input type="radio" value= 1 name="crypto">Yes
-	    <input type="radio" checked value= 0 name="crypto">No<br><br> <!--  asks user if they want to include crypto -->
-	    Max Number of Participants: <input type="number" name="maxParticipantNum" min=0 max = 100 required> (0 - 100)<br><br>
-	    <!--  asks user to input max participant number -->
-	    Starting Capital: <input type="number" name="startCapital" min = 0 max = 10000 required> ($0 - $10,000)<br>
-	    <!--  asks user to input starting principle -->
-	  </fieldset>
+<form action="${pageContext.request.contextPath}/LeagueVoting?leagueID=${leagueID}" method="post">
+
+<p> Kick member:
+<select name="member">
+<c:forEach items="${leagueMemberVote}" varStatus="loop">
 	
-		<input type="submit" name="Submit" value="Submit"> <!--  submit button -->
+	<!--   <input type="radio" value= 1 name="crypto">${leagueMemberVote[loop.index]} -->
+	
+	<option value="${leagueMemberVote[loop.index]}">${leagueMemberVote[loop.index]}</option>    
+    
+
+	    
+</c:forEach>	    
+	 
+    </select><br>      
+ 
+
+<input type="submit" name="Submit" value="Allow users to vote"> <!--  submit button -->
 	</form>
 </p>
 	
 </div>
-
-
-
-
-
-
 <script>
-<!-- Flyzoo script -->
+document.getElementById("button_LeagueVoteConlude").onclick = function () {
+    location.href = "/WolfOfGeorgeStreet/LeagueVotingConclude?leagueID=${leagueID}";
+};
+</script>
+
+<!-- Chat script -->
 <script type="text/javascript">
 (function () {
  window._FlyzooApplicationId="5ae22ffcbb547e096099f58f5ae22fb2bb547e096099f58b";
@@ -281,9 +276,7 @@ Create League<br>
  fz.src = '//widget.flyzoo.co/scripts/flyzoo.start.js';
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fz, s);
 })();
-
 </script>
-
 
 </body>
 </html>
