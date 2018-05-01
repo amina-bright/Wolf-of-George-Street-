@@ -221,7 +221,7 @@ input[type=date] {
 
 <p>
 <font size=8>
-Create League!
+Create An Account
 <br>
 </font>
 </p>
