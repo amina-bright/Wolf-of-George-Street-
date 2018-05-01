@@ -138,7 +138,7 @@ tr:hover {background-color: #FFC53F;
 		
 		<%--Liquid Money: $${liquidmoneys[loop.index]}  <!--  Prints the liquid money for the league --> --%>
 		<p>Money Available: $<fmt:formatNumber value = "${liquidmoneys[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> </p> <!--  Prints the liquid money for the league --> 
-		<p>Total Asset: $<fmt:formatNumber value = "${liquidmoneys[loop.index] + assetSums[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> </p>  <!--  Prints the total asset for the league -->
+		<p>Total Asset: $<fmt:formatNumber value = "${assetSums[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> </p>  <!--  Prints the total asset for the league -->
 	
 		
 	
