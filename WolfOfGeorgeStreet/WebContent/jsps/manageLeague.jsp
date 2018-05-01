@@ -272,9 +272,6 @@ document.getElementById("button_LeagueVote").onclick = function () {
 
 document.getElementById("button_LeagueVoteConclude").onclick = function () {
     location.href = "/WolfOfGeorgeStreet/LeagueVotingConclude?leagueID=${leagueID}";
-
-document.getElementById("button_LeagueVoteConclude").onclick = function () {
-    location.href = "/WolfOfGeorgeStreet/LeagueVotingConclude?leagueID=${leagueID}";
 };
 </script>
 <!-- Flyzoo script -->
