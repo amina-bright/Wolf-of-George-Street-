@@ -9,17 +9,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
 
-body {
-	background-color: #FFDE26;
+body{
+	background-color: #FFFFFF;
 	}
-	
 .sidenav {
-    width: 130px;
+	width: 150px;
     position: fixed;
+    border: 1px solid;
+    border-color: #1A1F28;
+    border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #eee;
+    background: #1A1F28;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -29,12 +31,12 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #2196F3;
+    color: #FFFFFF;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #064579;
+    color: #FFDE26;
 }
 
 .main {
@@ -50,20 +52,20 @@ body {
 }
 
 .topnav {
-    background-color: #1A1F28;
-    border: 1px solid;
-    border-radius: 5px;
+    background-color: #FFC53F;
     overflow: hidden;
+    border: 1px solid;
+    border-color: black;
+    border-radius: 5px;
 }
 
 .topnav a:hover {
-   <%-- background-color: #ddd; --%>
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 .topnav a {
     float: right;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -76,7 +78,7 @@ body {
     border: 1px solid;
     border-color: black;
     border-radius: 5px;
-    color: white;
+    color: black;
     top: 300px;
     left: 200px;
     padding: 14px 28px;
@@ -86,10 +88,9 @@ body {
 .btn:hover{
 	background-color:
 		#FFDE26}
-.purple {background-color: #5E0099;} /* Purple */
-.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+.yellow {background-color: #FFC53F;} /* yellow */
+.yellow:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
 				color:black;}
-
 
 </style>
 <title>Wolf of George Street</title>

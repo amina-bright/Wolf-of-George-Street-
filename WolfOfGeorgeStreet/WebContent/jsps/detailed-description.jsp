@@ -11,7 +11,7 @@
 <style>
 
 body {
-	background-color: #FFDE26;
+	background-color: #FFFFFF;
 	}
 	
 .button {
@@ -19,8 +19,8 @@ body {
     border: 1px solid;
     border-radius: 5px;
     border-color: black;
-    color: white;
-    background-color: #5E0099;
+    color: black;
+    background-color: #FFC53F;
     top: 300px;
     left: 200px;
     padding: 5px 10px;
@@ -40,15 +40,15 @@ body {
 	}
 			
 .sidenav {
-	width: 170px;
+	width: 150px;
     position: fixed;
     border: 1px solid;
-    border-color: #1A1F28;
+    border-color: black;
     border-radius: 5px;
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #FFC53F;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -58,12 +58,12 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: black;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 .main {
@@ -79,7 +79,7 @@ body {
 }
 
 .topnav {
-    background-color: #1A1F28;
+    background-color: #FFC53F;
     overflow: hidden;
     border: 1px solid;
     border-color: black;
@@ -87,12 +87,12 @@ body {
 }
 
 .topnav a:hover {
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 .topnav a {
     float: right;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;

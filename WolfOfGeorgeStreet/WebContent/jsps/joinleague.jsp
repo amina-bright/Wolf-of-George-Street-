@@ -9,11 +9,11 @@
 <style>
 
 body {
-	background-color: #FFDE26;
+	background-color: #FFFFFF;
 	}
 	
 .sidenav {
-	width: 170px;
+	width: 150px;
     position: fixed;
     border: 1px solid;
     border-color: #1A1F28;
@@ -21,7 +21,7 @@ body {
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #FFC53F;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -31,12 +31,12 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: black;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 .column {
@@ -56,7 +56,7 @@ body {
 	margin-top: 15px;
     border: 1px solid;
     border-color: black;
-    color: white;
+    color: black;
     top: 300px;
     left: 200px;
     padding: 14px 28px;
@@ -66,8 +66,8 @@ body {
 .btn:hover{
 	background-color:
 		#FFDE26}
-.purple {background-color: #5E0099;} /* Purple */
-.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+.color {background-color: #5E0099;} /* Purple */
+.color:hover {background-color: #FFC53F; /*Change color to yellow when hovering*/
 				color:black;}
 
 .dropbtn {
@@ -134,8 +134,8 @@ input[type=number], select, textarea {
 input[type=submit] {
  	margin-top: 15px;
  	margin-left: 100px;
-    background-color: #5E0099;
-    color: white;
+    background-color: #FFC53F;
+    color: black;
     padding: 12px 40px;
     font-size: 14px;
     border: 1px solid;;
@@ -177,7 +177,7 @@ input[type=submit]:hover {
 }
 
 .topnav {
-    background-color: #1A1F28;
+    background-color: #FFC53F;
     border: 1px solid;
     border-radius: 5px;
     overflow: hidden;
@@ -185,12 +185,12 @@ input[type=submit]:hover {
 
 .topnav a:hover {
    <%-- background-color: #ddd; --%>
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 .topnav a {
     float: right;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -237,7 +237,7 @@ Join League<br>
 		
 		
 	
-		<input type="submit" name="Submit" value="submit">
+		<input type="submit" name="Submit" value="Submit">
 		 <!--  Submit button -->
 	</form>
 <p>
