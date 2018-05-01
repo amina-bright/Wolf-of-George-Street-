@@ -261,7 +261,7 @@ Create League<br>
 	    <!--  asks user to input starting principle -->
 	  </fieldset>
 	
-		<input type="submit" name="Submit" value="Submit"> <!--  submit button -->
+		<input type="submit" name="Submit" value="submit"> <!--  submit button -->
 	</form>
 </p>
 	
