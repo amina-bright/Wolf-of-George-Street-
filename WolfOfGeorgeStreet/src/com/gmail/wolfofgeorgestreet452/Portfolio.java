@@ -95,12 +95,16 @@ public class Portfolio extends HttpServlet{
 		    		  
 		    		//for each asset, obtain the current price
 		    		  if(market.equals("CRYPTO")) {
-		    			  String data=StockInfoInteractor.fetchCryptoData(symbol, 0);
-			    		  dataParsed=StockInfoInteractor.getTimeSeriesDataCrypto(data, 0, 0);
-			    		  if(dataParsed==null) {
-				    			 //System.out.println("TEST: " + System.currentTimeMillis());
-				    			  TimeUnit.SECONDS.sleep((long)0.1);
-				    	  }
+		    			  boolean breakBool=false;
+		    			  while(!breakBool) {
+			    			  String data=StockInfoInteractor.fetchCryptoData(symbol, 1);
+				    		  dataParsed=StockInfoInteractor.getTimeSeriesDataCrypto(data, 1, 0);
+				    		  if(dataParsed==null) {
+					    			 //System.out.println("TEST: " + System.currentTimeMillis());
+					    			  TimeUnit.SECONDS.sleep((long)0.1);
+					    	  }
+				    		  breakBool=true;
+		    			  }
 			    		  double currentPrice = dataParsed[0];
 			    		   		portfolioValue += currentPrice*amount;
 		    		  }else {

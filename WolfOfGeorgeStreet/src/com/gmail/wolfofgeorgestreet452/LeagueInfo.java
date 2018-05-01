@@ -298,7 +298,7 @@ public class LeagueInfo extends HttpServlet{
 
 		      		
 		      		sql="SELECT * from Voting WHERE leagueID = '"+ leagueID + "' ";//Sql query to view votes in progress for the league
-				    rs2=stmt.executeQuery(sql);
+				    ResultSet rs2=stmt.executeQuery(sql);
 				    ArrayList<String> VoteParam= new ArrayList<String>();
 				    ArrayList<String> Votetype= new ArrayList<String>();
 				    ArrayList<Integer> VoteInstanceIDs= new ArrayList<Integer>();
