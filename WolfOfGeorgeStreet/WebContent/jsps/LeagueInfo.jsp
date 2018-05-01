@@ -162,6 +162,7 @@ tr:hover {background-color: #FFC53F;
 		 Portfolio Value: $<fmt:formatNumber value = "${userPortfolioValue}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/> 
 			</p>		
 		 </p>
+<c:if test = "${gameMode == 'normal'}">
 		<table border=1 frame=void rules=rows>
 		
 		<tr>
@@ -194,21 +195,28 @@ tr:hover {background-color: #FFC53F;
 			
 			
 		</table>
+	</c:if>
 	
-				<p>
-				<hr>
-		<p> Matchups for this Round </p>
+	<c:if test = "${gameMode == 'head2head'}">
 		
-		
+		<p>
+		Game Mode: Head-2-Head <br><br>
+		 Matchups for this Round 
+		 </p>
+	
 		<table border=1 frame=void rules=rows> <!--  Table to show current matchups -->
 		
 		
 		<tr>
 		    <th>User1</th>
+		    <th>User1 Portfolio Value</th>
 		    <th>User2</th>
+		    <th>User2 Portfolio Value</th>
+		    <th>Currently Winning</th>
 		    
 		   
 	  	</tr>
+	  	
 			<c:forEach items="${User1}" varStatus="loop">
 	
 				<tr>
@@ -218,7 +226,20 @@ tr:hover {background-color: #FFC53F;
 					</td>
 					
 					<td>
+					$<fmt:formatNumber value = "${User1Val[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					</td>
+					
+					<td>
 						${User2[loop.index]}
+					</td>
+					
+					<td>
+					$<fmt:formatNumber value = "${User2Val[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+						
+					</td>
+					
+					<td>
+						${Winning[loop.index]}
 					</td>
 				
 				
@@ -229,7 +250,7 @@ tr:hover {background-color: #FFC53F;
 			
 		</table>
 	
-	<hr>
+	
 		 
 		 <table border=1 frame=void rules=rows> <!-- Table which shows ranking for H2H mode -->
 		
@@ -272,6 +293,8 @@ tr:hover {background-color: #FFC53F;
 		
 			
 		</table>
+		
+		</c:if>
 		<!--  
 		<form action="${pageContext.request.contextPath}/Leagueinfo?leagueID=${param.leagueID}" method="post">
 		<input type="submit" name="Submit" value="submit">   submit button 
