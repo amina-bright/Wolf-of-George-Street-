@@ -10,11 +10,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
 body {
-	background-color: #FFDE26;
+	background-color: #FFFFFF;
 	}
 	
 .sidenav {
-	width: 170px;
+	width: 150px;
     position: fixed;
     border: 1px solid;
     border-color: #1A1F28;
@@ -22,7 +22,7 @@ body {
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #FFC53F;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
@@ -32,12 +32,12 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: black;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 input[type=text], select, textarea {
@@ -68,47 +68,6 @@ input[type=submit] {
     border-radius: 4px;
     cursor: pointer;
 }
-.btn {
-	margin-top: 15px;
-    border: 1px solid;
-    border-color: black;
-    color: black;
-    top: 300px;
-    left: 200px;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
-}
-.btn:hover{
-	background-color:
-		#FFDE26}
-.yellow {background-color: #FFC53F;} /* Purple */
-.yellow:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
-				color:black;}
-
-.btn {
-	margin-top: 15px;
-    border: 1px solid;
-    border-color: black;
-    border-radius: 5px;
-    color: white;
-    top: 300px;
-    left: 200px;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.green {background-color: #4CAF50;} /* Green */
-.green:hover {background-color: #46a049;}
-
-.btn:hover{
-	background-color:
-		#FFDE26}
-.purple {background-color: #5E0099;} /* Purple */
-.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
-				color:black;}
-
 
 .main {
     margin-left: 190px; /* Same width as the sidebar + left position in px */
@@ -122,7 +81,7 @@ input[type=submit] {
 }
 
 .topnav {
-    background-color: #1A1F28;
+    background-color: #FFC53F;
     border: 1px solid;
     border-radius: 5px;
     overflow: hidden;
@@ -130,12 +89,12 @@ input[type=submit] {
 
 .topnav a:hover {
    <%-- background-color: #ddd; --%>
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
 
 .topnav a {
     float: right;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -150,7 +109,16 @@ input[type=submit] {
     margin-right: 16px;
     font-size: 17px;
 }
+p {
+    border-bottom: 6px solid #FFDE26 ;
+    background-color: lightgrey;
+    display: table; 
+}
 
+table{
+ border-collapse: collapse;
+    width: 100%;
+}
 
 th, td {
     padding: 8px;
@@ -161,15 +129,7 @@ th, td {
 tr:hover {background-color: #FFC53F;
 }
 
-
-.main input[type=text] {
-    float: center;
-    padding: 6px;
-    margin-top: 8px;
-    margin-right: 16px;
-    font-size: 17px;
-}
-
+.ch { font-weight: bold; }
 </style>
 <title>League Rankings</title>
 </head>
@@ -184,7 +144,7 @@ tr:hover {background-color: #FFC53F;
 <div class="sidenav">
 	<a href ="/WolfOfGeorgeStreet/portfolio">My Portfolio</a>
 	<a href ="/WolfOfGeorgeStreet/stocksearch">Stocks</a>
-	<a href ="#">Crypto</a>
+	<a href ="/WolfOfGeorgeStreet/trophies">Trophies</a>
 	<a href ="/WolfOfGeorgeStreet/league">My Leagues</a>
 </div>
 
