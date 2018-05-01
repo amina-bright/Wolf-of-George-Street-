@@ -203,12 +203,16 @@ input[type=submit]:hover {
 <div class="main">
 
 <p>
-Manage League<br><br>
+Manage League<br>
 
- <button class="btn green" id="button_LeagueVote">Start a Vote</button>
+<br>
+Voting :
+
+
+<button class="btn yellow" id="button_LeagueVote">Start a Vote</button>
  
- <button class="btn green" id="button_LeagueVoteConclude">Conclude a Vote</button> <br><br>
-${leagueName}<br>
+ <button class="btn yellow" id="button_LeagueVoteConclude">Conclude a Vote</button> <br><br>
+${leagueName}
 </p>
 </div>
 
@@ -235,6 +239,8 @@ ${leagueName}<br>
 	
 		<input type="submit" name="Submit" value="submit"> <!--  submit button -->
 	</form>
+	
+	
 </p>
 </div>	
 	
@@ -243,6 +249,9 @@ ${leagueName}<br>
 document.getElementById("button_LeagueVote").onclick = function () {
     location.href = "/WolfOfGeorgeStreet/LeagueVoting?leagueID=${leagueID}";
 };
+
+document.getElementById("button_LeagueVoteConclude").onclick = function () {
+    location.href = "/WolfOfGeorgeStreet/LeagueVotingConclude?leagueID=${leagueID}";
 
 document.getElementById("button_LeagueVoteConclude").onclick = function () {
     location.href = "/WolfOfGeorgeStreet/LeagueVotingConclude?leagueID=${leagueID}";

@@ -9,7 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <style>
-
 body {
 	background-color: #FFDE26;
 	}
@@ -69,6 +68,23 @@ input[type=submit] {
     border-radius: 4px;
     cursor: pointer;
 }
+.btn {
+	margin-top: 15px;
+    border: 1px solid;
+    border-color: black;
+    color: black;
+    top: 300px;
+    left: 200px;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn:hover{
+	background-color:
+		#FFDE26}
+.yellow {background-color: #FFC53F;} /* Purple */
+.yellow:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+				color:black;}
 
 .btn {
 	margin-top: 15px;
@@ -126,6 +142,25 @@ input[type=submit] {
     height:15px;
     font-size: 17px;
 }
+
+.main input[type=text] {
+    float: center;
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+}
+
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color: #FFC53F;
+}
+
 
 .main input[type=text] {
     float: center;
@@ -331,7 +366,6 @@ document.getElementById("button_Update_Round").onclick = function () {
 document.getElementById("button_Vote").onclick = function () {
     location.href = "/WolfOfGeorgeStreet/LeagueVotingUser?leagueID=${param.leagueID}";
 };
-
 
 </script>
 
