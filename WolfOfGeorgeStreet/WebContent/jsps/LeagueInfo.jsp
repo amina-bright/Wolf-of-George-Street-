@@ -165,6 +165,7 @@ input[type=submit] {
 		 The Total Value of Your Portfolio: $<fmt:formatNumber value = "${userPortfolioValue}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
 					
 		 </p>
+<c:if test = "${gameMode == 'normal'}">
 		<table border=1 frame=void rules=rows>
 		
 		<tr>
@@ -197,20 +198,30 @@ input[type=submit] {
 			
 			
 		</table>
+	</c:if>
 	
-				<p>
+
+	<c:if test = "${gameMode == 'head2head'}">
+
+		
+		<p>
+		Game Mode: Head-2-Head <br><br>
 		 Matchups for this Round 
 		 </p>
-		
+	
 		<table border=1 frame=void rules=rows> <!--  Table to show current matchups -->
 		
 		
 		<tr>
 		    <th>User1</th>
+		    <th>User1 Portfolio Value</th>
 		    <th>User2</th>
+		    <th>User2 Portfolio Value</th>
+		    <th>Currently Winning</th>
 		    
 		   
 	  	</tr>
+	  	
 			<c:forEach items="${User1}" varStatus="loop">
 	
 				<tr>
@@ -220,7 +231,20 @@ input[type=submit] {
 					</td>
 					
 					<td>
+					$<fmt:formatNumber value = "${User1Val[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+					</td>
+					
+					<td>
 						${User2[loop.index]}
+					</td>
+					
+					<td>
+					$<fmt:formatNumber value = "${User2Val[loop.index]}" type = "number" maxFractionDigits = "2" minFractionDigits = "2"/>
+						
+					</td>
+					
+					<td>
+						${Winning[loop.index]}
 					</td>
 				
 				
@@ -274,6 +298,9 @@ input[type=submit] {
 			
 		</table>
 		
+
+		</c:if>
+
 		
 		<c:if test="${not empty VoteParam}" >
         
@@ -281,6 +308,7 @@ input[type=submit] {
         
 		</c:if>
 				
+
 		<!--  
 		<form action="${pageContext.request.contextPath}/Leagueinfo?leagueID=${param.leagueID}" method="post">
 		<input type="submit" name="Submit" value="submit">   submit button 

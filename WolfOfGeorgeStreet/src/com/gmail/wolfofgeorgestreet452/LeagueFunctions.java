@@ -61,7 +61,7 @@ public class LeagueFunctions{
 	    			  listOfNonCrypto.add(newStock);
 	    		  }
 	    	  }
-	    	  System.out.println("Cyrpto assets calculated " + portfolioValue);
+	    	  //System.out.println("Cyrpto assets calculated " + portfolioValue);
 	    	  
 	    	    //list of non cryptocurrency assets is ready
 	    	  String batchString = StockInfoInteractor.fetchStockDataBatch(listOfNonCrypto);
@@ -70,7 +70,7 @@ public class LeagueFunctions{
 	    	  for(int i = 0; i < listOfNonCrypto.size();i++){
 	    		  portfolioValue += stockPrices[i] * listOfNonCrypto.get(i).getAmount();
 	    	  }
-	    	  System.out.println("Stock assets added " + portfolioValue);
+	    	  //System.out.println("Stock assets added " + portfolioValue);
 	    	   
 	    		  /*  
 	    		//for each asset, obtain the current price
