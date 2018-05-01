@@ -9,11 +9,11 @@
 <style>
 
 body {
-	background-color: #FFDE26;
+	background-color: #FFFFFF;
 	}
 	
 .sidenav {
-	width: 170px;
+	width: 150px;
     position: fixed;
     border: 1px solid;
     border-color: #1A1F28;
@@ -21,30 +21,27 @@ body {
     z-index: 1;
     top: 20px;
     left: 10px;
-    background: #1A1F28;
+    background: #FFC53F;
     overflow-x: hidden;
     padding: 8px 0;
     margin: 50px 0px;
 }
-
 .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #FFFFFF;
+    color: black;
     display: block;
 }
-
 .sidenav a:hover {
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
-
 .btn {
 	margin-top: 15px;
     border: 1px solid;
     border-color: black;
     border-radius: 5px;
-    color: white;
+    color: black;
     top: 300px;
     left: 200px;
     padding: 8px 28px;
@@ -54,10 +51,9 @@ body {
 .btn:hover{
 	background-color:
 		#FFDE26}
-.purple {background-color: #5E0099;} /* Purple */
-.purple:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
+.color {background-color: #FFC53F;} /* button color */
+.color:hover {background-color: #FFDE26; /*Change color to yellow when hovering*/
 				color:black;}
-
 .border{
 	border: 1px solid;
 	border-color: black;
@@ -68,40 +64,55 @@ body {
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
-
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
-
 .topnav {
-    background-color: #1A1F28;
+    background-color: #FFC53F;
     border: 1px solid;
     border-radius: 5px;
     overflow: hidden;
 }
-
 .topnav a:hover {
    <%-- background-color: #ddd; --%>
-    color: #FFDE26;
+    background-color: #FFDE26;
 }
-
 .topnav a {
     float: right;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     height:15px;
     font-size: 17px;
 }
-
 .main input[type=text] {
     float: center;
     padding: 6px;
     margin-top: 8px;
     margin-right: 16px;
     font-size: 17px;
+}
+
+p {
+    border-bottom: 6px solid #FFDE26 ;
+    background-color: lightgrey;
+    display: table; 
+}
+
+table{
+ border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color: #FFC53F;
 }
 
 </style>
@@ -118,8 +129,9 @@ body {
 <div class="sidenav">
 	<a href ="/WolfOfGeorgeStreet/portfolio">My Portfolio</a>
 	<a href ="/WolfOfGeorgeStreet/stocksearch">Stocks</a>
-	<a href ="/WolfOfGeorgeStreet/league">My Leagues</a>
 	<a href ="/WolfOfGeorgeStreet/trophies">Trophies</a>
+	<a href ="/WolfOfGeorgeStreet/league">My Leagues</a>
+	
 </div>
 
 <div class="main">
@@ -129,9 +141,10 @@ body {
 	</h1>
 
 	<c:forEach items="${leagueIds}" varStatus="loop">
-		League Name: ${leagueNames[loop.index]}
+		<p> League Name: ${leagueNames[loop.index]}</p>
 		<br>
-		 LeagueId: ${leagueIds[loop.index]}
+		<p> LeagueId: ${leagueIds[loop.index]}</p>
+		
 		 
 		 <p>
 		<table border=1 frame=void rules=rows>
@@ -143,6 +156,7 @@ body {
 				</tr>
 			</c:forEach>
 		</table>
+		<hr>
 		</p>
 	</c:forEach>
 
