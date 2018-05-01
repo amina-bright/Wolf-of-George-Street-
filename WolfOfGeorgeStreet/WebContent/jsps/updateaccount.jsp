@@ -242,7 +242,7 @@ Update Account
 	</select>
 </p>
 	<br> <br>
-	<input type="submit" name="Submit" value="Submit" > 
+	<input type="submit" name="Submit" value="submit" > 
 </form>
 <br>
 <br>
